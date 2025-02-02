@@ -5,6 +5,7 @@ import org.javaguru.travel.insurance.rest.TravelCalculatePremiumResponse;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -49,7 +50,7 @@ class TravelCalculatePremiumServiceImplTest {
 
     @Test
     void shouldReturnCorrectAgreementPrice() {
-        assertNotNull(response.getAgreementPrice(), "Agreement price is NULL");
+        assertEquals(new BigDecimal("5"),response.getAgreementPrice(), "Agreement price is incorrect");
     }
 
 }
