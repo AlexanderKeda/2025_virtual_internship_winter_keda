@@ -12,24 +12,38 @@ import static org.junit.jupiter.api.Assertions.*;
 class TravelCalculatePremiumServiceImplTest {
 
     static TravelCalculatePremiumService travelCalculatePremiumService;
+    static TravelCalculatePremiumRequest request;
+    static TravelCalculatePremiumResponse response;
 
     @BeforeAll
     static void createTravelCalculatePremiumService() {
         travelCalculatePremiumService = new TravelCalculatePremiumServiceImpl();
+
+        request = new TravelCalculatePremiumRequest("Ivanov",
+                "Ivan",
+                new Date(10000000L),
+                new Date(20000000L));
+
+        response = travelCalculatePremiumService.calculatePremium(request);
     }
 
     @Test
-    void shouldResponse() {
-        TravelCalculatePremiumRequest request = new TravelCalculatePremiumRequest("Ivanov",
-                "Ivan",
-                new Date(),
-                new Date());
-
-        TravelCalculatePremiumResponse response = travelCalculatePremiumService.calculatePremium(request);
-
+    void shouldResponseFirstName() {
         assertEquals(request.getPersonFirstName(), response.getPersonFirstName());
+    }
+
+    @Test
+    void shouldResponseLastName() {
         assertEquals(request.getPersonLastName(), response.getPersonLastName());
+    }
+
+    @Test
+    void shouldResponseDateFrom() {
         assertEquals(request.getAgreementDateFrom(), response.getAgreementDateFrom());
+    }
+
+    @Test
+    void shouldResponseDateTo() {
         assertEquals(request.getAgreementDateTo(), response.getAgreementDateTo());
     }
 
