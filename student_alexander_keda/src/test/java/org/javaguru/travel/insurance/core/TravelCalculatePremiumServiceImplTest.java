@@ -5,7 +5,7 @@ import org.javaguru.travel.insurance.rest.TravelCalculatePremiumResponse;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -21,30 +21,35 @@ class TravelCalculatePremiumServiceImplTest {
 
         request = new TravelCalculatePremiumRequest("Ivanov",
                 "Ivan",
-                new Date(10000000L),
-                new Date(20000000L));
+                LocalDate.of(2024, 6, 20),
+                LocalDate.of(2024, 6, 25));
 
         response = travelCalculatePremiumService.calculatePremium(request);
     }
 
     @Test
     void shouldResponseFirstName() {
-        assertEquals(request.getPersonFirstName(), response.getPersonFirstName());
+        assertEquals(request.getPersonFirstName(), response.getPersonFirstName(), "First name should match");
     }
 
     @Test
     void shouldResponseLastName() {
-        assertEquals(request.getPersonLastName(), response.getPersonLastName());
+        assertEquals(request.getPersonLastName(), response.getPersonLastName(), "Last name should match");
     }
 
     @Test
     void shouldResponseDateFrom() {
-        assertEquals(request.getAgreementDateFrom(), response.getAgreementDateFrom());
+        assertEquals(request.getAgreementDateFrom(), response.getAgreementDateFrom(), "Agreement start date should match");
     }
 
     @Test
     void shouldResponseDateTo() {
-        assertEquals(request.getAgreementDateTo(), response.getAgreementDateTo());
+        assertEquals(request.getAgreementDateTo(), response.getAgreementDateTo(), "Agreement end date should match");
+    }
+
+    @Test
+    void shouldReturnCorrectAgreementPrice() {
+        assertNotNull(response.getAgreementPrice(), "Agreement price is NULL");
     }
 
 }

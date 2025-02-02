@@ -1,25 +1,26 @@
 package org.javaguru.travel.insurance.rest;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 public class TravelCalculatePremiumResponse {
 
     private String personFirstName;
     private String personLastName;
-    private Date agreementDateFrom;
-    private Date agreementDateTo;
+    private LocalDate agreementDateFrom;
+    private LocalDate agreementDateTo;
     private BigDecimal agreementPrice;
 
     public TravelCalculatePremiumResponse() {
     }
 
-    public TravelCalculatePremiumResponse(String personFirstName, String personLastName, Date agreementDateFrom, Date agreementDateTo, BigDecimal agreementPrice) {
+    public TravelCalculatePremiumResponse(String personFirstName, String personLastName, LocalDate agreementDateFrom, LocalDate agreementDateTo) {
         this.personFirstName = personFirstName;
         this.personLastName = personLastName;
         this.agreementDateFrom = agreementDateFrom;
         this.agreementDateTo = agreementDateTo;
-        this.agreementPrice = agreementPrice;
+        this.agreementPrice = new BigDecimal(ChronoUnit.DAYS.between(agreementDateFrom, agreementDateTo));
     }
 
     public String getPersonFirstName() {
@@ -38,19 +39,19 @@ public class TravelCalculatePremiumResponse {
         this.personLastName = personLastName;
     }
 
-    public Date getAgreementDateFrom() {
+    public LocalDate getAgreementDateFrom() {
         return agreementDateFrom;
     }
 
-    public void setAgreementDateFrom(Date agreementDateFrom) {
+    public void setAgreementDateFrom(LocalDate agreementDateFrom) {
         this.agreementDateFrom = agreementDateFrom;
     }
 
-    public Date getAgreementDateTo() {
+    public LocalDate getAgreementDateTo() {
         return agreementDateTo;
     }
 
-    public void setAgreementDateTo(Date agreementDateTo) {
+    public void setAgreementDateTo(LocalDate agreementDateTo) {
         this.agreementDateTo = agreementDateTo;
     }
 

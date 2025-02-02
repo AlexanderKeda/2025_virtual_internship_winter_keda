@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 class TravelCalculatePremiumServiceImplAIOneTest {
 
@@ -23,8 +23,8 @@ class TravelCalculatePremiumServiceImplAIOneTest {
         request = new TravelCalculatePremiumRequest();
         request.setPersonFirstName("John");
         request.setPersonLastName("Doe");
-        request.setAgreementDateFrom(new Date(100000000L));
-        request.setAgreementDateTo(new Date(200000000L));
+        request.setAgreementDateFrom(LocalDate.of(2024, 6, 20));
+        request.setAgreementDateTo(LocalDate.of(2024, 6, 25));
     }
 
     @Test
@@ -33,10 +33,10 @@ class TravelCalculatePremiumServiceImplAIOneTest {
         TravelCalculatePremiumResponse response = service.calculatePremium(request);
 
         // Проверка полей возвращаемого ответа
-        assertEquals("John", response.getPersonFirstName(), "First name should match");
-        assertEquals("Doe", response.getPersonLastName(), "Last name should match");
-        assertEquals(new Date(100000000L), response.getAgreementDateFrom(), "Agreement start date should match");
-        assertEquals(new Date(200000000L), response.getAgreementDateTo(), "Agreement end date should match");
+        assertEquals(request.getPersonFirstName(), response.getPersonFirstName(), "First name should match");
+        assertEquals(request.getPersonLastName(), response.getPersonLastName(), "Last name should match");
+        assertEquals(request.getAgreementDateFrom(), response.getAgreementDateFrom(), "Agreement start date should match");
+        assertEquals(request.getAgreementDateTo(), response.getAgreementDateTo(), "Agreement end date should match");
     }
 
 
