@@ -3,7 +3,7 @@ package org.javaguru.travel.insurance.core;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
-public class DateTimeService {
+class DateTimeService {
     public static long calculateDaysBetween(LocalDate dateFrom, LocalDate dateTo) {
         return ChronoUnit.DAYS.between(dateFrom, dateTo);
     }
