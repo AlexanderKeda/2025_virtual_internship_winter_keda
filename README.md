@@ -1,6 +1,6 @@
 Реализация проекта "Виртуальная стажировка" Александром Кедой.
 
-Контакты автора проекта: viktor.savonin@gmail.com или в Telegram: javagurulv.
+Контакты автора проекта: viktor.savonin@gmail.com или в Telegram: javagurulv, github.com/javagurulv.
 
 Ниже оригинальное описание проекта:
 
