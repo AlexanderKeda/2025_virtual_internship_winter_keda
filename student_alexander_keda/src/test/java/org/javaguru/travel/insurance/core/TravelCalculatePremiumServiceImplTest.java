@@ -17,7 +17,7 @@ class TravelCalculatePremiumServiceImplTest {
     static TravelCalculatePremiumResponse response;
 
     @BeforeAll
-    static void createTravelCalculatePremiumService() {
+    static void initializeStaticFields() {
         travelCalculatePremiumService = new TravelCalculatePremiumServiceImpl();
 
         request = new TravelCalculatePremiumRequest("Ivanov",
