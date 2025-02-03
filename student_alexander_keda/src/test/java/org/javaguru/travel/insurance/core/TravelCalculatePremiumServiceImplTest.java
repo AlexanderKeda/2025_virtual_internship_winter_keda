@@ -12,8 +12,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class TravelCalculatePremiumServiceImplTest {
 
-    private static final TravelCalculatePremiumService travelCalculatePremiumService
-            = new TravelCalculatePremiumServiceImpl();
+    private static TravelCalculatePremiumService travelCalculatePremiumService;
+    private static DateTimeService dateTimeService;
     private static TravelCalculatePremiumRequest request;
     private static TravelCalculatePremiumResponse response;
     private static LocalDate date1;
@@ -24,6 +24,9 @@ class TravelCalculatePremiumServiceImplTest {
 
     @BeforeAll
     static void setUp() {
+        dateTimeService = new DateTimeService();
+        travelCalculatePremiumService = new TravelCalculatePremiumServiceImpl(dateTimeService);
+
         date1 = LocalDate.now();
         date2 = date1.plusDays(DAYS);
         firstName = "Ivan";
