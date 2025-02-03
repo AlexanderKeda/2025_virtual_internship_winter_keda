@@ -16,8 +16,11 @@ class TravelCalculatePremiumServiceImpl implements TravelCalculatePremiumService
         BigDecimal agreementPrice = new BigDecimal(
                 calculateDaysBetween(request.getAgreementDateFrom(), request.getAgreementDateTo()));
 
-        return new TravelCalculatePremiumResponse(request.getPersonFirstName(), request.getPersonLastName(),
-                request.getAgreementDateFrom(), request.getAgreementDateTo(), agreementPrice);
+        return new TravelCalculatePremiumResponse(request.getPersonFirstName(),
+                request.getPersonLastName(),
+                request.getAgreementDateFrom(),
+                request.getAgreementDateTo(),
+                agreementPrice);
     }
 
     private long calculateDaysBetween(LocalDate dateFrom, LocalDate dateTo) {

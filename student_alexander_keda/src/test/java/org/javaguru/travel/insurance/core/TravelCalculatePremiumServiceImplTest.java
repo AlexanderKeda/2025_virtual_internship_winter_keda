@@ -12,45 +12,64 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class TravelCalculatePremiumServiceImplTest {
 
-    static TravelCalculatePremiumService travelCalculatePremiumService;
-    static TravelCalculatePremiumRequest request;
-    static TravelCalculatePremiumResponse response;
+    private static final TravelCalculatePremiumService travelCalculatePremiumService
+            = new TravelCalculatePremiumServiceImpl();
+    private static TravelCalculatePremiumRequest request;
+    private static TravelCalculatePremiumResponse response;
+    private static LocalDate date1;
+    private static LocalDate date2;
+    private static final long DAYS = 7;
+    private static String firstName;
+    private static String lastName;
 
     @BeforeAll
-    static void initializeStaticFields() {
-        travelCalculatePremiumService = new TravelCalculatePremiumServiceImpl();
+    static void setUp() {
+        date1 = LocalDate.now();
+        date2 = date1.plusDays(DAYS);
+        firstName = "Ivan";
+        lastName = "Ivanov";
 
-        request = new TravelCalculatePremiumRequest("Ivanov",
-                "Ivan",
-                LocalDate.of(2024, 6, 20),
-                LocalDate.of(2024, 6, 25));
+        request = new TravelCalculatePremiumRequest(firstName,
+                lastName,
+                date1,
+                date2);
 
         response = travelCalculatePremiumService.calculatePremium(request);
     }
 
     @Test
     void shouldResponseFirstName() {
-        assertEquals(request.getPersonFirstName(), response.getPersonFirstName(), "First name should match");
+        assertEquals(request.getPersonFirstName(),
+                response.getPersonFirstName(),
+                "First name should match");
     }
 
     @Test
     void shouldResponseLastName() {
-        assertEquals(request.getPersonLastName(), response.getPersonLastName(), "Last name should match");
+        assertEquals(request.getPersonLastName(),
+                response.getPersonLastName(),
+                "Last name should match");
     }
 
     @Test
     void shouldResponseDateFrom() {
-        assertEquals(request.getAgreementDateFrom(), response.getAgreementDateFrom(), "Agreement start date should match");
+        assertEquals(request.getAgreementDateFrom(),
+                response.getAgreementDateFrom(),
+                "Agreement start date should match");
     }
 
     @Test
     void shouldResponseDateTo() {
-        assertEquals(request.getAgreementDateTo(), response.getAgreementDateTo(), "Agreement end date should match");
+        assertEquals(request.getAgreementDateTo(),
+                response.getAgreementDateTo(),
+                "Agreement end date should match");
     }
 
     @Test
-    void shouldReturnCorrectAgreementPrice() {
-        assertEquals(new BigDecimal("5"),response.getAgreementPrice(), "Agreement price is incorrect");
+    void shouldResponseCorrectAgreementPrice() {
+        assertEquals(new BigDecimal(DAYS),
+                response.getAgreementPrice(),
+                "Agreement price is incorrect");
     }
 
 }

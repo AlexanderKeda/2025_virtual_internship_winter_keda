@@ -14,7 +14,11 @@ public class TravelCalculatePremiumResponse {
     public TravelCalculatePremiumResponse() {
     }
 
-    public TravelCalculatePremiumResponse(String personFirstName, String personLastName, LocalDate agreementDateFrom, LocalDate agreementDateTo, BigDecimal agreementPrice) {
+    public TravelCalculatePremiumResponse(String personFirstName,
+                                          String personLastName,
+                                          LocalDate agreementDateFrom,
+                                          LocalDate agreementDateTo,
+                                          BigDecimal agreementPrice) {
         this.personFirstName = personFirstName;
         this.personLastName = personLastName;
         this.agreementDateFrom = agreementDateFrom;
