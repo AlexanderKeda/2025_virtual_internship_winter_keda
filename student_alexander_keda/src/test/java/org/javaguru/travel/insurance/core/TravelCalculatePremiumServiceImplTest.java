@@ -2,40 +2,51 @@ package org.javaguru.travel.insurance.core;
 
 import org.javaguru.travel.insurance.rest.TravelCalculatePremiumRequest;
 import org.javaguru.travel.insurance.rest.TravelCalculatePremiumResponse;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@ExtendWith(MockitoExtension.class)
 class TravelCalculatePremiumServiceImplTest {
 
-    private static TravelCalculatePremiumService travelCalculatePremiumService;
-    private static DateTimeService dateTimeService;
-    private static TravelCalculatePremiumRequest request;
-    private static TravelCalculatePremiumResponse response;
-    private static LocalDate date1;
-    private static LocalDate date2;
-    private static final long DAYS = 7;
-    private static String firstName;
-    private static String lastName;
+    @Mock
+    private DateTimeService dateTimeServiceMock;
 
-    @BeforeAll
-    static void setUp() {
-        dateTimeService = new DateTimeService();
-        travelCalculatePremiumService = new TravelCalculatePremiumServiceImpl(dateTimeService);
+    @InjectMocks
+    private TravelCalculatePremiumServiceImpl travelCalculatePremiumService;
 
+    private TravelCalculatePremiumRequest request;
+    private TravelCalculatePremiumResponse response;
+
+    private long days = 7;
+    private LocalDate date1;
+    private LocalDate date2;
+    private String firstName;
+    private String lastName;
+
+    @BeforeEach
+    void setUp() {
         date1 = LocalDate.now();
-        date2 = date1.plusDays(DAYS);
-        firstName = "Ivan";
-        lastName = "Ivanov";
+        date2 = date1.plusDays(days);
+        firstName = "FirstName";
+        lastName = "LastName";
 
         request = new TravelCalculatePremiumRequest(firstName,
                 lastName,
                 date1,
                 date2);
+
+        Mockito.when(dateTimeServiceMock.calculateDaysBetween(request.getAgreementDateFrom(), request.getAgreementDateTo()))
+                .thenReturn(days);
 
         response = travelCalculatePremiumService.calculatePremium(request);
     }
@@ -70,7 +81,7 @@ class TravelCalculatePremiumServiceImplTest {
 
     @Test
     void shouldResponseCorrectAgreementPrice() {
-        assertEquals(new BigDecimal(DAYS),
+        assertEquals(new BigDecimal(days),
                 response.getAgreementPrice(),
                 "Agreement price is incorrect");
     }
