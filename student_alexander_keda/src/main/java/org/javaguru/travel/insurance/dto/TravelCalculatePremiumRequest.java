@@ -1,12 +1,11 @@
-package org.javaguru.travel.insurance.rest;
+package org.javaguru.travel.insurance.dto;
 
 import lombok.*;
 
 import java.time.LocalDate;
 
-
-@Setter
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
