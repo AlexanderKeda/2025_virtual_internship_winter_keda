@@ -26,6 +26,17 @@ class TravelCalculatePremiumRequestValidatorTest {
         requestValidator = new TravelCalculatePremiumRequestValidator();
     }
 
+    @Test
+    void shouldNotReturnErrorWhenFirstNameIsValid() {
+        request = TravelCalculatePremiumRequest.builder()
+                .personFirstName(firstName)
+                .personLastName(lastName)
+                .agreementDateFrom(date1)
+                .agreementDateTo(date2)
+                .build();
+        errors = requestValidator.validate(request);
+        assertTrue(errors.isEmpty());
+    }
 
     @Test
     void shouldReturnNonEmptyErrorListWhenFirstNameIsNull() {
@@ -36,7 +47,7 @@ class TravelCalculatePremiumRequestValidatorTest {
                 .agreementDateTo(date2)
                 .build();
         errors = requestValidator.validate(request);
-        assertTrue(!errors.isEmpty());
+        assertFalse(errors.isEmpty());
     }
 
     @Test
@@ -48,7 +59,7 @@ class TravelCalculatePremiumRequestValidatorTest {
                 .agreementDateTo(date2)
                 .build();
         errors = requestValidator.validate(request);
-        assertTrue(!errors.isEmpty());
+        assertFalse(errors.isEmpty());
     }
 
     @Test
