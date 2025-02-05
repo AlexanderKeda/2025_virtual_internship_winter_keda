@@ -27,7 +27,7 @@ class TravelCalculatePremiumRequestValidatorTest {
     }
 
     @Test
-    void shouldNotReturnErrorWhenFirstNameIsValid() {
+    void shouldNotReturnErrorWhenRequestIsValid() {
         request = TravelCalculatePremiumRequest.builder()
                 .personFirstName(firstName)
                 .personLastName(lastName)
@@ -39,7 +39,30 @@ class TravelCalculatePremiumRequestValidatorTest {
     }
 
     @Test
-    void shouldReturnNonEmptyErrorListWhenFirstNameIsNull() {
+    void shouldReturnCorrectErrorCountWhenRequestIsNotValid() {
+        request = TravelCalculatePremiumRequest.builder()
+                .personFirstName("")
+                .personLastName("")
+                .agreementDateFrom(date1)
+                .agreementDateTo(date2)
+                .build();
+        errors = requestValidator.validate(request);
+        assertEquals(2, errors.size());
+
+        request = TravelCalculatePremiumRequest.builder()
+                .personFirstName(firstName)
+                .personLastName("")
+                .agreementDateFrom(date1)
+                .agreementDateTo(date2)
+                .build();
+        errors = requestValidator.validate(request);
+        assertEquals(1, errors.size());
+    }
+
+
+
+    @Test
+    void shouldReturnErrorWhenFirstNameIsNull() {
         request = TravelCalculatePremiumRequest.builder()
                 .personFirstName(null)
                 .personLastName(lastName)
@@ -48,10 +71,13 @@ class TravelCalculatePremiumRequestValidatorTest {
                 .build();
         errors = requestValidator.validate(request);
         assertFalse(errors.isEmpty());
+        assertEquals(1, errors.size());
+        assertEquals("personFirstName", errors.getFirst().getField());
+        assertEquals("Must not be empty!", errors.getFirst().getMessage());
     }
 
     @Test
-    void shouldReturnNonEmptyErrorListWhenFirstNameIsEmpty() {
+    void shouldReturnErrorWhenFirstNameIsEmpty() {
         request = TravelCalculatePremiumRequest.builder()
                 .personFirstName("")
                 .personLastName(lastName)
@@ -60,30 +86,40 @@ class TravelCalculatePremiumRequestValidatorTest {
                 .build();
         errors = requestValidator.validate(request);
         assertFalse(errors.isEmpty());
-    }
-
-    @Test
-    void shouldReturnCorrectErrorCountWhenFirstNameIsEmpty() {
-        request = TravelCalculatePremiumRequest.builder()
-                .personFirstName("")
-                .personLastName(lastName)
-                .agreementDateFrom(date1)
-                .agreementDateTo(date2)
-                .build();
-        errors = requestValidator.validate(request);
         assertEquals(1, errors.size());
+        assertEquals("personFirstName", errors.getFirst().getField());
+        assertEquals("Must not be empty!", errors.getFirst().getMessage());
     }
 
+
+
     @Test
-    void shouldReturnCorrectErrorAndMessageWhenFirstNameIsEmpty() {
+    void shouldReturnErrorWhenLastNameIsNull() {
         request = TravelCalculatePremiumRequest.builder()
-                .personFirstName("")
-                .personLastName(lastName)
+                .personFirstName(firstName)
+                .personLastName(null)
                 .agreementDateFrom(date1)
                 .agreementDateTo(date2)
                 .build();
         errors = requestValidator.validate(request);
-        assertEquals("personFirstName", errors.getFirst().getField());
+        assertFalse(errors.isEmpty());
+        assertEquals(1, errors.size());
+        assertEquals("personLastName", errors.getFirst().getField());
+        assertEquals("Must not be empty!", errors.getFirst().getMessage());
+    }
+
+    @Test
+    void shouldReturnErrorWhenLastNameIsEmpty() {
+        request = TravelCalculatePremiumRequest.builder()
+                .personFirstName(firstName)
+                .personLastName("")
+                .agreementDateFrom(date1)
+                .agreementDateTo(date2)
+                .build();
+        errors = requestValidator.validate(request);
+        assertFalse(errors.isEmpty());
+        assertEquals(1, errors.size());
+        assertEquals("personLastName", errors.getFirst().getField());
         assertEquals("Must not be empty!", errors.getFirst().getMessage());
     }
 
