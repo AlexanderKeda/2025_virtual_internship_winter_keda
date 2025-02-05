@@ -40,10 +40,12 @@ class TravelCalculatePremiumServiceImplTest {
         firstName = "FirstName";
         lastName = "LastName";
 
-        request = new TravelCalculatePremiumRequest(firstName,
-                lastName,
-                date1,
-                date2);
+        request = TravelCalculatePremiumRequest.builder()
+                .personFirstName(firstName)
+                .personLastName(lastName)
+                .agreementDateFrom(date1)
+                .agreementDateTo(date2)
+                .build();
 
         Mockito.when(dateTimeServiceMock.calculateDaysBetween(request.getAgreementDateFrom(), request.getAgreementDateTo()))
                 .thenReturn(days);

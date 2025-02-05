@@ -21,11 +21,13 @@ class TravelCalculatePremiumServiceImpl implements TravelCalculatePremiumService
                 request.getAgreementDateFrom(),
                 request.getAgreementDateTo()));
 
-        return new TravelCalculatePremiumResponse(request.getPersonFirstName(),
-                request.getPersonLastName(),
-                request.getAgreementDateFrom(),
-                request.getAgreementDateTo(),
-                agreementPrice);
+        return TravelCalculatePremiumResponse.builder()
+                .personFirstName(request.getPersonFirstName())
+                .personLastName(request.getPersonLastName())
+                .agreementDateFrom(request.getAgreementDateFrom())
+                .agreementDateTo(request.getAgreementDateTo())
+                .agreementPrice(agreementPrice)
+                .build();
     }
 
 }
