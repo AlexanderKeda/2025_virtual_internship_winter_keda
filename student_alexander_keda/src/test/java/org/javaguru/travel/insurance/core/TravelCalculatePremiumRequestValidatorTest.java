@@ -15,11 +15,11 @@ class TravelCalculatePremiumRequestValidatorTest {
     private TravelCalculatePremiumRequestValidator requestValidator;
     private TravelCalculatePremiumRequest request;
     private List<ValidationError> errors;
-    private String firstName = "FirstName";
-    private String lastName = "LastName";
-    private long days = 7;
-    private LocalDate date1 = LocalDate.now();
-    private LocalDate date2 = date1.plusDays(days);
+    private final String firstName = "FirstName";
+    private final String lastName = "LastName";
+    private final long days = 7;
+    private final LocalDate date1 = LocalDate.now();
+    private final LocalDate date2 = date1.plusDays(days);
 
     @BeforeEach
     void setUp() {
@@ -43,11 +43,11 @@ class TravelCalculatePremiumRequestValidatorTest {
         request = TravelCalculatePremiumRequest.builder()
                 .personFirstName("")
                 .personLastName("")
-                .agreementDateFrom(date1)
+                .agreementDateFrom(null)
                 .agreementDateTo(date2)
                 .build();
         errors = requestValidator.validate(request);
-        assertEquals(2, errors.size());
+        assertEquals(3, errors.size());
 
         request = TravelCalculatePremiumRequest.builder()
                 .personFirstName(firstName)
@@ -120,6 +120,23 @@ class TravelCalculatePremiumRequestValidatorTest {
         assertFalse(errors.isEmpty());
         assertEquals(1, errors.size());
         assertEquals("personLastName", errors.getFirst().getField());
+        assertEquals("Must not be empty!", errors.getFirst().getMessage());
+    }
+
+
+
+    @Test
+    void shouldReturnErrorWhenDateFromIsNull() {
+        request = TravelCalculatePremiumRequest.builder()
+                .personFirstName(firstName)
+                .personLastName(lastName)
+                .agreementDateFrom(null)
+                .agreementDateTo(date2)
+                .build();
+        errors = requestValidator.validate(request);
+        assertFalse(errors.isEmpty());
+        assertEquals(1, errors.size());
+        assertEquals("agreementDateFrom", errors.getFirst().getField());
         assertEquals("Must not be empty!", errors.getFirst().getMessage());
     }
 
