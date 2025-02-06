@@ -10,15 +10,13 @@ import static org.junit.jupiter.api.Assertions.*;
 class DateTimeServiceTest {
 
     private DateTimeService dateTimeService;
-    private long days = 7;
-    private LocalDate date1;
-    private LocalDate date2;
+    private final long days = 7;
+    private final LocalDate date1 = LocalDate.now();
+    private final LocalDate date2 = date1.plusDays(days);
 
     @BeforeEach
     void setUp() {
         dateTimeService = new DateTimeService();
-        date1 = LocalDate.now();
-        date2 = date1.plusDays(days);
     }
 
     @Test

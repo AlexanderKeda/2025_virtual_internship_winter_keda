@@ -140,4 +140,21 @@ class TravelCalculatePremiumRequestValidatorTest {
         assertEquals("Must not be empty!", errors.getFirst().getMessage());
     }
 
+
+
+    @Test
+    void shouldReturnErrorWhenDateToIsNull() {
+        request = TravelCalculatePremiumRequest.builder()
+                .personFirstName(firstName)
+                .personLastName(lastName)
+                .agreementDateFrom(date1)
+                .agreementDateTo(null)
+                .build();
+        errors = requestValidator.validate(request);
+        assertFalse(errors.isEmpty());
+        assertEquals(1, errors.size());
+        assertEquals("agreementDateTo", errors.getFirst().getField());
+        assertEquals("Must not be empty!", errors.getFirst().getMessage());
+    }
+
 }
