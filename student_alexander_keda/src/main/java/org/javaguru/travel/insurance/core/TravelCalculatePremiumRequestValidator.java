@@ -4,12 +4,15 @@ import org.javaguru.travel.insurance.dto.TravelCalculatePremiumRequest;
 import org.javaguru.travel.insurance.dto.ValidationError;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Component
 public class TravelCalculatePremiumRequestValidator {
+
+    private final String EMPTY_ERROR_MESSAGE = "Must not be empty!";
 
     public List<ValidationError> validate(TravelCalculatePremiumRequest request) {
         List<ValidationError> errors = new ArrayList<>();
@@ -22,26 +25,35 @@ public class TravelCalculatePremiumRequestValidator {
 
     private Optional<ValidationError> validatePersonFirstName(TravelCalculatePremiumRequest request) {
         return (request.getPersonFirstName() == null || request.getPersonFirstName().isBlank())
-                ? Optional.of(new ValidationError("personFirstName", "Must not be empty!"))
+                ? Optional.of(new ValidationError("personFirstName", EMPTY_ERROR_MESSAGE))
                 : Optional.empty();
     }
 
     private Optional<ValidationError> validatePersonLastName(TravelCalculatePremiumRequest request) {
         return (request.getPersonLastName() == null || request.getPersonLastName().isBlank())
-                ? Optional.of(new ValidationError("personLastName", "Must not be empty!"))
+                ? Optional.of(new ValidationError("personLastName", EMPTY_ERROR_MESSAGE))
                 : Optional.empty();
     }
 
     private Optional<ValidationError> validateAgreementDateFrom(TravelCalculatePremiumRequest request) {
         return (request.getAgreementDateFrom() == null)
-                ? Optional.of(new ValidationError("agreementDateFrom", "Must not be empty!"))
+                ? Optional.of(new ValidationError("agreementDateFrom", EMPTY_ERROR_MESSAGE))
                 : Optional.empty();
     }
 
     private Optional<ValidationError> validateAgreementDateTo(TravelCalculatePremiumRequest request) {
-        return (request.getAgreementDateTo() == null)
-                ? Optional.of(new ValidationError("agreementDateTo", "Must not be empty!"))
-                : Optional.empty();
+        LocalDate dateFrom = request.getAgreementDateFrom();
+        LocalDate dateTo = request.getAgreementDateTo();
+
+        if (dateTo == null) {
+            return Optional.of(new ValidationError("agreementDateTo", EMPTY_ERROR_MESSAGE));
+        }
+
+        if (dateFrom != null && dateTo.isBefore(dateFrom)) {
+            return Optional.of(new ValidationError("agreementDateTo", "Must be after DataFrom!"));
+        }
+
+        return Optional.empty();
     }
 
 }

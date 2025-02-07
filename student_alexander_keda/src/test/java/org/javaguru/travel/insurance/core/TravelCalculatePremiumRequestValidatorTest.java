@@ -157,4 +157,19 @@ class TravelCalculatePremiumRequestValidatorTest {
         assertEquals("Must not be empty!", errors.getFirst().getMessage());
     }
 
+    @Test
+    void shouldReturnErrorWhenDateToIsBeforeDateFrom() {
+        request = TravelCalculatePremiumRequest.builder()
+                .personFirstName(firstName)
+                .personLastName(lastName)
+                .agreementDateFrom(LocalDate.now().plusDays(3))
+                .agreementDateTo(LocalDate.now())
+                .build();
+        errors = requestValidator.validate(request);
+        assertFalse(errors.isEmpty());
+        assertEquals(1, errors.size());
+        assertEquals("agreementDateTo", errors.getFirst().getField());
+        assertEquals("Must be after DataFrom!", errors.getFirst().getMessage());
+    }
+
 }
