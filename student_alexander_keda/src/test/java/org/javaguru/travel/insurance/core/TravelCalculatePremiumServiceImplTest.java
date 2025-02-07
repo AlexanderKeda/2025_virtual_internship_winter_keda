@@ -21,7 +21,7 @@ import static org.mockito.Mockito.when;
 class TravelCalculatePremiumServiceImplTest {
 
     @Mock
-    private DateTimeService dateTimeServiceMock;
+    private TravelPremiumUnderwriting underwritingMock;
     @Mock
     private TravelCalculatePremiumRequestValidator requestValidatorMock;
 
@@ -31,19 +31,17 @@ class TravelCalculatePremiumServiceImplTest {
     private TravelCalculatePremiumRequest request;
     private TravelCalculatePremiumResponse response;
 
-    private long days = 7;
-    private String firstName = "FirstName";
-    private String lastName = "LastName";
-    private LocalDate date1 = LocalDate.now();
-    private LocalDate date2 = date1.plusDays(days);
+    private final long days = 7;
+    private final String firstName = "FirstName";
+    private final String lastName = "LastName";
+    private final LocalDate date1 = LocalDate.now();
+    private final LocalDate date2 = date1.plusDays(days);
 
     @Test
     void shouldResponseFirstName() {
         request = createValidRequest();
         when(requestValidatorMock.validate(request))
                 .thenReturn(List.of());
-        when(dateTimeServiceMock.calculateDaysBetween(request.getAgreementDateFrom(), request.getAgreementDateTo()))
-                .thenReturn(days);
         response = travelCalculatePremiumService.calculatePremium(request);
         assertEquals(request.getPersonFirstName(),
                 response.getPersonFirstName(),
@@ -55,8 +53,6 @@ class TravelCalculatePremiumServiceImplTest {
         request = createValidRequest();
         when(requestValidatorMock.validate(request))
                 .thenReturn(List.of());
-        when(dateTimeServiceMock.calculateDaysBetween(request.getAgreementDateFrom(), request.getAgreementDateTo()))
-                .thenReturn(days);
         response = travelCalculatePremiumService.calculatePremium(request);
         assertEquals(request.getPersonLastName(),
                 response.getPersonLastName(),
@@ -68,8 +64,6 @@ class TravelCalculatePremiumServiceImplTest {
         request = createValidRequest();
         when(requestValidatorMock.validate(request))
                 .thenReturn(List.of());
-        when(dateTimeServiceMock.calculateDaysBetween(request.getAgreementDateFrom(), request.getAgreementDateTo()))
-                .thenReturn(days);
         response = travelCalculatePremiumService.calculatePremium(request);
         assertEquals(request.getAgreementDateFrom(),
                 response.getAgreementDateFrom(),
@@ -81,8 +75,6 @@ class TravelCalculatePremiumServiceImplTest {
         request = createValidRequest();
         when(requestValidatorMock.validate(request))
                 .thenReturn(List.of());
-        when(dateTimeServiceMock.calculateDaysBetween(request.getAgreementDateFrom(), request.getAgreementDateTo()))
-                .thenReturn(days);
         response = travelCalculatePremiumService.calculatePremium(request);
         assertEquals(request.getAgreementDateTo(),
                 response.getAgreementDateTo(),
@@ -94,8 +86,8 @@ class TravelCalculatePremiumServiceImplTest {
         request = createValidRequest();
         when(requestValidatorMock.validate(request))
                 .thenReturn(List.of());
-        when(dateTimeServiceMock.calculateDaysBetween(request.getAgreementDateFrom(), request.getAgreementDateTo()))
-                .thenReturn(days);
+        when(underwritingMock.underwrite(request))
+                .thenReturn(new BigDecimal(days));
         response = travelCalculatePremiumService.calculatePremium(request);
         assertEquals(new BigDecimal(days),
                 response.getAgreementPrice(),
@@ -130,7 +122,7 @@ class TravelCalculatePremiumServiceImplTest {
         when(requestValidatorMock.validate(request))
                 .thenReturn(List.of(new ValidationError("field", "message")));
         response = travelCalculatePremiumService.calculatePremium(request);
-        Mockito.verifyNoInteractions(dateTimeServiceMock);
+        Mockito.verifyNoInteractions(underwritingMock);
     }
 
     TravelCalculatePremiumRequest createValidRequest() {

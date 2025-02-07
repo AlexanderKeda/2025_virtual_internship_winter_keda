@@ -7,14 +7,13 @@ import org.javaguru.travel.insurance.dto.TravelCalculatePremiumResponse;
 import org.javaguru.travel.insurance.dto.ValidationError;
 import org.springframework.stereotype.Component;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 @Component
 @RequiredArgsConstructor(access = AccessLevel.PACKAGE)
 class TravelCalculatePremiumServiceImpl implements TravelCalculatePremiumService {
 
-    private final DateTimeService dateTimeService;
+    private final TravelPremiumUnderwriting underwriting;
     private final TravelCalculatePremiumRequestValidator requestValidator;
 
     @Override
@@ -31,16 +30,12 @@ class TravelCalculatePremiumServiceImpl implements TravelCalculatePremiumService
     }
 
     private TravelCalculatePremiumResponse buildResponse(TravelCalculatePremiumRequest request) {
-        BigDecimal agreementPrice = new BigDecimal(dateTimeService.calculateDaysBetween(
-                request.getAgreementDateFrom(),
-                request.getAgreementDateTo()));
-
         return TravelCalculatePremiumResponse.builder()
                 .personFirstName(request.getPersonFirstName())
                 .personLastName(request.getPersonLastName())
                 .agreementDateFrom(request.getAgreementDateFrom())
                 .agreementDateTo(request.getAgreementDateTo())
-                .agreementPrice(agreementPrice)
+                .agreementPrice(underwriting.underwrite(request))
                 .build();
     }
 
