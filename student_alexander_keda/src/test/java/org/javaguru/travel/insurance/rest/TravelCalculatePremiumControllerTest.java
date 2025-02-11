@@ -19,28 +19,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class TravelCalculatePremiumControllerTest {
 
     @Autowired
+    JsonFileReader jsonFileReader;
+
+    @Autowired
     private MockMvc mockMvc;
 
     @Test
-    void shouldResponseCorrect() throws Exception {
-        String requestJson = """
-                {
-                "personFirstName" : "Ivan",
-                "personLastName" : "Ivanov",
-                "agreementDateFrom" : "2025-02-16",
-                "agreementDateTo" : "2025-02-25"
-                }
-                """;
-        String expectedResponseJson = """
-                 {
-                 "errors": null,
-                 "personFirstName": "Ivan",
-                 "personLastName": "Ivanov",
-                 "agreementDateFrom": "2025-02-16",
-                 "agreementDateTo": "2025-02-25",
-                 "agreementPrice": 9
-                 }
-                """;
+    void shouldReturnSuccessResponse() throws Exception {
+        String requestJson = jsonFileReader
+                .readJsonFromFile("/rest/TravelCalculatePremiumRequest_success.json");
+        String expectedResponseJson = jsonFileReader
+                .readJsonFromFile("/rest/TravelCalculatePremiumResponse_success.json");
 
         mockMvc.perform(MockMvcRequestBuilders.post("/insurance/travel/")
                         .content(requestJson)
@@ -51,29 +40,10 @@ class TravelCalculatePremiumControllerTest {
 
     @Test
     void shouldReturnErrorWhenFirstNameIsEmpty() throws Exception {
-        String requestJson = """
-                {
-                "personFirstName" : "",
-                "personLastName" : "Ivanov",
-                "agreementDateFrom" : "2025-02-16",
-                "agreementDateTo" : "2025-02-25"
-                }
-                """;
-        String expectedResponseJson = """
-                 {
-                                     "errors": [
-                                         {
-                                             "field": "personFirstName",
-                                             "message": "Must not be empty!"
-                                         }
-                                     ],
-                                     "personFirstName": null,
-                                     "personLastName": null,
-                                     "agreementDateFrom": null,
-                                     "agreementDateTo": null,
-                                     "agreementPrice": null
-                                 }
-                """;
+        String requestJson = jsonFileReader
+                .readJsonFromFile("/rest/TravelCalculatePremiumRequest_firstName_not_provided.json");
+        String expectedResponseJson = jsonFileReader
+                .readJsonFromFile("/rest/TravelCalculatePremiumResponse_firstName_not_provided.json");
 
         mockMvc.perform(MockMvcRequestBuilders.post("/insurance/travel/")
                         .content(requestJson)
@@ -84,29 +54,10 @@ class TravelCalculatePremiumControllerTest {
 
     @Test
     void shouldReturnErrorWhenLastNameIsEmpty() throws Exception {
-        String requestJson = """
-                {
-                "personFirstName" : "Ivan",
-                "personLastName" : "",
-                "agreementDateFrom" : "2025-02-16",
-                "agreementDateTo" : "2025-02-25"
-                }
-                """;
-        String expectedResponseJson = """
-                 {
-                                    "errors": [
-                                        {
-                                            "field": "personLastName",
-                                            "message": "Must not be empty!"
-                                        }
-                                    ],
-                                    "personFirstName": null,
-                                    "personLastName": null,
-                                    "agreementDateFrom": null,
-                                    "agreementDateTo": null,
-                                    "agreementPrice": null
-                                }
-                """;
+        String requestJson = jsonFileReader
+                .readJsonFromFile("/rest/TravelCalculatePremiumRequest_lastName_not_provided.json");
+        String expectedResponseJson = jsonFileReader
+                .readJsonFromFile("/rest/TravelCalculatePremiumResponse_lastName_not_provided.json");
 
         mockMvc.perform(MockMvcRequestBuilders.post("/insurance/travel/")
                         .content(requestJson)
@@ -117,29 +68,10 @@ class TravelCalculatePremiumControllerTest {
 
     @Test
     void shouldReturnErrorWhenDateFromIsEmpty() throws Exception {
-        String requestJson = """
-                {
-                "personFirstName" : "Ivan",
-                "personLastName" : "Ivanov",
-                "agreementDateFrom" : "",
-                "agreementDateTo" : "2025-02-25"
-                }
-                """;
-        String expectedResponseJson = """
-                 {
-                                    "errors": [
-                                        {
-                                            "field": "agreementDateFrom",
-                                            "message": "Must not be empty!"
-                                        }
-                                    ],
-                                    "personFirstName": null,
-                                    "personLastName": null,
-                                    "agreementDateFrom": null,
-                                    "agreementDateTo": null,
-                                    "agreementPrice": null
-                                }
-                """;
+        String requestJson = jsonFileReader
+                .readJsonFromFile("/rest/TravelCalculatePremiumRequest_dateFrom_not_provided.json");
+        String expectedResponseJson = jsonFileReader
+                .readJsonFromFile("/rest/TravelCalculatePremiumResponse_dateFrom_not_provided.json");
 
         mockMvc.perform(MockMvcRequestBuilders.post("/insurance/travel/")
                         .content(requestJson)
@@ -150,29 +82,10 @@ class TravelCalculatePremiumControllerTest {
 
     @Test
     void shouldReturnErrorWhenDateToIsEmpty() throws Exception {
-        String requestJson = """
-                {
-                "personFirstName" : "Ivan",
-                "personLastName" : "Ivanov",
-                "agreementDateFrom" : "2025-02-16",
-                "agreementDateTo" : ""
-                }
-                """;
-        String expectedResponseJson = """
-                 {
-                                     "errors": [
-                                         {
-                                             "field": "agreementDateTo",
-                                             "message": "Must not be empty!"
-                                         }
-                                     ],
-                                     "personFirstName": null,
-                                     "personLastName": null,
-                                     "agreementDateFrom": null,
-                                     "agreementDateTo": null,
-                                     "agreementPrice": null
-                                 }
-                """;
+        String requestJson = jsonFileReader
+                .readJsonFromFile("/rest/TravelCalculatePremiumRequest_dateTo_not_provided.json");
+        String expectedResponseJson = jsonFileReader
+                .readJsonFromFile("/rest/TravelCalculatePremiumResponse_dateTo_not_provided.json");
 
         mockMvc.perform(MockMvcRequestBuilders.post("/insurance/travel/")
                         .content(requestJson)
@@ -183,41 +96,10 @@ class TravelCalculatePremiumControllerTest {
 
     @Test
     void shouldReturnErrorsWhenAllFieldsAreEmpty() throws Exception {
-        String requestJson = """
-                {
-                "personFirstName" : "",
-                "personLastName" : "",
-                "agreementDateFrom" : "",
-                "agreementDateTo" : ""
-                }
-                """;
-        String expectedResponseJson = """
-                 {
-                                     "errors": [
-                                         {
-                                             "field": "personFirstName",
-                                             "message": "Must not be empty!"
-                                         },
-                                         {
-                                             "field": "personLastName",
-                                             "message": "Must not be empty!"
-                                         },
-                                         {
-                                             "field": "agreementDateFrom",
-                                             "message": "Must not be empty!"
-                                         },
-                                         {
-                                             "field": "agreementDateTo",
-                                             "message": "Must not be empty!"
-                                         }
-                                     ],
-                                     "personFirstName": null,
-                                     "personLastName": null,
-                                     "agreementDateFrom": null,
-                                     "agreementDateTo": null,
-                                     "agreementPrice": null
-                                 }
-                """;
+        String requestJson = jsonFileReader
+                .readJsonFromFile("/rest/TravelCalculatePremiumRequest_allFields_not_provided.json");
+        String expectedResponseJson = jsonFileReader
+                .readJsonFromFile("/rest/TravelCalculatePremiumResponse_allFields_not_provided.json");
 
         mockMvc.perform(MockMvcRequestBuilders.post("/insurance/travel/")
                         .content(requestJson)
@@ -228,29 +110,10 @@ class TravelCalculatePremiumControllerTest {
 
     @Test
     void shouldReturnErrorWhenDateToIsBeforeDateFrom() throws Exception {
-        String requestJson = """
-                {
-                "personFirstName" : "Ivan",
-                "personLastName" : "Ivanov",
-                "agreementDateFrom" : "2025-02-25",
-                "agreementDateTo" : "2025-02-16"
-                }
-                """;
-        String expectedResponseJson = """
-                 {
-                                     "errors": [
-                                         {
-                                             "field": "agreementDateTo",
-                                             "message": "Must be after DataFrom!"
-                                         }
-                                     ],
-                                     "personFirstName": null,
-                                     "personLastName": null,
-                                     "agreementDateFrom": null,
-                                     "agreementDateTo": null,
-                                     "agreementPrice": null
-                                 }
-                """;
+        String requestJson = jsonFileReader
+                .readJsonFromFile("/rest/TravelCalculatePremiumRequest_dateTo_lessThen_dateFrom.json");
+        String expectedResponseJson = jsonFileReader
+                .readJsonFromFile("/rest/TravelCalculatePremiumResponse_dateTo_lessThen_dateFrom.json");
 
         mockMvc.perform(MockMvcRequestBuilders.post("/insurance/travel/")
                         .content(requestJson)

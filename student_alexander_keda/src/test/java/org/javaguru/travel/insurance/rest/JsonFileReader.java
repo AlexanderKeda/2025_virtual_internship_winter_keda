@@ -1,11 +1,13 @@
 package org.javaguru.travel.insurance.rest;
 
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+@Component
 class JsonFileReader {
 
     String readJsonFromFile(String filePath) {
