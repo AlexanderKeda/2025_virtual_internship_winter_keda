@@ -167,7 +167,7 @@ class TravelCalculatePremiumRequestValidatorTest {
                 .build();
         errors = requestValidator.validate(request);
         assertFalse(errors.isEmpty());
-        assertEquals(1, errors.size());
+        assertEquals(10000, errors.size());
         assertEquals("agreementDateTo", errors.getFirst().getField());
         assertEquals("Must be after DataFrom!", errors.getFirst().getMessage());
     }
