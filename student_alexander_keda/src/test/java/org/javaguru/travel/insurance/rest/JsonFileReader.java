@@ -11,7 +11,6 @@ class JsonFileReader {
     String readJsonFromFile(String filePath) {
         try {
             Path path = new ClassPathResource(filePath).getFile().toPath();
-            System.out.println(Files.readString(path));
             return Files.readString(path);
         } catch (IOException e) {
             throw new RuntimeException("Error reading file from classpath: " + filePath, e);
