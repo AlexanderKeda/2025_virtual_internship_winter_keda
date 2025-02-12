@@ -1,4 +1,4 @@
-package org.javaguru.travel.insurance.core.validation;
+package org.javaguru.travel.insurance.core.validations;
 
 import org.javaguru.travel.insurance.dto.TravelCalculatePremiumRequest;
 import org.javaguru.travel.insurance.dto.ValidationError;
@@ -15,32 +15,31 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class AgreementDateFromValidationTest {
+class AgreementDateToValidationTest {
 
-    private AgreementDateFromValidation agreementDateFromValidation;
+    private AgreementDateToValidation agreementDateToValidation;
 
     @Mock
     private TravelCalculatePremiumRequest requestMock;
 
     @BeforeEach
     void setUp() {
-        agreementDateFromValidation = new AgreementDateFromValidation();
+        agreementDateToValidation = new AgreementDateToValidation();
     }
 
     @Test
-    void shouldNotReturnErrorWhenDateFromIsValid() {
-        when(requestMock.getAgreementDateFrom()).thenReturn(LocalDate.now());
-        Optional<ValidationError> errorOptional = agreementDateFromValidation.validateDateFrom(requestMock);
+    void shouldNotReturnErrorWhenDateToIsValid() {
+        when(requestMock.getAgreementDateTo()).thenReturn(LocalDate.now());
+        Optional<ValidationError> errorOptional = agreementDateToValidation.validateDateTo(requestMock);
         assertTrue(errorOptional.isEmpty());
     }
 
     @Test
-    void shouldReturnErrorWhenDateFromIsNull() {
-        when(requestMock.getAgreementDateFrom()).thenReturn(null);
-        Optional<ValidationError> errorOptional = agreementDateFromValidation.validateDateFrom(requestMock);
+    void shouldReturnErrorWhenDateToIsNull() {
+        when(requestMock.getAgreementDateTo()).thenReturn(null);
+        Optional<ValidationError> errorOptional = agreementDateToValidation.validateDateTo(requestMock);
         assertTrue(errorOptional.isPresent());
-        assertEquals("agreementDateFrom", errorOptional.get().getField());
+        assertEquals("agreementDateTo", errorOptional.get().getField());
         assertEquals("Must not be empty!", errorOptional.get().getMessage());
     }
-
 }

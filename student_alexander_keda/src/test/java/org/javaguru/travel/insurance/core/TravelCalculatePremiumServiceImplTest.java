@@ -1,6 +1,6 @@
 package org.javaguru.travel.insurance.core;
 
-import org.javaguru.travel.insurance.core.validation.TravelCalculatePremiumRequestValidator;
+import org.javaguru.travel.insurance.core.validations.TravelCalculatePremiumRequestValidator;
 import org.javaguru.travel.insurance.dto.TravelCalculatePremiumRequest;
 import org.javaguru.travel.insurance.dto.TravelCalculatePremiumResponse;
 import org.javaguru.travel.insurance.dto.ValidationError;
