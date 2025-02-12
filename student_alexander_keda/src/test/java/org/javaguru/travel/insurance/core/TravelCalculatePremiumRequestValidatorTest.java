@@ -35,6 +35,7 @@ class TravelCalculatePremiumRequestValidatorTest {
                 .agreementDateTo(date2)
                 .build();
         errors = requestValidator.validate(request);
+
         assertTrue(errors.isEmpty());
     }
 
@@ -47,6 +48,7 @@ class TravelCalculatePremiumRequestValidatorTest {
                 .agreementDateTo(date2)
                 .build();
         errors = requestValidator.validate(request);
+
         assertEquals(3, errors.size());
 
         request = TravelCalculatePremiumRequest.builder()
@@ -56,6 +58,7 @@ class TravelCalculatePremiumRequestValidatorTest {
                 .agreementDateTo(date2)
                 .build();
         errors = requestValidator.validate(request);
+
         assertEquals(1, errors.size());
     }
 
@@ -70,6 +73,7 @@ class TravelCalculatePremiumRequestValidatorTest {
                 .agreementDateTo(date2)
                 .build();
         errors = requestValidator.validate(request);
+
         assertFalse(errors.isEmpty());
         assertEquals(1, errors.size());
         assertEquals("personFirstName", errors.getFirst().getField());
@@ -85,6 +89,7 @@ class TravelCalculatePremiumRequestValidatorTest {
                 .agreementDateTo(date2)
                 .build();
         errors = requestValidator.validate(request);
+
         assertFalse(errors.isEmpty());
         assertEquals(1, errors.size());
         assertEquals("personFirstName", errors.getFirst().getField());
@@ -102,6 +107,7 @@ class TravelCalculatePremiumRequestValidatorTest {
                 .agreementDateTo(date2)
                 .build();
         errors = requestValidator.validate(request);
+
         assertFalse(errors.isEmpty());
         assertEquals(1, errors.size());
         assertEquals("personLastName", errors.getFirst().getField());
@@ -117,6 +123,7 @@ class TravelCalculatePremiumRequestValidatorTest {
                 .agreementDateTo(date2)
                 .build();
         errors = requestValidator.validate(request);
+
         assertFalse(errors.isEmpty());
         assertEquals(1, errors.size());
         assertEquals("personLastName", errors.getFirst().getField());
@@ -134,6 +141,7 @@ class TravelCalculatePremiumRequestValidatorTest {
                 .agreementDateTo(date2)
                 .build();
         errors = requestValidator.validate(request);
+
         assertFalse(errors.isEmpty());
         assertEquals(1, errors.size());
         assertEquals("agreementDateFrom", errors.getFirst().getField());
@@ -151,6 +159,7 @@ class TravelCalculatePremiumRequestValidatorTest {
                 .agreementDateTo(null)
                 .build();
         errors = requestValidator.validate(request);
+
         assertFalse(errors.isEmpty());
         assertEquals(1, errors.size());
         assertEquals("agreementDateTo", errors.getFirst().getField());
@@ -166,10 +175,48 @@ class TravelCalculatePremiumRequestValidatorTest {
                 .agreementDateTo(LocalDate.now())
                 .build();
         errors = requestValidator.validate(request);
+
         assertFalse(errors.isEmpty());
         assertEquals(1, errors.size());
         assertEquals("agreementDateTo", errors.getFirst().getField());
         assertEquals("Must be after DataFrom!", errors.getFirst().getMessage());
+    }
+
+    @Test
+    void shouldReturnErrorWhenDateFromIsInThePast() {
+        request = TravelCalculatePremiumRequest.builder()
+                .personFirstName(firstName)
+                .personLastName(lastName)
+                .agreementDateFrom(LocalDate.now().minusDays(1))
+                .agreementDateTo(LocalDate.now())
+                .build();
+        errors = requestValidator.validate(request);
+
+        assertFalse(errors.isEmpty());
+        assertEquals(1, errors.size());
+        assertEquals("agreementDateFrom", errors.getFirst().getField());
+        assertEquals("Must not be in the past!", errors.getFirst().getMessage());
+    }
+
+    @Test
+    void shouldReturnErrorWhenDateToIsInThePast() {
+        request = TravelCalculatePremiumRequest.builder()
+                .personFirstName(firstName)
+                .personLastName(lastName)
+                .agreementDateFrom(LocalDate.now().minusDays(2))
+                .agreementDateTo(LocalDate.now().minusDays(1))
+                .build();
+        errors = requestValidator.validate(request);
+
+        assertFalse(errors.isEmpty());
+        assertEquals(2, errors.size());
+
+        ValidationError error = errors.get(0).getField().equals("agreementDateTo")
+                ? errors.get(0)
+                : errors.get(1);
+
+        assertEquals("agreementDateTo", error.getField());
+        assertEquals("Must not be in the past!", error.getMessage());
     }
 
 }
