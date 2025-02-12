@@ -8,9 +8,10 @@ import java.time.LocalDate;
 import java.util.Optional;
 
 @Component
-class DateFromIsBeforeDateToValidation {
+class DateFromIsBeforeDateToValidation implements TravelRequestValidation {
 
-    Optional<ValidationError> validateDateFromIsBeforeDateTo(TravelCalculatePremiumRequest request) {
+    @Override
+    public Optional<ValidationError> execute(TravelCalculatePremiumRequest request) {
         LocalDate dateFrom = request.getAgreementDateFrom();
         LocalDate dateTo = request.getAgreementDateTo();
         return (dateFrom != null &&
@@ -19,4 +20,5 @@ class DateFromIsBeforeDateToValidation {
                 ? Optional.of(new ValidationError("agreementDateTo", "Must be after DataFrom!"))
                 : Optional.empty();
     }
+
 }

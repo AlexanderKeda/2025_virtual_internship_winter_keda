@@ -8,12 +8,14 @@ import java.time.LocalDate;
 import java.util.Optional;
 
 @Component
-class AgreementDateToInFutureValidation {
+class AgreementDateToInFutureValidation implements TravelRequestValidation {
 
-    Optional<ValidationError> validateDateToInFuture(TravelCalculatePremiumRequest request) {
+    @Override
+    public Optional<ValidationError> execute(TravelCalculatePremiumRequest request) {
         return (request.getAgreementDateTo() != null &&
                 request.getAgreementDateTo().isBefore(LocalDate.now()))
                 ? Optional.of(new ValidationError("agreementDateTo", "Must not be in the past!"))
                 : Optional.empty();
     }
+
 }

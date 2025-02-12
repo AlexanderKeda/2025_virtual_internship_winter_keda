@@ -30,14 +30,14 @@ class AgreementDateFromValidationTest {
     @Test
     void shouldNotReturnErrorWhenDateFromIsValid() {
         when(requestMock.getAgreementDateFrom()).thenReturn(LocalDate.now());
-        Optional<ValidationError> errorOptional = agreementDateFromValidation.validateDateFrom(requestMock);
+        Optional<ValidationError> errorOptional = agreementDateFromValidation.execute(requestMock);
         assertTrue(errorOptional.isEmpty());
     }
 
     @Test
     void shouldReturnErrorWhenDateFromIsNull() {
         when(requestMock.getAgreementDateFrom()).thenReturn(null);
-        Optional<ValidationError> errorOptional = agreementDateFromValidation.validateDateFrom(requestMock);
+        Optional<ValidationError> errorOptional = agreementDateFromValidation.execute(requestMock);
         assertTrue(errorOptional.isPresent());
         assertEquals("agreementDateFrom", errorOptional.get().getField());
         assertEquals("Must not be empty!", errorOptional.get().getMessage());

@@ -30,14 +30,14 @@ class PersonFirstNameValidationTest {
     @Test
     void shouldNotReturnErrorWhenFirstNameIsValid() {
         when(requestMock.getPersonFirstName()).thenReturn("Ivan");
-        Optional<ValidationError> errorOptional = personFirstNameValidation.validatePersonFirstName(requestMock);
+        Optional<ValidationError> errorOptional = personFirstNameValidation.execute(requestMock);
         assertTrue(errorOptional.isEmpty());
     }
 
     @Test
     void shouldReturnErrorWhenFirstNameIsNull() {
         when(requestMock.getPersonFirstName()).thenReturn(null);
-        Optional<ValidationError> errorOptional = personFirstNameValidation.validatePersonFirstName(requestMock);
+        Optional<ValidationError> errorOptional = personFirstNameValidation.execute(requestMock);
         assertTrue(errorOptional.isPresent());
         assertEquals("personFirstName", errorOptional.get().getField());
         assertEquals("Must not be empty!", errorOptional.get().getMessage());
@@ -46,7 +46,7 @@ class PersonFirstNameValidationTest {
     @Test
     void shouldReturnErrorWhenFirstNameIsEmpty() {
         when(requestMock.getPersonFirstName()).thenReturn("");
-        Optional<ValidationError> errorOptional = personFirstNameValidation.validatePersonFirstName(requestMock);
+        Optional<ValidationError> errorOptional = personFirstNameValidation.execute(requestMock);
         assertTrue(errorOptional.isPresent());
         assertEquals("personFirstName", errorOptional.get().getField());
         assertEquals("Must not be empty!", errorOptional.get().getMessage());

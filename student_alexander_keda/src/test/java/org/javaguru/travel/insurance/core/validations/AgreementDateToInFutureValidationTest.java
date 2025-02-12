@@ -31,7 +31,7 @@ class AgreementDateToInFutureValidationTest {
     void shouldNotReturnErrorWhenDateToIsValid() {
         when(requestMock.getAgreementDateTo()).thenReturn(LocalDate.now());
         Optional<ValidationError> errorOptional = agreementDateToInFutureValidation
-                .validateDateToInFuture(requestMock);
+                .execute(requestMock);
         assertTrue(errorOptional.isEmpty());
     }
 
@@ -39,7 +39,7 @@ class AgreementDateToInFutureValidationTest {
     void shouldReturnErrorWhenDateToIsInThePast() {
         when(requestMock.getAgreementDateTo()).thenReturn(LocalDate.now().minusDays(1));
         Optional<ValidationError> errorOptional = agreementDateToInFutureValidation
-                .validateDateToInFuture(requestMock);
+                .execute(requestMock);
         assertTrue(errorOptional.isPresent());
         assertEquals("agreementDateTo", errorOptional.get().getField());
         assertEquals("Must not be in the past!", errorOptional.get().getMessage());
@@ -48,7 +48,7 @@ class AgreementDateToInFutureValidationTest {
     @Test
     void shouldNotThrowExceptionWhenDateToIsNull() {
         when(requestMock.getAgreementDateTo()).thenReturn(null);
-        assertDoesNotThrow(() -> agreementDateToInFutureValidation.validateDateToInFuture(requestMock));
+        assertDoesNotThrow(() -> agreementDateToInFutureValidation.execute(requestMock));
     }
 
 }

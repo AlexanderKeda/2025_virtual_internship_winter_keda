@@ -33,7 +33,7 @@ class DateFromIsBeforeDateToValidationTest {
         when(requestMock.getAgreementDateTo()).thenReturn(LocalDate.now().plusDays(1));
 
         Optional<ValidationError> errorOptional = dateFromIsBeforeDateToValidation
-                .validateDateFromIsBeforeDateTo(requestMock);
+                .execute(requestMock);
         assertTrue(errorOptional.isEmpty());
     }
 
@@ -43,7 +43,7 @@ class DateFromIsBeforeDateToValidationTest {
         when(requestMock.getAgreementDateTo()).thenReturn(LocalDate.now());
 
         Optional<ValidationError> errorOptional = dateFromIsBeforeDateToValidation
-                .validateDateFromIsBeforeDateTo(requestMock);
+                .execute(requestMock);
 
         assertTrue(errorOptional.isPresent());
         assertEquals("agreementDateTo", errorOptional.get().getField());
@@ -53,13 +53,13 @@ class DateFromIsBeforeDateToValidationTest {
     @Test
     void shouldNotThrowExceptionWhenDateFromIsNull() {
         when(requestMock.getAgreementDateFrom()).thenReturn(null);
-        assertDoesNotThrow(() -> dateFromIsBeforeDateToValidation.validateDateFromIsBeforeDateTo(requestMock));
+        assertDoesNotThrow(() -> dateFromIsBeforeDateToValidation.execute(requestMock));
     }
 
     @Test
     void shouldNotThrowExceptionWhenDateToIsNull() {
         when(requestMock.getAgreementDateTo()).thenReturn(null);
-        assertDoesNotThrow(() -> dateFromIsBeforeDateToValidation.validateDateFromIsBeforeDateTo(requestMock));
+        assertDoesNotThrow(() -> dateFromIsBeforeDateToValidation.execute(requestMock));
     }
 
 }
