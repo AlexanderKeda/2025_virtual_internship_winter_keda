@@ -14,14 +14,14 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class TravelCalculatePremiumRequestValidatorTest {
+class TravelCalculatePremiumRequestValidatorImpTest {
 
     @Mock
     private TravelRequestValidation validation1Mock;
     @Mock
     private TravelRequestValidation validation2Mock;
 
-    private TravelCalculatePremiumRequestValidator requestValidator;
+    private TravelCalculatePremiumRequestValidatorImp requestValidator;
 
     @Mock
     private TravelCalculatePremiumRequest requestMock;
@@ -31,7 +31,7 @@ class TravelCalculatePremiumRequestValidatorTest {
     @Test
     void shouldNotReturnErrors() {
         List<TravelRequestValidation> validations = List.of(validation1Mock, validation2Mock);
-        requestValidator = new TravelCalculatePremiumRequestValidator(validations);
+        requestValidator = new TravelCalculatePremiumRequestValidatorImp(validations);
         when(validation1Mock.execute(requestMock))
                 .thenReturn(Optional.empty());
         when(validation2Mock.execute(requestMock))
@@ -44,7 +44,7 @@ class TravelCalculatePremiumRequestValidatorTest {
     @Test
     void shouldReturnExpectedErrorCount() {
         List<TravelRequestValidation> validations = List.of(validation1Mock, validation2Mock);
-        requestValidator = new TravelCalculatePremiumRequestValidator(validations);
+        requestValidator = new TravelCalculatePremiumRequestValidatorImp(validations);
         when(validation1Mock.execute(requestMock))
                 .thenReturn(Optional.of(new ValidationError()));
         when(validation2Mock.execute(requestMock))
