@@ -11,7 +11,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CoreResponse {
+class CoreResponse {
 
     private List<ValidationError> errors;
 

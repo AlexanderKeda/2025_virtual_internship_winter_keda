@@ -2,7 +2,6 @@ package org.javaguru.travel.insurance.core;
 
 import org.javaguru.travel.insurance.core.validations.TravelCalculatePremiumRequestValidator;
 import org.javaguru.travel.insurance.dto.TravelCalculatePremiumRequest;
-import org.javaguru.travel.insurance.dto.TravelCalculatePremiumResponse;
 import org.javaguru.travel.insurance.dto.ValidationError;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -29,21 +28,18 @@ class TravelCalculatePremiumServiceImplTest {
     @InjectMocks
     private TravelCalculatePremiumServiceImpl travelCalculatePremiumService;
 
-    private TravelCalculatePremiumRequest request;
-    private TravelCalculatePremiumResponse response;
-
-    private final long days = 7;
-    private final String firstName = "FirstName";
-    private final String lastName = "LastName";
-    private final LocalDate date1 = LocalDate.now();
-    private final LocalDate date2 = date1.plusDays(days);
+    private static final long DAYS = 7;
+    private static final String FIRST_NAME = "FirstName";
+    private static final String LAST_NAME = "LastName";
+    private static final LocalDate DATE_1 = LocalDate.now();
+    private static final LocalDate DATE_2 = DATE_1.plusDays(DAYS);
 
     @Test
     void shouldResponseFirstName() {
-        request = createValidRequest();
+        var request = createValidRequest();
         when(requestValidatorMock.validate(request))
                 .thenReturn(List.of());
-        response = travelCalculatePremiumService.calculatePremium(request);
+        var response = travelCalculatePremiumService.calculatePremium(request);
         assertEquals(request.getPersonFirstName(),
                 response.getPersonFirstName(),
                 "First name should match");
@@ -51,10 +47,10 @@ class TravelCalculatePremiumServiceImplTest {
 
     @Test
     void shouldResponseLastName() {
-        request = createValidRequest();
+        var request = createValidRequest();
         when(requestValidatorMock.validate(request))
                 .thenReturn(List.of());
-        response = travelCalculatePremiumService.calculatePremium(request);
+        var response = travelCalculatePremiumService.calculatePremium(request);
         assertEquals(request.getPersonLastName(),
                 response.getPersonLastName(),
                 "Last name should match");
@@ -62,10 +58,10 @@ class TravelCalculatePremiumServiceImplTest {
 
     @Test
     void shouldResponseDateFrom() {
-        request = createValidRequest();
+        var request = createValidRequest();
         when(requestValidatorMock.validate(request))
                 .thenReturn(List.of());
-        response = travelCalculatePremiumService.calculatePremium(request);
+        var response = travelCalculatePremiumService.calculatePremium(request);
         assertEquals(request.getAgreementDateFrom(),
                 response.getAgreementDateFrom(),
                 "Agreement start date should match");
@@ -73,10 +69,10 @@ class TravelCalculatePremiumServiceImplTest {
 
     @Test
     void shouldResponseDateTo() {
-        request = createValidRequest();
+        var request = createValidRequest();
         when(requestValidatorMock.validate(request))
                 .thenReturn(List.of());
-        response = travelCalculatePremiumService.calculatePremium(request);
+        var response = travelCalculatePremiumService.calculatePremium(request);
         assertEquals(request.getAgreementDateTo(),
                 response.getAgreementDateTo(),
                 "Agreement end date should match");
@@ -84,32 +80,32 @@ class TravelCalculatePremiumServiceImplTest {
 
     @Test
     void shouldResponseCorrectAgreementPrice() {
-        request = createValidRequest();
+        var request = createValidRequest();
         when(requestValidatorMock.validate(request))
                 .thenReturn(List.of());
         when(underwritingMock.underwrite(request))
-                .thenReturn(new BigDecimal(days));
-        response = travelCalculatePremiumService.calculatePremium(request);
-        assertEquals(new BigDecimal(days),
+                .thenReturn(new BigDecimal(DAYS));
+        var response = travelCalculatePremiumService.calculatePremium(request);
+        assertEquals(new BigDecimal(DAYS),
                 response.getAgreementPrice(),
                 "Agreement price is incorrect");
     }
 
     @Test
     void shouldReturnResponseWithErrors() {
-        request = new TravelCalculatePremiumRequest();
+        var request = new TravelCalculatePremiumRequest();
         when(requestValidatorMock.validate(request))
                 .thenReturn(List.of(new ValidationError("field", "message")));
-        response = travelCalculatePremiumService.calculatePremium(request);
+        var response = travelCalculatePremiumService.calculatePremium(request);
         assertTrue(response.hasErrors());
     }
 
     @Test
     void allFieldsMustBeEmptyWhenResponseContainsError() {
-        request = new TravelCalculatePremiumRequest();
+        var request = new TravelCalculatePremiumRequest();
         when(requestValidatorMock.validate(request))
                 .thenReturn(List.of(new ValidationError("field", "message")));
-        response = travelCalculatePremiumService.calculatePremium(request);
+        var response = travelCalculatePremiumService.calculatePremium(request);
         assertNull(response.getPersonFirstName());
         assertNull(response.getPersonLastName());
         assertNull(response.getAgreementDateFrom());
@@ -119,19 +115,19 @@ class TravelCalculatePremiumServiceImplTest {
 
     @Test
     void shouldNotBeInteractionWithDateTimeServiceWhenResponseContainsError() {
-        request = new TravelCalculatePremiumRequest();
+        var request = new TravelCalculatePremiumRequest();
         when(requestValidatorMock.validate(request))
                 .thenReturn(List.of(new ValidationError("field", "message")));
-        response = travelCalculatePremiumService.calculatePremium(request);
+        travelCalculatePremiumService.calculatePremium(request);
         Mockito.verifyNoInteractions(underwritingMock);
     }
 
     TravelCalculatePremiumRequest createValidRequest() {
-        return request = TravelCalculatePremiumRequest.builder()
-                .personFirstName(firstName)
-                .personLastName(lastName)
-                .agreementDateFrom(date1)
-                .agreementDateTo(date2)
+        return TravelCalculatePremiumRequest.builder()
+                .personFirstName(FIRST_NAME)
+                .personLastName(LAST_NAME)
+                .agreementDateFrom(DATE_1)
+                .agreementDateTo(DATE_2)
                 .build();
     }
 }

@@ -1,6 +1,5 @@
 package org.javaguru.travel.insurance.core;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -9,34 +8,29 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class DateTimeServiceTest {
 
-    private DateTimeService dateTimeService;
-    private final long days = 7;
-    private final LocalDate date1 = LocalDate.now();
-    private final LocalDate date2 = date1.plusDays(days);
-
-    @BeforeEach
-    void setUp() {
-        dateTimeService = new DateTimeService();
-    }
+    private final DateTimeService dateTimeService = new DateTimeService();
+    private static final long DAYS = 7;
+    private static final LocalDate DATE_1 = LocalDate.now();
+    private static final LocalDate DATE_2 = DATE_1.plusDays(DAYS);
 
     @Test
     void shouldDaysBetweenBePositive() {
-        assertEquals(days,
-                dateTimeService.calculateDaysBetween(date1, date2),
+        assertEquals(DAYS,
+                dateTimeService.calculateDaysBetween(DATE_1, DATE_2),
                 "Incorrect value of days between dates");
     }
 
     @Test
     void shouldDaysBetweenBeZero() {
         assertEquals(0L,
-                dateTimeService.calculateDaysBetween(date1, date1),
+                dateTimeService.calculateDaysBetween(DATE_1, DATE_1),
                 "Incorrect value of days between dates");
     }
 
     @Test
     void shouldDaysBetweenBeNegative() {
-        assertEquals(-days,
-                dateTimeService.calculateDaysBetween(date2, date1),
+        assertEquals(-DAYS,
+                dateTimeService.calculateDaysBetween(DATE_2, DATE_1),
                 "Incorrect value of days between dates");
     }
 }

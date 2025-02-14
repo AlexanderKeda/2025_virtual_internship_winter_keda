@@ -8,7 +8,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
@@ -25,17 +24,13 @@ class TravelPremiumUnderwritingTest {
     @Mock
     private TravelCalculatePremiumRequest requestMock;
 
-    private final long days = 7;
-    private final LocalDate date1 = LocalDate.now();
-    private final LocalDate date2 = date1.plusDays(days);
+    private static final long DAYS = 7;
 
     @Test
     void shouldResponseCorrectAgreementPrice() {
-        when(requestMock.getAgreementDateFrom()).thenReturn(date1);
-        when(requestMock.getAgreementDateTo()).thenReturn(date2);
         when(dateTimeServiceMock.calculateDaysBetween(requestMock.getAgreementDateFrom(), requestMock.getAgreementDateTo()))
-                .thenReturn(days);
-        assertEquals(new BigDecimal(days), underwriting.underwrite(requestMock));
+                .thenReturn(DAYS);
+        assertEquals(new BigDecimal(DAYS), underwriting.underwrite(requestMock));
     }
 
 }

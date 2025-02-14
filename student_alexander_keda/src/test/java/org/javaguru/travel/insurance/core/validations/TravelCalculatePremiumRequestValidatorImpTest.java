@@ -2,6 +2,7 @@ package org.javaguru.travel.insurance.core.validations;
 
 import org.javaguru.travel.insurance.dto.TravelCalculatePremiumRequest;
 import org.javaguru.travel.insurance.dto.ValidationError;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -26,32 +27,31 @@ class TravelCalculatePremiumRequestValidatorImpTest {
     @Mock
     private TravelCalculatePremiumRequest requestMock;
 
-    private List<ValidationError> errors;
+    @BeforeEach
+    void setUp() {
+        var validations = List.of(validation1Mock, validation2Mock);
+        requestValidator = new TravelCalculatePremiumRequestValidatorImp(validations);
+    }
 
     @Test
     void shouldNotReturnErrors() {
-        List<TravelRequestValidation> validations = List.of(validation1Mock, validation2Mock);
-        requestValidator = new TravelCalculatePremiumRequestValidatorImp(validations);
         when(validation1Mock.execute(requestMock))
                 .thenReturn(Optional.empty());
         when(validation2Mock.execute(requestMock))
                 .thenReturn(Optional.empty());
 
-        errors = requestValidator.validate(requestMock);
+        var errors = requestValidator.validate(requestMock);
         assertTrue(errors.isEmpty());
     }
 
     @Test
     void shouldReturnExpectedErrorCount() {
-        List<TravelRequestValidation> validations = List.of(validation1Mock, validation2Mock);
-        requestValidator = new TravelCalculatePremiumRequestValidatorImp(validations);
         when(validation1Mock.execute(requestMock))
                 .thenReturn(Optional.of(new ValidationError()));
         when(validation2Mock.execute(requestMock))
                 .thenReturn(Optional.of(new ValidationError()));
 
-
-        errors = requestValidator.validate(requestMock);
+        var errors = requestValidator.validate(requestMock);
         assertEquals(2, errors.size());
     }
 
