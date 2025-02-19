@@ -1,0 +1,19 @@
+<configuration>
+    <appender name="SIZE_BASED_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>student_alexander_keda/logs/app.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <maxFileSize>10MB</maxFileSize>
+            <fileNamePattern>logs/app-%i-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <totalSizeCap>100MB</totalSizeCap>
+            <cleanHistoryOnStart>true</cleanHistoryOnStart>
+            <maxHistory>10</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="info">
+        <appender-ref ref="SIZE_BASED_FILE" />
+    </root>
+</configuration>
