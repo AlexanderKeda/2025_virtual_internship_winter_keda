@@ -17,13 +17,16 @@ public class TravelCalculatePremiumController {
 
 	private final TravelCalculatePremiumService calculatePremiumService;
 	private final TravelCalculatePremiumRequestLogger requestLogger;
+	private final TravelCalculatePremiumResponseLogger responseLogger;
 
 	@PostMapping(path = "/",
 			consumes = "application/json",
 			produces = "application/json")
 	public TravelCalculatePremiumResponse calculatePremium(@RequestBody TravelCalculatePremiumRequest request) {
 		requestLogger.log(request);
-		return calculatePremiumService.calculatePremium(request);
+		TravelCalculatePremiumResponse response = calculatePremiumService.calculatePremium(request);
+		responseLogger.log(response);
+		return response;
 	}
 
 }
