@@ -1,5 +1,6 @@
 package org.javaguru.travel.insurance.rest;
 
+import com.google.common.base.Stopwatch;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import org.javaguru.travel.insurance.core.TravelCalculatePremiumService;
@@ -18,11 +19,19 @@ public class TravelCalculatePremiumController {
 	private final TravelCalculatePremiumService calculatePremiumService;
 	private final TravelCalculatePremiumRequestLogger requestLogger;
 	private final TravelCalculatePremiumResponseLogger responseLogger;
+	private final TravelCalculatePremiumRequestExecutionTimeLogger requestExecutionTimeLogger;
 
 	@PostMapping(path = "/",
 			consumes = "application/json",
 			produces = "application/json")
 	public TravelCalculatePremiumResponse calculatePremium(@RequestBody TravelCalculatePremiumRequest request) {
+		Stopwatch stopwatch = Stopwatch.createStarted();
+		TravelCalculatePremiumResponse response = processRequest(request);
+		requestExecutionTimeLogger.log(stopwatch);
+		return response;
+	}
+
+	private TravelCalculatePremiumResponse processRequest(TravelCalculatePremiumRequest request) {
 		requestLogger.log(request);
 		TravelCalculatePremiumResponse response = calculatePremiumService.calculatePremium(request);
 		responseLogger.log(response);
