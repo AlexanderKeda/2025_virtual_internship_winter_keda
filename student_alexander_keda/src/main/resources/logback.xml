@@ -5,14 +5,14 @@
         </encoder>
     </appender>
 
-    <appender name="SIZE_BASED_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <appender name="FILE_APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>student_alexander_keda/logs/app.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <maxFileSize>10MB</maxFileSize>
-            <fileNamePattern>logs/app-%i-%d{yyyy-MM-dd}.log</fileNamePattern>
-            <totalSizeCap>100MB</totalSizeCap>
+            <fileNamePattern>logs/app-%d{yyyy-MM-dd}-%i.log</fileNamePattern>
+            <totalSizeCap>50MB</totalSizeCap>
             <cleanHistoryOnStart>true</cleanHistoryOnStart>
-            <maxHistory>10</maxHistory>
+            <maxHistory>5</maxHistory>
         </rollingPolicy>
         <encoder>
             <pattern>%d{ISO8601} [%thread] %-5level %logger{36} - %msg%n</pattern>
@@ -21,6 +21,6 @@
 
     <root level="info">
         <appender-ref ref="CONSOLE"/>
-        <appender-ref ref="SIZE_BASED_FILE"/>
+        <appender-ref ref="FILE_APPENDER"/>
     </root>
 </configuration>
