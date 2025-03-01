@@ -2,5 +2,6 @@
   "personFirstName" : "Ivan",
   "personLastName" : "Ivanov",
   "agreementDateFrom" : "2026-02-16",
-  "agreementDateTo" : ""
+  "agreementDateTo" : "",
+  "selectedRisks": ["TRAVEL_MEDICAL"]
 }

@@ -68,6 +68,12 @@ class TravelCalculatePremiumControllerTest {
     }
 
     @Test
+    void shouldReturnErrorWhenSelectedRisksIsEmpty() throws Exception {
+        performAndCheck("/rest/TravelCalculatePremiumRequest_selectedRisks_not_provided.json",
+                "/rest/TravelCalculatePremiumResponse_selectedRisks_not_provided.json");
+    }
+
+    @Test
     void shouldReturnErrorsWhenAllFieldsAreEmpty() throws Exception {
         performAndCheck("/rest/TravelCalculatePremiumRequest_allFields_not_provided.json",
                 "/rest/TravelCalculatePremiumResponse_allFields_not_provided.json");

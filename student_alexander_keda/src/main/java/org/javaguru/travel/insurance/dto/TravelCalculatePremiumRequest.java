@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
@@ -21,6 +22,6 @@ public class TravelCalculatePremiumRequest {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate agreementDateTo;
 
-    private String[] selectedRisks;
+    private List<String> selectedRisks;
 
 }
