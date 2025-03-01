@@ -37,7 +37,7 @@ class EmptySelectedRisksValidationTest {
     @Test
     void shouldReturnErrorWhenRisksIsEmpty() {
         when(requestMock.getSelectedRisks()).thenReturn(List.of());
-        when(validationErrorFactory.getValidationError("ERROR_CODE_5"))
+        when(validationErrorFactory.buildError("ERROR_CODE_5"))
                 .thenReturn(new ValidationError("ERROR_CODE_5", "Description"));
         var errorOptional = emptyRisksValidation.execute(requestMock);
         assertTrue(errorOptional.isPresent());
@@ -48,7 +48,7 @@ class EmptySelectedRisksValidationTest {
     @Test
     void shouldReturnErrorWhenRisksIsNull() {
         when(requestMock.getSelectedRisks()).thenReturn(null);
-        when(validationErrorFactory.getValidationError("ERROR_CODE_5"))
+        when(validationErrorFactory.buildError("ERROR_CODE_5"))
                 .thenReturn(new ValidationError("ERROR_CODE_5", "Description"));
         var errorOptional = emptyRisksValidation.execute(requestMock);
         assertTrue(errorOptional.isPresent());

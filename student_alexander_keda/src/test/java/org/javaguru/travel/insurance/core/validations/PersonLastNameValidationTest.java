@@ -35,7 +35,7 @@ class PersonLastNameValidationTest {
     @Test
     void shouldReturnErrorWhenFirstNameIsNull() {
         when(requestMock.getPersonLastName()).thenReturn(null);
-        when(validationErrorFactory.getValidationError("ERROR_CODE_2"))
+        when(validationErrorFactory.buildError("ERROR_CODE_2"))
                 .thenReturn(new ValidationError("ERROR_CODE_2", "Description"));
         var errorOptional = personLastNameValidation.execute(requestMock);
         assertTrue(errorOptional.isPresent());
@@ -46,7 +46,7 @@ class PersonLastNameValidationTest {
     @Test
     void shouldReturnErrorWhenFirstNameIsEmpty() {
         when(requestMock.getPersonLastName()).thenReturn("");
-        when(validationErrorFactory.getValidationError("ERROR_CODE_2"))
+        when(validationErrorFactory.buildError("ERROR_CODE_2"))
                 .thenReturn(new ValidationError("ERROR_CODE_2", "Description"));
         var errorOptional = personLastNameValidation.execute(requestMock);
         assertTrue(errorOptional.isPresent());

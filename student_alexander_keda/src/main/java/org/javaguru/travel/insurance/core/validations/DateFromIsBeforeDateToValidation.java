@@ -22,7 +22,7 @@ class DateFromIsBeforeDateToValidation implements TravelRequestValidation {
         return (dateFrom != null &&
                 dateTo != null &&
                 dateTo.isBefore(dateFrom))
-                ? Optional.of(validationErrorFactory.getValidationError("ERROR_CODE_8"))
+                ? Optional.of(validationErrorFactory.buildError("ERROR_CODE_8"))
                 : Optional.empty();
     }
 

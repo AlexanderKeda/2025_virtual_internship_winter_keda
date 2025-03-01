@@ -41,7 +41,7 @@ class DateFromIsBeforeDateToValidationTest {
     void shouldReturnErrorWhenDateFromIsAfterDateTo() {
         when(requestMock.getAgreementDateFrom()).thenReturn(LocalDate.now().plusDays(1));
         when(requestMock.getAgreementDateTo()).thenReturn(LocalDate.now());
-        when(validationErrorFactory.getValidationError("ERROR_CODE_8"))
+        when(validationErrorFactory.buildError("ERROR_CODE_8"))
                 .thenReturn(new ValidationError("ERROR_CODE_8", "Description"));
         var errorOptional = dateFromIsBeforeDateToValidation
                 .execute(requestMock);

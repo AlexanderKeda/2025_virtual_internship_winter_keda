@@ -11,7 +11,7 @@ public class ValidationErrorFactory {
 
     private final ErrorCodeUtil errorCodeUtil;
 
-    ValidationError getValidationError(String errorCode) {
+    ValidationError buildError(String errorCode) {
         return new ValidationError(errorCode, errorCodeUtil.getErrorDescription(errorCode));
     }
 }

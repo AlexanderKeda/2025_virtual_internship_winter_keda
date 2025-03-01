@@ -20,7 +20,7 @@ class ValidationErrorFactoryTest {
     void shouldReturnValidationErrorWithCorrectDescription() {
         when(errorCodeUtilMock.getErrorDescription("ERROR_CODE_0")).thenReturn("Description");
         assertEquals(new ValidationError("ERROR_CODE_0", "Description"),
-                validationErrorFactory.getValidationError("ERROR_CODE_0"));
+                validationErrorFactory.buildError("ERROR_CODE_0"));
     }
 
 }

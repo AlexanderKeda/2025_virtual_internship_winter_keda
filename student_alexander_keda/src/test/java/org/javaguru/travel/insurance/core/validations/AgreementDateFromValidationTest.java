@@ -37,7 +37,7 @@ class AgreementDateFromValidationTest {
     @Test
     void shouldReturnErrorWhenDateFromIsNull() {
         when(requestMock.getAgreementDateFrom()).thenReturn(null);
-        when(validationErrorFactory.getValidationError("ERROR_CODE_3"))
+        when(validationErrorFactory.buildError("ERROR_CODE_3"))
                 .thenReturn(new ValidationError("ERROR_CODE_3", "Description"));
         var errorOptional = agreementDateFromValidation.execute(requestMock);
         assertTrue(errorOptional.isPresent());

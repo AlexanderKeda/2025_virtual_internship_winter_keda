@@ -17,7 +17,7 @@ class AgreementDateToValidation implements TravelRequestValidation {
     @Override
     public Optional<ValidationError> execute(TravelCalculatePremiumRequest request) {
         return (request.getAgreementDateTo() == null)
-                ? Optional.of(validationErrorFactory.getValidationError("ERROR_CODE_4"))
+                ? Optional.of(validationErrorFactory.buildError("ERROR_CODE_4"))
                 : Optional.empty();
     }
 

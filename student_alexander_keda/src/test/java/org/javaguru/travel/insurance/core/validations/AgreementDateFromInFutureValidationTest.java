@@ -38,7 +38,7 @@ class AgreementDateFromInFutureValidationTest {
     @Test
     void shouldReturnErrorWhenDateFromIsInThePast() {
         when(requestMock.getAgreementDateFrom()).thenReturn(LocalDate.now().minusDays(1));
-        when(validationErrorFactory.getValidationError("ERROR_CODE_6"))
+        when(validationErrorFactory.buildError("ERROR_CODE_6"))
                 .thenReturn(new ValidationError("ERROR_CODE_6", "Description"));
         var errorOptional = agreementDateFromInFutureValidation
                 .execute(requestMock);
