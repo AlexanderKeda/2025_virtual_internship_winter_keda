@@ -1,9 +1,12 @@
 package org.javaguru.travel.insurance.core.validations;
 
 import org.javaguru.travel.insurance.dto.TravelCalculatePremiumRequest;
+import org.javaguru.travel.insurance.dto.ValidationError;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -13,8 +16,11 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class PersonFirstNameValidationTest {
 
-    private final PersonFirstNameValidation personFirstNameValidation
-            = new PersonFirstNameValidation();
+    @Mock
+    private ValidationErrorFactory validationErrorFactory;
+
+    @InjectMocks
+    private PersonFirstNameValidation personFirstNameValidation;
 
     @Mock
     private TravelCalculatePremiumRequest requestMock;
@@ -24,24 +30,29 @@ class PersonFirstNameValidationTest {
         when(requestMock.getPersonFirstName()).thenReturn("Ivan");
         var errorOptional = personFirstNameValidation.execute(requestMock);
         assertTrue(errorOptional.isEmpty());
+        Mockito.verifyNoInteractions(validationErrorFactory);
     }
 
     @Test
     void shouldReturnErrorWhenFirstNameIsNull() {
         when(requestMock.getPersonFirstName()).thenReturn(null);
+        when(validationErrorFactory.getValidationError("ERROR_CODE_1"))
+                .thenReturn(new ValidationError("ERROR_CODE_1", "Description"));
         var errorOptional = personFirstNameValidation.execute(requestMock);
         assertTrue(errorOptional.isPresent());
-        assertEquals("personFirstName", errorOptional.get().getField());
-        assertEquals("Must not be empty!", errorOptional.get().getMessage());
+        assertEquals("ERROR_CODE_1", errorOptional.get().getErrorCode());
+        assertEquals("Description", errorOptional.get().getDescription());
     }
 
     @Test
     void shouldReturnErrorWhenFirstNameIsEmpty() {
         when(requestMock.getPersonFirstName()).thenReturn("");
+        when(validationErrorFactory.getValidationError("ERROR_CODE_1"))
+                .thenReturn(new ValidationError("ERROR_CODE_1", "Description"));
         var errorOptional = personFirstNameValidation.execute(requestMock);
         assertTrue(errorOptional.isPresent());
-        assertEquals("personFirstName", errorOptional.get().getField());
-        assertEquals("Must not be empty!", errorOptional.get().getMessage());
+        assertEquals("ERROR_CODE_1", errorOptional.get().getErrorCode());
+        assertEquals("Description", errorOptional.get().getDescription());
     }
 
 }

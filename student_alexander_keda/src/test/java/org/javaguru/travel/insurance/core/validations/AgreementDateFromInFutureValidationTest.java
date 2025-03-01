@@ -1,9 +1,12 @@
 package org.javaguru.travel.insurance.core.validations;
 
 import org.javaguru.travel.insurance.dto.TravelCalculatePremiumRequest;
+import org.javaguru.travel.insurance.dto.ValidationError;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
@@ -14,8 +17,11 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class AgreementDateFromInFutureValidationTest {
 
-    private final AgreementDateFromInFutureValidation agreementDateFromInFutureValidation
-            = new AgreementDateFromInFutureValidation();
+    @Mock
+    private ValidationErrorFactory validationErrorFactory;
+
+    @InjectMocks
+    private AgreementDateFromInFutureValidation agreementDateFromInFutureValidation;
 
     @Mock
     private TravelCalculatePremiumRequest requestMock;
@@ -26,16 +32,19 @@ class AgreementDateFromInFutureValidationTest {
         var errorOptional = agreementDateFromInFutureValidation
                 .execute(requestMock);
         assertTrue(errorOptional.isEmpty());
+        Mockito.verifyNoInteractions(validationErrorFactory);
     }
 
     @Test
     void shouldReturnErrorWhenDateFromIsInThePast() {
         when(requestMock.getAgreementDateFrom()).thenReturn(LocalDate.now().minusDays(1));
+        when(validationErrorFactory.getValidationError("ERROR_CODE_6"))
+                .thenReturn(new ValidationError("ERROR_CODE_6", "Description"));
         var errorOptional = agreementDateFromInFutureValidation
                 .execute(requestMock);
         assertTrue(errorOptional.isPresent());
-        assertEquals("agreementDateFrom", errorOptional.get().getField());
-        assertEquals("Must not be in the past!", errorOptional.get().getMessage());
+        assertEquals("ERROR_CODE_6", errorOptional.get().getErrorCode());
+        assertEquals("Description", errorOptional.get().getDescription());
     }
 
     @Test

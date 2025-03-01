@@ -1,9 +1,12 @@
 package org.javaguru.travel.insurance.core.validations;
 
 import org.javaguru.travel.insurance.dto.TravelCalculatePremiumRequest;
+import org.javaguru.travel.insurance.dto.ValidationError;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
@@ -14,8 +17,11 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class AgreementDateToValidationTest {
 
-    private final AgreementDateToValidation agreementDateToValidation
-            = new AgreementDateToValidation();
+    @Mock
+    private ValidationErrorFactory validationErrorFactory;
+
+    @InjectMocks
+    private AgreementDateToValidation agreementDateToValidation;
 
     @Mock
     private TravelCalculatePremiumRequest requestMock;
@@ -25,14 +31,18 @@ class AgreementDateToValidationTest {
         when(requestMock.getAgreementDateTo()).thenReturn(LocalDate.now());
         var errorOptional = agreementDateToValidation.execute(requestMock);
         assertTrue(errorOptional.isEmpty());
+        Mockito.verifyNoInteractions(validationErrorFactory);
     }
 
     @Test
     void shouldReturnErrorWhenDateToIsNull() {
         when(requestMock.getAgreementDateTo()).thenReturn(null);
+        when(validationErrorFactory.getValidationError("ERROR_CODE_4"))
+                .thenReturn(new ValidationError("ERROR_CODE_4", "Description"));
         var errorOptional = agreementDateToValidation.execute(requestMock);
         assertTrue(errorOptional.isPresent());
-        assertEquals("agreementDateTo", errorOptional.get().getField());
-        assertEquals("Must not be empty!", errorOptional.get().getMessage());
+        assertEquals("ERROR_CODE_4", errorOptional.get().getErrorCode());
+        assertEquals("Description", errorOptional.get().getDescription());
     }
+
 }

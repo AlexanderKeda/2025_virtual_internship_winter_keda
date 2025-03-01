@@ -1,9 +1,12 @@
 package org.javaguru.travel.insurance.core.validations;
 
 import org.javaguru.travel.insurance.dto.TravelCalculatePremiumRequest;
+import org.javaguru.travel.insurance.dto.ValidationError;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
@@ -14,8 +17,11 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class EmptySelectedRisksValidationTest {
 
-    private final EmptySelectedRisksValidation emptyRisksValidation
-            = new EmptySelectedRisksValidation();
+    @Mock
+    private ValidationErrorFactory validationErrorFactory;
+
+    @InjectMocks
+    private EmptySelectedRisksValidation emptyRisksValidation;
 
     @Mock
     private TravelCalculatePremiumRequest requestMock;
@@ -25,25 +31,28 @@ class EmptySelectedRisksValidationTest {
         when(requestMock.getSelectedRisks()).thenReturn(List.of("risk1", "risk2"));
         var errorOptional = emptyRisksValidation.execute(requestMock);
         assertTrue(errorOptional.isEmpty());
+        Mockito.verifyNoInteractions(validationErrorFactory);
     }
 
     @Test
     void shouldReturnErrorWhenRisksIsEmpty() {
         when(requestMock.getSelectedRisks()).thenReturn(List.of());
+        when(validationErrorFactory.getValidationError("ERROR_CODE_5"))
+                .thenReturn(new ValidationError("ERROR_CODE_5", "Description"));
         var errorOptional = emptyRisksValidation.execute(requestMock);
         assertTrue(errorOptional.isPresent());
-        assertEquals("selectedRisks", errorOptional.get().getField());
-        assertEquals("Must not be empty!", errorOptional.get().getMessage());
-
+        assertEquals("ERROR_CODE_5", errorOptional.get().getErrorCode());
+        assertEquals("Description", errorOptional.get().getDescription());
     }
 
     @Test
     void shouldReturnErrorWhenRisksIsNull() {
         when(requestMock.getSelectedRisks()).thenReturn(null);
+        when(validationErrorFactory.getValidationError("ERROR_CODE_5"))
+                .thenReturn(new ValidationError("ERROR_CODE_5", "Description"));
         var errorOptional = emptyRisksValidation.execute(requestMock);
         assertTrue(errorOptional.isPresent());
-        assertEquals("selectedRisks", errorOptional.get().getField());
-        assertEquals("Must not be empty!", errorOptional.get().getMessage());
-
+        assertEquals("ERROR_CODE_5", errorOptional.get().getErrorCode());
+        assertEquals("Description", errorOptional.get().getDescription());
     }
 }
