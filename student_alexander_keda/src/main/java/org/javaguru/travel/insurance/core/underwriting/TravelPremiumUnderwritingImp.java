@@ -1,4 +1,4 @@
-package org.javaguru.travel.insurance.core;
+package org.javaguru.travel.insurance.core.underwriting;
 
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -10,11 +10,12 @@ import java.math.BigDecimal;
 
 @Component
 @RequiredArgsConstructor(access = AccessLevel.PACKAGE)
-class TravelPremiumUnderwriting {
+class TravelPremiumUnderwritingImp implements TravelPremiumUnderwriting {
 
     private final DateTimeUtil dateTimeUtil;
 
-    BigDecimal underwrite(TravelCalculatePremiumRequest request) {
+    @Override
+    public BigDecimal underwrite(TravelCalculatePremiumRequest request) {
         return new BigDecimal(dateTimeUtil.calculateDaysBetween(
                 request.getAgreementDateFrom(),
                 request.getAgreementDateTo()));
