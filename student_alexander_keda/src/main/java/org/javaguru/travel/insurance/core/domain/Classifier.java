@@ -7,25 +7,21 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "classifier_values")
+@Table(name = "classifiers")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ClassifierValue {
+public class Classifier {
 
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "classifier_id", nullable = false)
-    private Classifier classifier;
+    @Column(name = "title", nullable = false, length = 200)
+    private String title;
 
-    @Column(name = "ic", nullable = false, length = 200)
-    private String ic;
-
-    @Column(name = "description", nullable = false, length = 500)
+    @Column(name = "description", nullable = false, length = 100)
     private String description;
 }
