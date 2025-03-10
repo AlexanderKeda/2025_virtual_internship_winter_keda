@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor(access = AccessLevel.PACKAGE)
-public class ValidationErrorFactory {
+class ValidationErrorFactory {
 
     private final ErrorCodeUtil errorCodeUtil;
 

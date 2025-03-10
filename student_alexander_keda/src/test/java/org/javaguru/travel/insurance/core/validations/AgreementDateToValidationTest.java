@@ -29,7 +29,7 @@ class AgreementDateToValidationTest {
     @Test
     void shouldNotReturnErrorWhenDateToIsValid() {
         when(requestMock.getAgreementDateTo()).thenReturn(LocalDate.now());
-        var errorOptional = agreementDateToValidation.execute(requestMock);
+        var errorOptional = agreementDateToValidation.validate(requestMock);
         assertTrue(errorOptional.isEmpty());
         Mockito.verifyNoInteractions(validationErrorFactory);
     }
@@ -39,7 +39,7 @@ class AgreementDateToValidationTest {
         when(requestMock.getAgreementDateTo()).thenReturn(null);
         when(validationErrorFactory.buildError("ERROR_CODE_4"))
                 .thenReturn(new ValidationError("ERROR_CODE_4", "Description"));
-        var errorOptional = agreementDateToValidation.execute(requestMock);
+        var errorOptional = agreementDateToValidation.validate(requestMock);
         assertTrue(errorOptional.isPresent());
         assertEquals("ERROR_CODE_4", errorOptional.get().getErrorCode());
         assertEquals("Description", errorOptional.get().getDescription());

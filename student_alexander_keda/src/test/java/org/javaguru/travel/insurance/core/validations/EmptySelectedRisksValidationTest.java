@@ -29,7 +29,7 @@ class EmptySelectedRisksValidationTest {
     @Test
     void shouldNotReturnErrorWhenRisksIsNotEmpty() {
         when(requestMock.getSelectedRisks()).thenReturn(List.of("risk1", "risk2"));
-        var errorOptional = emptyRisksValidation.execute(requestMock);
+        var errorOptional = emptyRisksValidation.validate(requestMock);
         assertTrue(errorOptional.isEmpty());
         Mockito.verifyNoInteractions(validationErrorFactory);
     }
@@ -39,7 +39,7 @@ class EmptySelectedRisksValidationTest {
         when(requestMock.getSelectedRisks()).thenReturn(List.of());
         when(validationErrorFactory.buildError("ERROR_CODE_5"))
                 .thenReturn(new ValidationError("ERROR_CODE_5", "Description"));
-        var errorOptional = emptyRisksValidation.execute(requestMock);
+        var errorOptional = emptyRisksValidation.validate(requestMock);
         assertTrue(errorOptional.isPresent());
         assertEquals("ERROR_CODE_5", errorOptional.get().getErrorCode());
         assertEquals("Description", errorOptional.get().getDescription());
@@ -50,7 +50,7 @@ class EmptySelectedRisksValidationTest {
         when(requestMock.getSelectedRisks()).thenReturn(null);
         when(validationErrorFactory.buildError("ERROR_CODE_5"))
                 .thenReturn(new ValidationError("ERROR_CODE_5", "Description"));
-        var errorOptional = emptyRisksValidation.execute(requestMock);
+        var errorOptional = emptyRisksValidation.validate(requestMock);
         assertTrue(errorOptional.isPresent());
         assertEquals("ERROR_CODE_5", errorOptional.get().getErrorCode());
         assertEquals("Description", errorOptional.get().getDescription());

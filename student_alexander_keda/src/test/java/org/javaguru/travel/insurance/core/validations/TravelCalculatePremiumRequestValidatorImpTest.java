@@ -35,9 +35,9 @@ class TravelCalculatePremiumRequestValidatorImpTest {
 
     @Test
     void shouldNotReturnErrors() {
-        when(validation1Mock.execute(requestMock))
+        when(validation1Mock.validate(requestMock))
                 .thenReturn(Optional.empty());
-        when(validation2Mock.execute(requestMock))
+        when(validation2Mock.validate(requestMock))
                 .thenReturn(Optional.empty());
 
         var errors = requestValidator.validate(requestMock);
@@ -46,9 +46,9 @@ class TravelCalculatePremiumRequestValidatorImpTest {
 
     @Test
     void shouldReturnExpectedErrorCount() {
-        when(validation1Mock.execute(requestMock))
+        when(validation1Mock.validate(requestMock))
                 .thenReturn(Optional.of(new ValidationError()));
-        when(validation2Mock.execute(requestMock))
+        when(validation2Mock.validate(requestMock))
                 .thenReturn(Optional.of(new ValidationError()));
 
         var errors = requestValidator.validate(requestMock);

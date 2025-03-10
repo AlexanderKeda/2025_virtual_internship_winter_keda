@@ -16,7 +16,7 @@ class AgreementDateFromInFutureValidation implements TravelRequestValidation {
     private final ValidationErrorFactory validationErrorFactory;
 
     @Override
-    public Optional<ValidationError> execute(TravelCalculatePremiumRequest request) {
+    public Optional<ValidationError> validate(TravelCalculatePremiumRequest request) {
         return (request.getAgreementDateFrom() != null &&
                 request.getAgreementDateFrom().isBefore(LocalDate.now()))
                 ? Optional.of(validationErrorFactory.buildError("ERROR_CODE_6"))

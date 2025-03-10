@@ -15,7 +15,7 @@ public class EmptySelectedRisksValidation implements TravelRequestValidation {
     private final ValidationErrorFactory validationErrorFactory;
 
     @Override
-    public Optional<ValidationError> execute(TravelCalculatePremiumRequest request) {
+    public Optional<ValidationError> validate(TravelCalculatePremiumRequest request) {
         return request.getSelectedRisks() == null || request.getSelectedRisks().isEmpty()
                 ? Optional.of(validationErrorFactory.buildError("ERROR_CODE_5"))
                 : Optional.empty();

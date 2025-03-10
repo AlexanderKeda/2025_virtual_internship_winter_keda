@@ -28,7 +28,7 @@ class PersonFirstNameValidationTest {
     @Test
     void shouldNotReturnErrorWhenFirstNameIsValid() {
         when(requestMock.getPersonFirstName()).thenReturn("Ivan");
-        var errorOptional = personFirstNameValidation.execute(requestMock);
+        var errorOptional = personFirstNameValidation.validate(requestMock);
         assertTrue(errorOptional.isEmpty());
         Mockito.verifyNoInteractions(validationErrorFactory);
     }
@@ -38,7 +38,7 @@ class PersonFirstNameValidationTest {
         when(requestMock.getPersonFirstName()).thenReturn(null);
         when(validationErrorFactory.buildError("ERROR_CODE_1"))
                 .thenReturn(new ValidationError("ERROR_CODE_1", "Description"));
-        var errorOptional = personFirstNameValidation.execute(requestMock);
+        var errorOptional = personFirstNameValidation.validate(requestMock);
         assertTrue(errorOptional.isPresent());
         assertEquals("ERROR_CODE_1", errorOptional.get().getErrorCode());
         assertEquals("Description", errorOptional.get().getDescription());
@@ -49,7 +49,7 @@ class PersonFirstNameValidationTest {
         when(requestMock.getPersonFirstName()).thenReturn("");
         when(validationErrorFactory.buildError("ERROR_CODE_1"))
                 .thenReturn(new ValidationError("ERROR_CODE_1", "Description"));
-        var errorOptional = personFirstNameValidation.execute(requestMock);
+        var errorOptional = personFirstNameValidation.validate(requestMock);
         assertTrue(errorOptional.isPresent());
         assertEquals("ERROR_CODE_1", errorOptional.get().getErrorCode());
         assertEquals("Description", errorOptional.get().getDescription());

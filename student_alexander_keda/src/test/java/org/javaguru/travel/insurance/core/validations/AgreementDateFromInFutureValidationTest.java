@@ -30,7 +30,7 @@ class AgreementDateFromInFutureValidationTest {
     void shouldNotReturnErrorWhenDateFromIsValid() {
         when(requestMock.getAgreementDateFrom()).thenReturn(LocalDate.now());
         var errorOptional = agreementDateFromInFutureValidation
-                .execute(requestMock);
+                .validate(requestMock);
         assertTrue(errorOptional.isEmpty());
         Mockito.verifyNoInteractions(validationErrorFactory);
     }
@@ -41,7 +41,7 @@ class AgreementDateFromInFutureValidationTest {
         when(validationErrorFactory.buildError("ERROR_CODE_6"))
                 .thenReturn(new ValidationError("ERROR_CODE_6", "Description"));
         var errorOptional = agreementDateFromInFutureValidation
-                .execute(requestMock);
+                .validate(requestMock);
         assertTrue(errorOptional.isPresent());
         assertEquals("ERROR_CODE_6", errorOptional.get().getErrorCode());
         assertEquals("Description", errorOptional.get().getDescription());
@@ -50,7 +50,7 @@ class AgreementDateFromInFutureValidationTest {
     @Test
     void shouldNotThrowExceptionWhenDateFromIsNull() {
         when(requestMock.getAgreementDateFrom()).thenReturn(null);
-        assertDoesNotThrow(() -> agreementDateFromInFutureValidation.execute(requestMock));
+        assertDoesNotThrow(() -> agreementDateFromInFutureValidation.validate(requestMock));
     }
 
 }

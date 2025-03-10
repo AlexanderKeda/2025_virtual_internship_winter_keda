@@ -32,7 +32,7 @@ class DateFromIsBeforeDateToValidationTest {
         when(requestMock.getAgreementDateTo()).thenReturn(LocalDate.now().plusDays(1));
 
         var errorOptional = dateFromIsBeforeDateToValidation
-                .execute(requestMock);
+                .validate(requestMock);
         assertTrue(errorOptional.isEmpty());
         Mockito.verifyNoInteractions(validationErrorFactory);
     }
@@ -44,7 +44,7 @@ class DateFromIsBeforeDateToValidationTest {
         when(validationErrorFactory.buildError("ERROR_CODE_8"))
                 .thenReturn(new ValidationError("ERROR_CODE_8", "Description"));
         var errorOptional = dateFromIsBeforeDateToValidation
-                .execute(requestMock);
+                .validate(requestMock);
 
         assertTrue(errorOptional.isPresent());
         assertEquals("ERROR_CODE_8", errorOptional.get().getErrorCode());
@@ -54,13 +54,13 @@ class DateFromIsBeforeDateToValidationTest {
     @Test
     void shouldNotThrowExceptionWhenDateFromIsNull() {
         when(requestMock.getAgreementDateFrom()).thenReturn(null);
-        assertDoesNotThrow(() -> dateFromIsBeforeDateToValidation.execute(requestMock));
+        assertDoesNotThrow(() -> dateFromIsBeforeDateToValidation.validate(requestMock));
     }
 
     @Test
     void shouldNotThrowExceptionWhenDateToIsNull() {
         when(requestMock.getAgreementDateTo()).thenReturn(null);
-        assertDoesNotThrow(() -> dateFromIsBeforeDateToValidation.execute(requestMock));
+        assertDoesNotThrow(() -> dateFromIsBeforeDateToValidation.validate(requestMock));
     }
 
 }

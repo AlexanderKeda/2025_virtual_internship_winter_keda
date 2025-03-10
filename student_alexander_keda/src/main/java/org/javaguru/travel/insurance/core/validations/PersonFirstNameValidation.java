@@ -15,7 +15,7 @@ class PersonFirstNameValidation implements TravelRequestValidation {
     private final ValidationErrorFactory validationErrorFactory;
 
     @Override
-    public Optional<ValidationError> execute(TravelCalculatePremiumRequest request) {
+    public Optional<ValidationError> validate(TravelCalculatePremiumRequest request) {
         return (request.getPersonFirstName() == null || request.getPersonFirstName().isBlank())
                 ? Optional.of(validationErrorFactory.buildError("ERROR_CODE_1"))
                 : Optional.empty();
