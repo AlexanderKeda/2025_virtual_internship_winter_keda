@@ -37,7 +37,7 @@ class TravelCalculatePremiumServiceImpl implements TravelCalculatePremiumService
                 .personLastName(request.getPersonLastName())
                 .agreementDateFrom(request.getAgreementDateFrom())
                 .agreementDateTo(request.getAgreementDateTo())
-                .agreementPrice(underwriting.underwrite(request))
+                .agreementPremium(underwriting.underwrite(request))
                 .build();
     }
 

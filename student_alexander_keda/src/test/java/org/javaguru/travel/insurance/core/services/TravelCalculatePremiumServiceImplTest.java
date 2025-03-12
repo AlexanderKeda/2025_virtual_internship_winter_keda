@@ -88,7 +88,7 @@ class TravelCalculatePremiumServiceImplTest {
                 .thenReturn(new BigDecimal(DAYS));
         var response = travelCalculatePremiumService.calculatePremium(request);
         assertEquals(new BigDecimal(DAYS),
-                response.getAgreementPrice(),
+                response.getAgreementPremium(),
                 "Agreement price is incorrect");
     }
 
@@ -111,7 +111,7 @@ class TravelCalculatePremiumServiceImplTest {
         assertNull(response.getPersonLastName());
         assertNull(response.getAgreementDateFrom());
         assertNull(response.getAgreementDateTo());
-        assertNull(response.getAgreementPrice());
+        assertNull(response.getAgreementPremium());
     }
 
     @Test
