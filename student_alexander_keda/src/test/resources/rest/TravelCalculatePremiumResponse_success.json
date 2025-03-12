@@ -4,5 +4,11 @@
   "personLastName": "Ivanov",
   "agreementDateFrom": "2026-02-16",
   "agreementDateTo": "2026-02-25",
-  "agreementPremium": 9
+  "agreementPremium": 9,
+  "risks": [
+    {
+      "riskIC": "TRAVEL_MEDICAL",
+      "premium": 0
+    }
+  ]
 }

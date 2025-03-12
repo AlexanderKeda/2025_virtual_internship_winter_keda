@@ -129,6 +129,7 @@ class TravelCalculatePremiumServiceImplTest {
                 .personLastName(LAST_NAME)
                 .agreementDateFrom(DATE_1)
                 .agreementDateTo(DATE_2)
+                .selectedRisks(List.of())
                 .build();
     }
 }
