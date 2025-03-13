@@ -1,5 +1,6 @@
 package org.javaguru.travel.insurance.core.underwriting;
 
+import org.javaguru.travel.insurance.dto.RiskPremium;
 import org.javaguru.travel.insurance.dto.TravelCalculatePremiumRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,20 +34,37 @@ class TravelPremiumUnderwritingImpTest {
     }
 
     @Test
-    void shouldReturnCorrectAgreementPrice() {
-        BigDecimal premium1 = new BigDecimal("3.38");
-        BigDecimal premium2 = new BigDecimal("1.12");
+    void shouldReturnCorrectCalculationResult() {
+        var riskIc1 = "RISK_1";
+        var premium1 = new BigDecimal("3.38");
+        var riskIc2 = "RISK_2";
+        var premium2 = new BigDecimal("1.12");
+
+        var riskPremium1 = new RiskPremium(
+                riskIc1,
+                premium1
+        );
+        var riskPremium2 = new RiskPremium(
+                riskIc2,
+                premium2
+        );
+        var expectedResult = new TravelPremiumCalculationResult(
+                premium1.add(premium2),
+                List.of(riskPremium1, riskPremium2)
+        );
+
         when(requestMock.getSelectedRisks())
-                .thenReturn(List.of("RISK_1", "RISK_2"));
+                .thenReturn(List.of(riskIc1, riskIc2));
         when(calculatorMock1.getRiskIc())
-                .thenReturn("RISK_1");
+                .thenReturn(riskIc1);
         when(calculatorMock1.calculatePremium(requestMock))
                 .thenReturn(premium1);
         when(calculatorMock2.getRiskIc())
-                .thenReturn("RISK_2");
+                .thenReturn(riskIc2);
         when(calculatorMock2.calculatePremium(requestMock))
                 .thenReturn(premium2);
-        assertEquals(premium1.add(premium2), underwriting.underwrite(requestMock));
+
+        assertEquals(expectedResult, underwriting.calculatePremium(requestMock));
     }
 
 }

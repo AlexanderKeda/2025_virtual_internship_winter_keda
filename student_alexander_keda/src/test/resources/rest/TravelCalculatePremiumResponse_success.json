@@ -7,7 +7,27 @@
   "agreementPremium": 9,
   "risks": [
     {
+      "riskIC": "TRAVEL_CANCELLATION",
+      "premium": 0
+    },
+    {
+      "riskIC": "TRAVEL_EVACUATION",
+      "premium": 0
+    },
+    {
+      "riskIC": "TRAVEL_LOSS_BAGGAGE",
+      "premium": 0
+    },
+    {
       "riskIC": "TRAVEL_MEDICAL",
+      "premium": 9
+    },
+    {
+      "riskIC": "TRAVEL_SPORT_ACTIVITIES",
+      "premium": 0
+    },
+    {
+      "riskIC": "TRAVEL_THIRD_PARTY_LIABILITY",
       "premium": 0
     }
   ]

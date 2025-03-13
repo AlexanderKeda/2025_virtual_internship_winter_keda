@@ -1,0 +1,14 @@
+{
+  "errors": [
+    {
+      "errorCode": "ERROR_CODE_6",
+      "description": "Field agreementDateFrom must not be in the past!"
+    }
+  ],
+  "personFirstName": null,
+  "personLastName": null,
+  "agreementDateFrom": null,
+  "agreementDateTo": null,
+  "agreementPremium": null,
+  "risks": null
+}

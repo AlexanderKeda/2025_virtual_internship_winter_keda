@@ -2,15 +2,14 @@ package org.javaguru.travel.insurance.core.services;
 
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
+import org.javaguru.travel.insurance.core.underwriting.TravelPremiumCalculationResult;
 import org.javaguru.travel.insurance.core.underwriting.TravelPremiumUnderwriting;
 import org.javaguru.travel.insurance.core.validations.TravelCalculatePremiumRequestValidator;
-import org.javaguru.travel.insurance.dto.RiskPremium;
 import org.javaguru.travel.insurance.dto.TravelCalculatePremiumRequest;
 import org.javaguru.travel.insurance.dto.TravelCalculatePremiumResponse;
 import org.javaguru.travel.insurance.dto.ValidationError;
 import org.springframework.stereotype.Component;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 @Component
@@ -34,14 +33,15 @@ class TravelCalculatePremiumServiceImpl implements TravelCalculatePremiumService
     }
 
     private TravelCalculatePremiumResponse buildResponse(TravelCalculatePremiumRequest request) {
-        return TravelCalculatePremiumResponse.builder()
-                .personFirstName(request.getPersonFirstName())
-                .personLastName(request.getPersonLastName())
-                .agreementDateFrom(request.getAgreementDateFrom())
-                .agreementDateTo(request.getAgreementDateTo())
-                .agreementPremium(underwriting.underwrite(request))
-                .risks(request.getSelectedRisks().stream().map(risk -> new RiskPremium(risk, BigDecimal.ZERO)).toList())
-                .build();
+        TravelPremiumCalculationResult calculationResult = underwriting.calculatePremium(request);
+        return new TravelCalculatePremiumResponse(
+                request.getPersonFirstName(),
+                request.getPersonLastName(),
+                request.getAgreementDateFrom(),
+                request.getAgreementDateTo(),
+                calculationResult.getTotalPremium(),
+                calculationResult.getRiskPremiums()
+        );
     }
 
 }

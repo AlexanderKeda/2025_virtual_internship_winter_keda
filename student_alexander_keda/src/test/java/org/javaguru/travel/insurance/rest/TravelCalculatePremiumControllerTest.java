@@ -92,4 +92,40 @@ class TravelCalculatePremiumControllerTest {
         performAndCheck("/rest/TravelCalculatePremiumRequest_dateTo_lessThen_dateFrom.json",
                 "/rest/TravelCalculatePremiumResponse_dateTo_lessThen_dateFrom.json");
     }
+
+    @Test
+    void shouldReturnErrorWhenDateFromIsInThePast() throws Exception {
+        performAndCheck("/rest/TravelCalculatePremiumRequest_dateFrom_in_the_past.json",
+                "/rest/TravelCalculatePremiumResponse_dateFrom_in_the_past.json");
+    }
+
+    @Test
+    void shouldReturnErrorWhenDateToIsInThePast() throws Exception {
+        performAndCheck("/rest/TravelCalculatePremiumRequest_dateTo_in_the_past.json",
+                "/rest/TravelCalculatePremiumResponse_dateTo_in_the_past.json");
+    }
+
+    @Test
+    void shouldReturnErrorWhenFirstNameIsNull() throws Exception {
+        performAndCheck("/rest/TravelCalculatePremiumRequest_firstName_is_null.json",
+                "/rest/TravelCalculatePremiumResponse_firstName_is_null.json");
+    }
+
+    @Test
+    void shouldReturnErrorWhenLastNameIsNull() throws Exception {
+        performAndCheck("/rest/TravelCalculatePremiumRequest_lastName_is_null.json",
+                "/rest/TravelCalculatePremiumResponse_lastName_is_null.json");
+    }
+
+    @Test
+    void shouldReturnErrorWhenRiskDoesNotExist() throws Exception {
+        performAndCheck("/rest/TravelCalculatePremiumRequest_selectedRisks_does_not_exist.json",
+                "/rest/TravelCalculatePremiumResponse_selectedRisks_does_not_exist.json");
+    }
+
+    @Test
+    void shouldReturnErrorWhenRisksIsNull() throws Exception {
+        performAndCheck("/rest/TravelCalculatePremiumRequest_selectedRisks_is_null.json",
+                "/rest/TravelCalculatePremiumResponse_selectedRisks_is_null.json");
+    }
 }
