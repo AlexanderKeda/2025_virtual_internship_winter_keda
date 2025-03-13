@@ -51,11 +51,11 @@ class TravelCalculatePremiumRequestValidatorImpTest {
     @Test
     void shouldReturnSingleErrors() {
         when(validation1Mock.validate(requestMock))
-                .thenReturn(Optional.of(new ValidationError()));
+                .thenReturn(Optional.of(new ValidationError("", "")));
         when(validation1Mock.validateList(requestMock))
                 .thenReturn(List.of());
         when(validation2Mock.validate(requestMock))
-                .thenReturn(Optional.of(new ValidationError()));
+                .thenReturn(Optional.of(new ValidationError("", "")));
         when(validation2Mock.validateList(requestMock))
                 .thenReturn(List.of());
 
@@ -68,11 +68,11 @@ class TravelCalculatePremiumRequestValidatorImpTest {
         when(validation1Mock.validate(requestMock))
                 .thenReturn(Optional.empty());
         when(validation1Mock.validateList(requestMock))
-                .thenReturn(List.of(new ValidationError(), new ValidationError()));
+                .thenReturn(List.of(new ValidationError("", ""), new ValidationError("", "")));
         when(validation2Mock.validate(requestMock))
                 .thenReturn(Optional.empty());
         when(validation2Mock.validateList(requestMock))
-                .thenReturn(List.of(new ValidationError()));
+                .thenReturn(List.of(new ValidationError("", "")));
 
         var errors = requestValidator.validate(requestMock);
         assertEquals(3, errors.size());
@@ -81,13 +81,13 @@ class TravelCalculatePremiumRequestValidatorImpTest {
     @Test
     void shouldReturnExpectedErrorCount() {
         when(validation1Mock.validate(requestMock))
-                .thenReturn(Optional.of(new ValidationError()));
+                .thenReturn(Optional.of(new ValidationError("", "")));
         when(validation1Mock.validateList(requestMock))
-                .thenReturn(List.of(new ValidationError(), new ValidationError()));
+                .thenReturn(List.of(new ValidationError("", ""), new ValidationError("", "")));
         when(validation2Mock.validate(requestMock))
-                .thenReturn(Optional.of(new ValidationError()));
+                .thenReturn(Optional.of(new ValidationError("", "")));
         when(validation2Mock.validateList(requestMock))
-                .thenReturn(List.of(new ValidationError()));
+                .thenReturn(List.of(new ValidationError("", "")));
 
         var errors = requestValidator.validate(requestMock);
         assertEquals(5, errors.size());

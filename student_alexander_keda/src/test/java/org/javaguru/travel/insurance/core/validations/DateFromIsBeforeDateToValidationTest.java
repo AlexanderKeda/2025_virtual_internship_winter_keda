@@ -47,8 +47,8 @@ class DateFromIsBeforeDateToValidationTest {
                 .validate(requestMock);
 
         assertTrue(errorOptional.isPresent());
-        assertEquals("ERROR_CODE_8", errorOptional.get().getErrorCode());
-        assertEquals("Description", errorOptional.get().getDescription());
+        assertEquals("ERROR_CODE_8", errorOptional.get().errorCode());
+        assertEquals("Description", errorOptional.get().description());
     }
 
     @Test

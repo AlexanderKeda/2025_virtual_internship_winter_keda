@@ -41,8 +41,8 @@ class EmptySelectedRisksValidationTest {
                 .thenReturn(new ValidationError("ERROR_CODE_5", "Description"));
         var errorOptional = emptyRisksValidation.validate(requestMock);
         assertTrue(errorOptional.isPresent());
-        assertEquals("ERROR_CODE_5", errorOptional.get().getErrorCode());
-        assertEquals("Description", errorOptional.get().getDescription());
+        assertEquals("ERROR_CODE_5", errorOptional.get().errorCode());
+        assertEquals("Description", errorOptional.get().description());
     }
 
     @Test
@@ -52,7 +52,7 @@ class EmptySelectedRisksValidationTest {
                 .thenReturn(new ValidationError("ERROR_CODE_5", "Description"));
         var errorOptional = emptyRisksValidation.validate(requestMock);
         assertTrue(errorOptional.isPresent());
-        assertEquals("ERROR_CODE_5", errorOptional.get().getErrorCode());
-        assertEquals("Description", errorOptional.get().getDescription());
+        assertEquals("ERROR_CODE_5", errorOptional.get().errorCode());
+        assertEquals("Description", errorOptional.get().description());
     }
 }

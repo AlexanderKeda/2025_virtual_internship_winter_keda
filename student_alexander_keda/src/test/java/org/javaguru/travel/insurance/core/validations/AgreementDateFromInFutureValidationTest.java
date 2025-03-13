@@ -43,8 +43,8 @@ class AgreementDateFromInFutureValidationTest {
         var errorOptional = agreementDateFromInFutureValidation
                 .validate(requestMock);
         assertTrue(errorOptional.isPresent());
-        assertEquals("ERROR_CODE_6", errorOptional.get().getErrorCode());
-        assertEquals("Description", errorOptional.get().getDescription());
+        assertEquals("ERROR_CODE_6", errorOptional.get().errorCode());
+        assertEquals("Description", errorOptional.get().description());
     }
 
     @Test

@@ -40,8 +40,8 @@ class PersonFirstNameValidationTest {
                 .thenReturn(new ValidationError("ERROR_CODE_1", "Description"));
         var errorOptional = personFirstNameValidation.validate(requestMock);
         assertTrue(errorOptional.isPresent());
-        assertEquals("ERROR_CODE_1", errorOptional.get().getErrorCode());
-        assertEquals("Description", errorOptional.get().getDescription());
+        assertEquals("ERROR_CODE_1", errorOptional.get().errorCode());
+        assertEquals("Description", errorOptional.get().description());
     }
 
     @Test
@@ -51,8 +51,8 @@ class PersonFirstNameValidationTest {
                 .thenReturn(new ValidationError("ERROR_CODE_1", "Description"));
         var errorOptional = personFirstNameValidation.validate(requestMock);
         assertTrue(errorOptional.isPresent());
-        assertEquals("ERROR_CODE_1", errorOptional.get().getErrorCode());
-        assertEquals("Description", errorOptional.get().getDescription());
+        assertEquals("ERROR_CODE_1", errorOptional.get().errorCode());
+        assertEquals("Description", errorOptional.get().description());
     }
 
 }

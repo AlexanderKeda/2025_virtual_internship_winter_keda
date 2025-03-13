@@ -70,7 +70,7 @@ class SelectedRisksExistenceValidationTest {
                 .thenReturn(Optional.empty());
         when(validationErrorFactoryMock
                 .buildError("ERROR_CODE_9", List.of(new Placeholder("NOT_EXISTING_RISK", "FAKE_RISK"))))
-                .thenReturn(new ValidationError());
+                .thenReturn(new ValidationError("", ""));
         List<ValidationError> errors = selectedRisksExistenceValidation.validateList(request);
         assertFalse(errors.isEmpty());
         assertEquals(1, errors.size());
@@ -89,7 +89,7 @@ class SelectedRisksExistenceValidationTest {
                 .thenReturn(Optional.of(new ClassifierValue()));
         when(validationErrorFactoryMock
                 .buildError(Mockito.eq("ERROR_CODE_9"), ArgumentMatchers.anyList()))
-                .thenReturn(new ValidationError());
+                .thenReturn(new ValidationError("", ""));
         List<ValidationError> errors = selectedRisksExistenceValidation.validateList(request);
         assertFalse(errors.isEmpty());
         assertEquals(3, errors.size());

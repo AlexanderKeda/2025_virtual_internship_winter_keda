@@ -41,8 +41,8 @@ class AgreementDateFromValidationTest {
                 .thenReturn(new ValidationError("ERROR_CODE_3", "Description"));
         var errorOptional = agreementDateFromValidation.validate(requestMock);
         assertTrue(errorOptional.isPresent());
-        assertEquals("ERROR_CODE_3", errorOptional.get().getErrorCode());
-        assertEquals("Description", errorOptional.get().getDescription());
+        assertEquals("ERROR_CODE_3", errorOptional.get().errorCode());
+        assertEquals("Description", errorOptional.get().description());
     }
 
 }
