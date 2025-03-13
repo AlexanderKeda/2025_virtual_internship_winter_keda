@@ -33,7 +33,7 @@ class TravelPremiumUnderwritingImp implements TravelPremiumUnderwriting {
 
     private BigDecimal getTotalPremium(List<RiskPremium> riskPremiums) {
         return riskPremiums.stream()
-                .map(RiskPremium::getPremium)
+                .map(RiskPremium::premium)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 

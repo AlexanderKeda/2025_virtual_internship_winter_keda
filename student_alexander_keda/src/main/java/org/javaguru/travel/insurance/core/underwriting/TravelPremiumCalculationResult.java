@@ -1,22 +1,21 @@
 package org.javaguru.travel.insurance.core.underwriting;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.javaguru.travel.insurance.dto.RiskPremium;
 
 import java.math.BigDecimal;
 import java.util.List;
 
 @Getter
-@Setter
 @EqualsAndHashCode
-@AllArgsConstructor
-public class TravelPremiumCalculationResult {
+public final class TravelPremiumCalculationResult {
 
-    private BigDecimal totalPremium;
+    private final BigDecimal totalPremium;
 
-    private List<RiskPremium> riskPremiums;
+    private final List<RiskPremium> riskPremiums;
 
+    TravelPremiumCalculationResult(BigDecimal totalPremium, List<RiskPremium> riskPremiums) {
+        this.totalPremium = totalPremium;
+        this.riskPremiums = List.copyOf(riskPremiums);
+    }
 }

@@ -112,7 +112,10 @@ class TravelCalculatePremiumServiceImplTest {
     @Test
     void shouldReturnCorrectRiskPremiumList() {
         var request = createValidRequest();
-        var riskPremiums = List.of(new RiskPremium(), new RiskPremium());
+        var riskPremiums = List.of(
+                new RiskPremium(null, null),
+                new RiskPremium(null, null)
+        );
         when(requestValidatorMock.validate(request))
                 .thenReturn(List.of());
         when(underwritingMock.calculatePremium(request))
