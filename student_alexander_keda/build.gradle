@@ -21,6 +21,7 @@ dependencies {
 
     testImplementation('org.springframework.boot:spring-boot-starter-test:3.2.5')
     testImplementation('com.h2database:h2:2.2.224')
+    testImplementation('uk.org.webcompere:model-assert:1.0.0')
 
 
     test {

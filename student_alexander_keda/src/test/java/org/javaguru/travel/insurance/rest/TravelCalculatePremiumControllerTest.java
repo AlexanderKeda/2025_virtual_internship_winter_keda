@@ -9,9 +9,11 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static uk.org.webcompere.modelassert.json.JsonAssertions.assertJson;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
@@ -29,11 +31,17 @@ class TravelCalculatePremiumControllerTest {
 
         String expectedResponseJson = jsonFileReader.readJsonFromFile(expectedResponsePath);
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/insurance/travel/")
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/insurance/travel/")
                         .content(requestJson)
                         .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isOk())
-                .andExpect(content().json(expectedResponseJson));
+                .andReturn();
+        String jsonResponse = result.getResponse().getContentAsString();
+        assertJson(jsonResponse)
+                .where()
+                .keysInAnyOrder()
+                .arrayInAnyOrder()
+                .isEqualTo(expectedResponseJson);
     }
 
     @Test
@@ -46,7 +54,7 @@ class TravelCalculatePremiumControllerTest {
     @Test
     void shouldReturnErrorWhenFirstNameIsEmpty() throws Exception {
         performAndCheck("/rest/TravelCalculatePremiumRequest_firstName_not_provided.json",
-                        "/rest/TravelCalculatePremiumResponse_firstName_not_provided.json");
+                "/rest/TravelCalculatePremiumResponse_firstName_not_provided.json");
     }
 
     @Test
