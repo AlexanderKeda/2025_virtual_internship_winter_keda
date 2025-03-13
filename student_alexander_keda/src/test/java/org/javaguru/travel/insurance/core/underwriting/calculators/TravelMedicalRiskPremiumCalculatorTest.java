@@ -1,4 +1,4 @@
-package org.javaguru.travel.insurance.core.underwriting;
+package org.javaguru.travel.insurance.core.underwriting.calculators;
 
 import org.javaguru.travel.insurance.core.util.DateTimeUtil;
 import org.javaguru.travel.insurance.dto.TravelCalculatePremiumRequest;

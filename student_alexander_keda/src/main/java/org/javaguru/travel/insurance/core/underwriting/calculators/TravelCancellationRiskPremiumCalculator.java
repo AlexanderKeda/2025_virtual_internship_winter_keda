@@ -1,4 +1,4 @@
-package org.javaguru.travel.insurance.core.underwriting;
+package org.javaguru.travel.insurance.core.underwriting.calculators;
 
 import org.springframework.stereotype.Component;
 
