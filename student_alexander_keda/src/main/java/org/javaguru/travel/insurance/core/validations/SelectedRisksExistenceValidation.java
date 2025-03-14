@@ -38,6 +38,9 @@ class SelectedRisksExistenceValidation implements TravelRequestValidation {
 
     private ValidationError buildRiskNotFoundError(String riskIc) {
         return validationErrorFactory
-                .buildError("ERROR_CODE_9", List.of(new Placeholder("NOT_EXISTING_RISK", riskIc)));
+                .buildError(
+                        "ERROR_CODE_9",
+                        List.of(new Placeholder("NOT_EXISTING_RISK", riskIc))
+                );
     }
 }

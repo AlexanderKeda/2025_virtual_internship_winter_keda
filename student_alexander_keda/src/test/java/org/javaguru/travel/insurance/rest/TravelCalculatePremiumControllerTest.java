@@ -128,4 +128,22 @@ class TravelCalculatePremiumControllerTest {
         performAndCheck("/rest/TravelCalculatePremiumRequest_selectedRisks_is_null.json",
                 "/rest/TravelCalculatePremiumResponse_selectedRisks_is_null.json");
     }
+
+    @Test
+    void shouldReturnErrorWhenCountryDoesNotExist() throws Exception {
+        performAndCheck("/rest/TravelCalculatePremiumRequest_country_does_not_exist.json",
+                "/rest/TravelCalculatePremiumResponse_country_does_not_exist.json");
+    }
+
+    @Test
+    void shouldReturnErrorWhenCountryIsNull() throws Exception {
+        performAndCheck("/rest/TravelCalculatePremiumRequest_country_is_null.json",
+                "/rest/TravelCalculatePremiumResponse_country_is_null.json");
+    }
+
+    @Test
+    void shouldReturnErrorWhenCountryIsEmpty() throws Exception {
+        performAndCheck("/rest/TravelCalculatePremiumRequest_country_is_null.json",
+                "/rest/TravelCalculatePremiumResponse_country_is_null.json");
+    }
 }

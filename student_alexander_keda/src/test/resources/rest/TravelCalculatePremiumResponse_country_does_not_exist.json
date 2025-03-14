@@ -1,15 +1,15 @@
 {
   "errors": [
     {
-      "errorCode": "ERROR_CODE_8",
-      "description": "Field agreementDateTo must be later than agreementDateFrom!"
+      "errorCode": "ERROR_CODE_11",
+      "description": "Country with ic = FAKE_COUNTRY is not supported by the system!"
     }
   ],
   "personFirstName": null,
   "personLastName": null,
   "agreementDateFrom": null,
   "agreementDateTo": null,
-  "agreementPremium": null,
   "country": null,
+  "agreementPremium": null,
   "risks": null
 }

@@ -3,6 +3,6 @@
   "personLastName" : "Ivanov",
   "agreementDateFrom" : "2026-02-16",
   "agreementDateTo" : "2026-02-25",
-  "country": "LATVIA",
-  "selectedRisks": ["FAKE_RISK_1", "FAKE_RISK_2"]
+  "country": "FAKE_COUNTRY",
+  "selectedRisks": ["TRAVEL_MEDICAL"]
 }

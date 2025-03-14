@@ -4,6 +4,7 @@
   "personLastName": "Ivanov",
   "agreementDateFrom": "2026-02-16",
   "agreementDateTo": "2026-02-25",
+  "country": "LATVIA",
   "agreementPremium": 9,
   "risks": [
     {

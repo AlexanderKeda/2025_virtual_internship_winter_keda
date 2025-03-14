@@ -3,5 +3,6 @@
   "personLastName" : "Ivanov",
   "agreementDateFrom" : "2026-02-16",
   "agreementDateTo" : "2020-02-16",
+  "country": "LATVIA",
   "selectedRisks": ["TRAVEL_MEDICAL"]
 }

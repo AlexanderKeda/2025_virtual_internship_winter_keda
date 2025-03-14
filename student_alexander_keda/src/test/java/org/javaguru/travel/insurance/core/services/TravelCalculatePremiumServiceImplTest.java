@@ -40,9 +40,10 @@ class TravelCalculatePremiumServiceImplTest {
     private static final LocalDate DATE_1 = LocalDate.now();
     private static final LocalDate DATE_2 = DATE_1.plusDays(7);
     private static final String RISK = "risk1";
+    private static final String COUNTRY = "LATVIA";
 
     @Test
-    void shouldResponseFirstName() {
+    void shouldReturnFirstName() {
         var request = createValidRequest();
         when(requestValidatorMock.validate(request))
                 .thenReturn(List.of());
@@ -55,7 +56,7 @@ class TravelCalculatePremiumServiceImplTest {
     }
 
     @Test
-    void shouldResponseLastName() {
+    void shouldReturnLastName() {
         var request = createValidRequest();
         when(requestValidatorMock.validate(request))
                 .thenReturn(List.of());
@@ -68,7 +69,7 @@ class TravelCalculatePremiumServiceImplTest {
     }
 
     @Test
-    void shouldResponseDateFrom() {
+    void shouldReturnDateFrom() {
         var request = createValidRequest();
         when(requestValidatorMock.validate(request))
                 .thenReturn(List.of());
@@ -81,7 +82,7 @@ class TravelCalculatePremiumServiceImplTest {
     }
 
     @Test
-    void shouldResponseDateTo() {
+    void shouldReturnDateTo() {
         var request = createValidRequest();
         when(requestValidatorMock.validate(request))
                 .thenReturn(List.of());
@@ -94,7 +95,7 @@ class TravelCalculatePremiumServiceImplTest {
     }
 
     @Test
-    void shouldResponseCorrectTotalPremium() {
+    void shouldReturnCorrectTotalPremium() {
         var request = createValidRequest();
         var totalPremium = new BigDecimal("3.33");
         when(requestValidatorMock.validate(request))
@@ -126,6 +127,19 @@ class TravelCalculatePremiumServiceImplTest {
         assertEquals(riskPremiums,
                 response.getRisks(),
                 "Agreement risks is incorrect");
+    }
+
+    @Test
+    void shouldReturnCountry() {
+        var request = createValidRequest();
+        when(requestValidatorMock.validate(request))
+                .thenReturn(List.of());
+        when(underwritingMock.calculatePremium(request))
+                .thenReturn(calculationResultMock);
+        var response = travelCalculatePremiumService.calculatePremium(request);
+        assertEquals(request.getCountry(),
+                response.getCountry(),
+                "Country should match");
     }
 
     @Test
@@ -162,11 +176,12 @@ class TravelCalculatePremiumServiceImplTest {
 
     TravelCalculatePremiumRequest createValidRequest() {
         return new TravelCalculatePremiumRequest(
-          FIRST_NAME,
-          LAST_NAME,
-          DATE_1,
-          DATE_2,
-          List.of(RISK)
+                FIRST_NAME,
+                LAST_NAME,
+                DATE_1,
+                DATE_2,
+                COUNTRY,
+                List.of(RISK)
         );
     }
 }
