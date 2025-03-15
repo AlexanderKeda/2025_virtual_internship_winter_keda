@@ -1,7 +1,9 @@
 package org.javaguru.travel.insurance.core.validations;
 
 import org.javaguru.travel.insurance.core.domain.ClassifierValue;
+import org.javaguru.travel.insurance.core.domain.CountryDefaultDayRate;
 import org.javaguru.travel.insurance.core.repositories.ClassifierValueRepository;
+import org.javaguru.travel.insurance.core.repositories.CountryDefaultDayRateRepository;
 import org.javaguru.travel.insurance.core.util.Placeholder;
 import org.javaguru.travel.insurance.dto.TravelCalculatePremiumRequest;
 import org.javaguru.travel.insurance.dto.ValidationError;
@@ -27,6 +29,9 @@ class CountryExistenceValidationTest {
     @Mock
     private ClassifierValueRepository classifierValueRepositoryMock;
 
+    @Mock
+    private CountryDefaultDayRateRepository countryDefaultDayRateRepository;
+
     @InjectMocks
     private CountryExistenceValidation countryExistenceValidation;
 
@@ -41,6 +46,8 @@ class CountryExistenceValidationTest {
                 .thenReturn("LATVIA");
         when(classifierValueRepositoryMock.findByClassifierTitleAndIc("COUNTRY", "LATVIA"))
                 .thenReturn(Optional.of(new ClassifierValue()));
+        when(countryDefaultDayRateRepository.findByCountryIc("LATVIA"))
+                .thenReturn(Optional.of(new CountryDefaultDayRate()));
         assertEquals(Optional.empty(), countryExistenceValidation.validate(request));
     }
 
@@ -89,6 +96,27 @@ class CountryExistenceValidationTest {
         when(request.getCountry())
                 .thenReturn(countryName);
         when(classifierValueRepositoryMock.findByClassifierTitleAndIc("COUNTRY", countryName))
+                .thenReturn(Optional.empty());
+        when(errorFactoryMock.buildError(
+                "ERROR_CODE_11",
+                List.of(correctPlaceholder)
+        )).thenReturn(new ValidationError("", ""));
+        Optional<ValidationError> errorOpt = countryExistenceValidation.validate(request);
+        assertTrue(errorOpt.isPresent());
+        assertEquals(new ValidationError("", ""), errorOpt.get());
+    }
+
+    @Test
+    void shouldReturnErrorWhenDefaultDayRateIsNotExistAndHasRequiredRisks() {
+        String countryName = "FAKE_COUNTRY";
+        Placeholder correctPlaceholder = new Placeholder("NOT_EXISTING_COUNTRY", countryName);
+        when(request.getSelectedRisks())
+                .thenReturn(List.of("TRAVEL_MEDICAL"));
+        when(request.getCountry())
+                .thenReturn(countryName);
+        when(classifierValueRepositoryMock.findByClassifierTitleAndIc("COUNTRY", countryName))
+                .thenReturn(Optional.of(new ClassifierValue()));
+        when(countryDefaultDayRateRepository.findByCountryIc(countryName))
                 .thenReturn(Optional.empty());
         when(errorFactoryMock.buildError(
                 "ERROR_CODE_11",

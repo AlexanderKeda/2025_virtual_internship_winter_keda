@@ -3,6 +3,7 @@ package org.javaguru.travel.insurance.core.validations;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import org.javaguru.travel.insurance.core.repositories.ClassifierValueRepository;
+import org.javaguru.travel.insurance.core.repositories.CountryDefaultDayRateRepository;
 import org.javaguru.travel.insurance.core.util.Placeholder;
 import org.javaguru.travel.insurance.dto.TravelCalculatePremiumRequest;
 import org.javaguru.travel.insurance.dto.ValidationError;
@@ -17,6 +18,7 @@ class CountryExistenceValidation implements TravelRequestValidation {
 
     private final ValidationErrorFactory validationErrorFactory;
     private final ClassifierValueRepository classifierValueRepository;
+    private final CountryDefaultDayRateRepository countryDefaultDayRateRepository;
 
     @Override
     public Optional<ValidationError> validate(TravelCalculatePremiumRequest request) {
@@ -34,6 +36,7 @@ class CountryExistenceValidation implements TravelRequestValidation {
 
     private Optional<ValidationError> validateCountryExistence(TravelCalculatePremiumRequest request) {
         return doesCountryExist(request.getCountry())
+                && doesDefaultDayRateExist(request.getCountry())
                 ? Optional.empty()
                 : Optional.of(buildCountryNotFoundError(request.getCountry()));
     }
@@ -41,6 +44,12 @@ class CountryExistenceValidation implements TravelRequestValidation {
     private boolean doesCountryExist(String countryIc) {
         return classifierValueRepository
                 .findByClassifierTitleAndIc("COUNTRY", countryIc)
+                .isPresent();
+    }
+
+    private boolean doesDefaultDayRateExist(String countryIc) {
+        return countryDefaultDayRateRepository
+                .findByCountryIc(countryIc)
                 .isPresent();
     }
 
