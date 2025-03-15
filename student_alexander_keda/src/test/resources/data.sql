@@ -20,3 +20,8 @@ INSERT INTO classifier_values (classifier_id, ic, description)
 VALUES (@COUNTRY_TYPE_ID, 'LATVIA', 'Country Latvia'),
 	(@COUNTRY_TYPE_ID, 'SPAIN', 'Country Spain'),
 	(@COUNTRY_TYPE_ID, 'JAPAN', 'Country Japan');
+
+INSERT INTO country_default_day_rate (country_ic, default_day_rate)
+VALUES ('LATVIA', 1.00),
+	('SPAIN', 2.50),
+    ('JAPAN', 3.50);
