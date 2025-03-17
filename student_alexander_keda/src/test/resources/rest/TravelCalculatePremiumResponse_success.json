@@ -9,15 +9,15 @@
   "risks": [
     {
       "riskIC": "TRAVEL_CANCELLATION",
-      "premium": 0
+      "premium": 0.00
     },
     {
       "riskIC": "TRAVEL_EVACUATION",
-      "premium": 0
+      "premium": 0.00
     },
     {
       "riskIC": "TRAVEL_LOSS_BAGGAGE",
-      "premium": 0
+      "premium": 0.00
     },
     {
       "riskIC": "TRAVEL_MEDICAL",
@@ -25,11 +25,11 @@
     },
     {
       "riskIC": "TRAVEL_SPORT_ACTIVITIES",
-      "premium": 0
+      "premium": 0.00
     },
     {
       "riskIC": "TRAVEL_THIRD_PARTY_LIABILITY",
-      "premium": 0
+      "premium": 0.00
     }
   ]
 }

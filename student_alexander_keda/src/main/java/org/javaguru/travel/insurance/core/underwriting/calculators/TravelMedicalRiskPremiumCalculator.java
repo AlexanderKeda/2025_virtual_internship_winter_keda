@@ -8,6 +8,7 @@ import org.javaguru.travel.insurance.dto.TravelCalculatePremiumRequest;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Optional;
 
 @Component
@@ -21,7 +22,8 @@ public class TravelMedicalRiskPremiumCalculator implements TravelRiskPremiumCalc
     public BigDecimal calculatePremium(TravelCalculatePremiumRequest request) {
         return BigDecimal.ONE
                 .multiply(calculateDayCount(request))
-                .multiply(getDefaultDayRate(request));
+                .multiply(getDefaultDayRate(request))
+                .setScale(2, RoundingMode.HALF_UP);
     }
 
     @Override
@@ -41,6 +43,8 @@ public class TravelMedicalRiskPremiumCalculator implements TravelRiskPremiumCalc
         if (dayRateOpt.isEmpty()) {
             throw new RuntimeException("Country day rate not found by countryIC=" + request.getCountry());
         }
-        return dayRateOpt.get().getDefaultDayRate();
+        return dayRateOpt
+                .get()
+                .getDefaultDayRate();
     }
 }

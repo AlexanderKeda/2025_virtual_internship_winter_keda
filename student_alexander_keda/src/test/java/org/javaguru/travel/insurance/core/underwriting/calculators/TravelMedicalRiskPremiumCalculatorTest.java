@@ -11,6 +11,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -35,6 +36,8 @@ class TravelMedicalRiskPremiumCalculatorTest {
     void shouldReturnCorrectPremiumPrice() {
         long days = 7L;
         long dayRate = 2L;
+        BigDecimal expectedResult = new BigDecimal(days * dayRate)
+                .setScale(2, RoundingMode.HALF_UP);
         Optional<CountryDefaultDayRate> dayRateOpt = Optional.of(new CountryDefaultDayRate(
                 1L,
                 "Country",
@@ -44,7 +47,7 @@ class TravelMedicalRiskPremiumCalculatorTest {
                 .thenReturn(days);
         when(countryDefaultDayRateRepositoryMock.findByCountryIc(requestMock.getCountry()))
                 .thenReturn(dayRateOpt);
-        assertEquals(new BigDecimal(days * dayRate), medicalRiskPremiumCalculator.calculatePremium(requestMock));
+        assertEquals(expectedResult, medicalRiskPremiumCalculator.calculatePremium(requestMock));
     }
 
     @Test

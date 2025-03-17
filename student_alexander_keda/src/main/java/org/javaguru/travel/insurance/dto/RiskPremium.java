@@ -1,5 +1,12 @@
 package org.javaguru.travel.insurance.dto;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import org.javaguru.travel.insurance.core.util.BigDecimalSerializer;
+
 import java.math.BigDecimal;
 
-public record RiskPremium(String riskIC, BigDecimal premium) {}
+public record RiskPremium(
+        String riskIC,
+        @JsonSerialize(using = BigDecimalSerializer.class) BigDecimal premium
+) {
+}
