@@ -37,6 +37,7 @@ class TravelCalculatePremiumServiceImplTest {
 
     private static final String FIRST_NAME = "FirstName";
     private static final String LAST_NAME = "LastName";
+    private static final LocalDate BIRTH_DATE = LocalDate.now().minusYears(20);
     private static final LocalDate DATE_1 = LocalDate.now();
     private static final LocalDate DATE_2 = DATE_1.plusDays(7);
     private static final String RISK = "risk1";
@@ -178,6 +179,7 @@ class TravelCalculatePremiumServiceImplTest {
         return new TravelCalculatePremiumRequest(
                 FIRST_NAME,
                 LAST_NAME,
+                BIRTH_DATE,
                 DATE_1,
                 DATE_2,
                 COUNTRY,

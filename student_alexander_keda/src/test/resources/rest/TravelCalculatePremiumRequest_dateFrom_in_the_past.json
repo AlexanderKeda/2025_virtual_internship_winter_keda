@@ -1,6 +1,7 @@
 {
   "personFirstName" : "Ivan",
   "personLastName" : "Ivanov",
+  "personBirthDate" : "2000-02-16",
   "agreementDateFrom" : "2020-02-25",
   "agreementDateTo" : "2026-02-25",
   "country": "LATVIA",

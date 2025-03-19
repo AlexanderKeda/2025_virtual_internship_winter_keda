@@ -20,6 +20,9 @@ public class TravelCalculatePremiumResponse extends CoreResponse {
     private String personLastName;
 
     @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate personBirthDate;
+
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate agreementDateFrom;
 
     @JsonFormat(pattern = "yyyy-MM-dd")

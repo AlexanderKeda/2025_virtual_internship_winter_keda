@@ -146,4 +146,16 @@ class TravelCalculatePremiumControllerTest {
         performAndCheck("/rest/TravelCalculatePremiumRequest_country_is_null.json",
                 "/rest/TravelCalculatePremiumResponse_country_is_null.json");
     }
+
+    @Test
+    void shouldReturnErrorWhenBirthDateIsNull() throws Exception {
+        performAndCheck("/rest/TravelCalculatePremiumRequest_birthDate_is_null.json",
+                "/rest/TravelCalculatePremiumResponse_birthDate_is_null.json");
+    }
+
+    @Test
+    void shouldReturnErrorWhenBirthDateIsInTheFuture() throws Exception {
+        performAndCheck("/rest/TravelCalculatePremiumRequest_birthDate_in_the_future.json",
+                "/rest/TravelCalculatePremiumResponse_birthDate_in_the_future.json");
+    }
 }
