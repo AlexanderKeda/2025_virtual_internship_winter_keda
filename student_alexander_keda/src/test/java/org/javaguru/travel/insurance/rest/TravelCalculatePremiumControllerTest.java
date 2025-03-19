@@ -158,4 +158,10 @@ class TravelCalculatePremiumControllerTest {
         performAndCheck("/rest/TravelCalculatePremiumRequest_birthDate_in_the_future.json",
                 "/rest/TravelCalculatePremiumResponse_birthDate_in_the_future.json");
     }
+
+    @Test
+    void shouldReturnErrorWhenBirthDateExceedsLimit() throws Exception {
+        performAndCheck("/rest/TravelCalculatePremiumRequest_birthDate_exceeds_limit.json",
+                "/rest/TravelCalculatePremiumResponse_birthDate_exceeds_limit.json");
+    }
 }
