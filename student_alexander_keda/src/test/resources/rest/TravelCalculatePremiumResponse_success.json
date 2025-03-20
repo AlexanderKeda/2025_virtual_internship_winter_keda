@@ -6,7 +6,7 @@
   "agreementDateFrom": "2026-02-16",
   "agreementDateTo": "2026-02-25",
   "country": "LATVIA",
-  "agreementPremium": 9.00,
+  "agreementPremium": 9.90,
   "risks": [
     {
       "riskIC": "TRAVEL_CANCELLATION",
@@ -22,7 +22,7 @@
     },
     {
       "riskIC": "TRAVEL_MEDICAL",
-      "premium": 9.00
+      "premium": 9.90
     },
     {
       "riskIC": "TRAVEL_SPORT_ACTIVITIES",

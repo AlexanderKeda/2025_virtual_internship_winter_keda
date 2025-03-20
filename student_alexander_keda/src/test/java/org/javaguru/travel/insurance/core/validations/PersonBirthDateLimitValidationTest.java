@@ -34,7 +34,7 @@ class PersonBirthDateLimitValidationTest {
     void shouldNotReturnErrorWhenBirthDateIsValid() {
         LocalDate birthDate = LocalDate.now().minusYears(20);
         when(requestMock.getPersonBirthDate()).thenReturn(birthDate);
-        when(ageCalculator.calculate(birthDate)).thenReturn(20L);
+        when(ageCalculator.calculate(birthDate)).thenReturn(20);
         var errorOpt = personBirthDateLimitValidation
                 .validate(requestMock);
         assertTrue(errorOpt.isEmpty());
@@ -45,7 +45,7 @@ class PersonBirthDateLimitValidationTest {
     void shouldReturnErrorWhenAgeExceedsTheLimit() {
         LocalDate birthDate = LocalDate.now().minusYears(151);
         when(requestMock.getPersonBirthDate()).thenReturn(birthDate);
-        when(ageCalculator.calculate(birthDate)).thenReturn(151L);
+        when(ageCalculator.calculate(birthDate)).thenReturn(151);
         when(errorFactoryMock.buildError("ERROR_CODE_14"))
                 .thenReturn(new ValidationError("ERROR_CODE_14", "Description"));
         var errorOpt = personBirthDateLimitValidation

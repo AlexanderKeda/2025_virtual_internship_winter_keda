@@ -81,8 +81,8 @@ DELIMITER ;
 
 CREATE TABLE IF NOT EXISTS `age_coefficient` (
 	`id` BIGINT NOT NULL AUTO_INCREMENT,
-    `age_from` SMALLINT NOT NULL,
-    `age_to` SMALLINT NOT NULL,
+    `age_from` INT NOT NULL,
+    `age_to` INT NOT NULL,
     `coefficient` DECIMAL(10,2) NOT NULL,
     PRIMARY KEY (id)
 )
