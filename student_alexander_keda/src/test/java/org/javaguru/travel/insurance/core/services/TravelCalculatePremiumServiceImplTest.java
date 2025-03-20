@@ -42,6 +42,7 @@ class TravelCalculatePremiumServiceImplTest {
     private static final LocalDate DATE_2 = DATE_1.plusDays(7);
     private static final String RISK = "risk1";
     private static final String COUNTRY = "LATVIA";
+    private static final String LIMIT_LEVEL = "LEVEL_10000";
 
     @Test
     void shouldReturnFirstName() {
@@ -183,7 +184,8 @@ class TravelCalculatePremiumServiceImplTest {
                 DATE_1,
                 DATE_2,
                 COUNTRY,
-                List.of(RISK)
+                List.of(RISK),
+                LIMIT_LEVEL
         );
     }
 }
