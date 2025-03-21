@@ -7,6 +7,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -18,6 +19,9 @@ import static uk.org.webcompere.modelassert.json.JsonAssertions.assertJson;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @AutoConfigureMockMvc
+@TestPropertySource(properties = {
+        "medical.risk.limit.level.enabled=true"
+})
 class TravelCalculatePremiumControllerTest {
 
     @Autowired
@@ -143,8 +147,8 @@ class TravelCalculatePremiumControllerTest {
 
     @Test
     void shouldReturnErrorWhenCountryIsEmpty() throws Exception {
-        performAndCheck("/rest/TravelCalculatePremiumRequest_country_is_null.json",
-                "/rest/TravelCalculatePremiumResponse_country_is_null.json");
+        performAndCheck("/rest/TravelCalculatePremiumRequest_country_not_provided.json",
+                "/rest/TravelCalculatePremiumResponse_country_not_provided.json");
     }
 
     @Test
@@ -163,5 +167,23 @@ class TravelCalculatePremiumControllerTest {
     void shouldReturnErrorWhenBirthDateExceedsLimit() throws Exception {
         performAndCheck("/rest/TravelCalculatePremiumRequest_birthDate_exceeds_limit.json",
                 "/rest/TravelCalculatePremiumResponse_birthDate_exceeds_limit.json");
+    }
+
+    @Test
+    void shouldReturnErrorWhenMedicalRiskLimitLevelNotExist() throws Exception {
+        performAndCheck("/rest/TravelCalculatePremiumRequest_medicalRiskLimitLevel_does_not_exist.json",
+                "/rest/TravelCalculatePremiumResponse_medicalRiskLimitLevel_does_not_exist.json");
+    }
+
+    @Test
+    void shouldReturnErrorWhenMedicalRiskLimitLevelIsNull() throws Exception {
+        performAndCheck("/rest/TravelCalculatePremiumRequest_medicalRiskLimitLevel_is_null.json",
+                "/rest/TravelCalculatePremiumResponse_medicalRiskLimitLevel_is_null.json");
+    }
+
+    @Test
+    void shouldReturnErrorWhenMedicalRiskLimitLevelIsEmpty() throws Exception {
+        performAndCheck("/rest/TravelCalculatePremiumRequest_medicalRiskLimitLevel_not_provided.json",
+                "/rest/TravelCalculatePremiumResponse_medicalRiskLimitLevel_not_provided.json");
     }
 }

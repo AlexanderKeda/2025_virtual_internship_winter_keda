@@ -36,54 +36,54 @@ class CountryExistenceValidationTest {
     private CountryExistenceValidation countryExistenceValidation;
 
     @Mock
-    private TravelCalculatePremiumRequest request;
+    private TravelCalculatePremiumRequest requestMock;
 
     @Test
     void shouldSucceedWhenCountryExistAndHasRequiredRisks() {
-        when(request.getSelectedRisks())
+        when(requestMock.getSelectedRisks())
                 .thenReturn(List.of("TRAVEL_MEDICAL"));
-        when(request.getCountry())
+        when(requestMock.getCountry())
                 .thenReturn("LATVIA");
         when(classifierValueRepositoryMock.findByClassifierTitleAndIc("COUNTRY", "LATVIA"))
                 .thenReturn(Optional.of(new ClassifierValue()));
         when(countryDefaultDayRateRepository.findByCountryIc("LATVIA"))
                 .thenReturn(Optional.of(new CountryDefaultDayRate()));
-        assertEquals(Optional.empty(), countryExistenceValidation.validate(request));
+        assertEquals(Optional.empty(), countryExistenceValidation.validate(requestMock));
     }
 
     @Test
     void shouldSucceedWhenRequiredRisksAreMissing() {
-        when(request.getSelectedRisks())
+        when(requestMock.getSelectedRisks())
                 .thenReturn(List.of("FAKE_RISK"));
-        assertEquals(Optional.empty(), countryExistenceValidation.validate(request));
+        assertEquals(Optional.empty(), countryExistenceValidation.validate(requestMock));
         Mockito.verifyNoInteractions(classifierValueRepositoryMock);
     }
 
     @Test
     void shouldSucceedWhenRequiredRisksAreNull() {
-        when(request.getSelectedRisks())
+        when(requestMock.getSelectedRisks())
                 .thenReturn(null);
-        assertEquals(Optional.empty(), countryExistenceValidation.validate(request));
+        assertEquals(Optional.empty(), countryExistenceValidation.validate(requestMock));
         Mockito.verifyNoInteractions(classifierValueRepositoryMock);
     }
 
     @Test
     void shouldSucceedWhenCountryIsNullAndHasRequiredRisks() {
-        when(request.getSelectedRisks())
+        when(requestMock.getSelectedRisks())
                 .thenReturn(List.of("TRAVEL_MEDICAL"));
-        when(request.getCountry())
+        when(requestMock.getCountry())
                 .thenReturn(null);
-        assertEquals(Optional.empty(), countryExistenceValidation.validate(request));
+        assertEquals(Optional.empty(), countryExistenceValidation.validate(requestMock));
         Mockito.verifyNoInteractions(classifierValueRepositoryMock);
     }
 
     @Test
     void shouldSucceedWhenCountryIsEmptyAndHasRequiredRisks() {
-        when(request.getSelectedRisks())
+        when(requestMock.getSelectedRisks())
                 .thenReturn(List.of("TRAVEL_MEDICAL"));
-        when(request.getCountry())
+        when(requestMock.getCountry())
                 .thenReturn("");
-        assertEquals(Optional.empty(), countryExistenceValidation.validate(request));
+        assertEquals(Optional.empty(), countryExistenceValidation.validate(requestMock));
         Mockito.verifyNoInteractions(classifierValueRepositoryMock);
     }
 
@@ -91,9 +91,9 @@ class CountryExistenceValidationTest {
     void shouldReturnErrorWhenCountryIsNotExistAndHasRequiredRisks() {
         String countryName = "FAKE_COUNTRY";
         Placeholder correctPlaceholder = new Placeholder("NOT_EXISTING_COUNTRY", countryName);
-        when(request.getSelectedRisks())
+        when(requestMock.getSelectedRisks())
                 .thenReturn(List.of("TRAVEL_MEDICAL"));
-        when(request.getCountry())
+        when(requestMock.getCountry())
                 .thenReturn(countryName);
         when(classifierValueRepositoryMock.findByClassifierTitleAndIc("COUNTRY", countryName))
                 .thenReturn(Optional.empty());
@@ -101,7 +101,7 @@ class CountryExistenceValidationTest {
                 "ERROR_CODE_11",
                 List.of(correctPlaceholder)
         )).thenReturn(new ValidationError("", ""));
-        Optional<ValidationError> errorOpt = countryExistenceValidation.validate(request);
+        var errorOpt = countryExistenceValidation.validate(requestMock);
         assertTrue(errorOpt.isPresent());
         assertEquals(new ValidationError("", ""), errorOpt.get());
     }
@@ -110,9 +110,9 @@ class CountryExistenceValidationTest {
     void shouldReturnErrorWhenDefaultDayRateIsNotExistAndHasRequiredRisks() {
         String countryName = "FAKE_COUNTRY";
         Placeholder correctPlaceholder = new Placeholder("NOT_EXISTING_COUNTRY", countryName);
-        when(request.getSelectedRisks())
+        when(requestMock.getSelectedRisks())
                 .thenReturn(List.of("TRAVEL_MEDICAL"));
-        when(request.getCountry())
+        when(requestMock.getCountry())
                 .thenReturn(countryName);
         when(classifierValueRepositoryMock.findByClassifierTitleAndIc("COUNTRY", countryName))
                 .thenReturn(Optional.of(new ClassifierValue()));
@@ -122,7 +122,7 @@ class CountryExistenceValidationTest {
                 "ERROR_CODE_11",
                 List.of(correctPlaceholder)
         )).thenReturn(new ValidationError("", ""));
-        Optional<ValidationError> errorOpt = countryExistenceValidation.validate(request);
+        var errorOpt = countryExistenceValidation.validate(requestMock);
         assertTrue(errorOpt.isPresent());
         assertEquals(new ValidationError("", ""), errorOpt.get());
     }
