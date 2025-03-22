@@ -1,7 +1,5 @@
 package org.javaguru.travel.insurance.core.validations;
 
-import org.javaguru.travel.insurance.core.domain.ClassifierValue;
-import org.javaguru.travel.insurance.core.domain.CountryDefaultDayRate;
 import org.javaguru.travel.insurance.core.repositories.ClassifierValueRepository;
 import org.javaguru.travel.insurance.core.repositories.CountryDefaultDayRateRepository;
 import org.javaguru.travel.insurance.core.util.Placeholder;
@@ -44,10 +42,10 @@ class CountryExistenceValidationTest {
                 .thenReturn(List.of("TRAVEL_MEDICAL"));
         when(requestMock.getCountry())
                 .thenReturn("LATVIA");
-        when(classifierValueRepositoryMock.findByClassifierTitleAndIc("COUNTRY", "LATVIA"))
-                .thenReturn(Optional.of(new ClassifierValue()));
-        when(countryDefaultDayRateRepository.findByCountryIc("LATVIA"))
-                .thenReturn(Optional.of(new CountryDefaultDayRate()));
+        when(classifierValueRepositoryMock.existsByClassifierTitleAndIc("COUNTRY", "LATVIA"))
+                .thenReturn(true);
+        when(countryDefaultDayRateRepository.existsByCountryIc("LATVIA"))
+                .thenReturn(true);
         assertEquals(Optional.empty(), countryExistenceValidation.validate(requestMock));
     }
 
@@ -95,8 +93,8 @@ class CountryExistenceValidationTest {
                 .thenReturn(List.of("TRAVEL_MEDICAL"));
         when(requestMock.getCountry())
                 .thenReturn(countryName);
-        when(classifierValueRepositoryMock.findByClassifierTitleAndIc("COUNTRY", countryName))
-                .thenReturn(Optional.empty());
+        when(classifierValueRepositoryMock.existsByClassifierTitleAndIc("COUNTRY", countryName))
+                .thenReturn(false);
         when(errorFactoryMock.buildError(
                 "ERROR_CODE_11",
                 List.of(correctPlaceholder)
@@ -114,10 +112,10 @@ class CountryExistenceValidationTest {
                 .thenReturn(List.of("TRAVEL_MEDICAL"));
         when(requestMock.getCountry())
                 .thenReturn(countryName);
-        when(classifierValueRepositoryMock.findByClassifierTitleAndIc("COUNTRY", countryName))
-                .thenReturn(Optional.of(new ClassifierValue()));
-        when(countryDefaultDayRateRepository.findByCountryIc(countryName))
-                .thenReturn(Optional.empty());
+        when(classifierValueRepositoryMock.existsByClassifierTitleAndIc("COUNTRY", countryName))
+                .thenReturn(true);
+        when(countryDefaultDayRateRepository.existsByCountryIc(countryName))
+                .thenReturn(false);
         when(errorFactoryMock.buildError(
                 "ERROR_CODE_11",
                 List.of(correctPlaceholder)

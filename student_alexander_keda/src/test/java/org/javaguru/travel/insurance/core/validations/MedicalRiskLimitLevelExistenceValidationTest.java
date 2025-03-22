@@ -1,7 +1,7 @@
 package org.javaguru.travel.insurance.core.validations;
 
-import org.javaguru.travel.insurance.core.domain.ClassifierValue;
 import org.javaguru.travel.insurance.core.repositories.ClassifierValueRepository;
+import org.javaguru.travel.insurance.core.repositories.MedicalRiskLimitLevelRepository;
 import org.javaguru.travel.insurance.core.util.Placeholder;
 import org.javaguru.travel.insurance.dto.TravelCalculatePremiumRequest;
 import org.javaguru.travel.insurance.dto.ValidationError;
@@ -24,6 +24,9 @@ class MedicalRiskLimitLevelExistenceValidationTest {
     private ClassifierValueRepository classifierValueRepositoryMock;
 
     @Mock
+    private MedicalRiskLimitLevelRepository medicalRiskLimitLevelRepository;
+
+    @Mock
     private ValidationErrorFactory errorFactoryMock;
 
     @Mock
@@ -35,10 +38,12 @@ class MedicalRiskLimitLevelExistenceValidationTest {
         var limitLevelExistenceValidation = new MedicalRiskLimitLevelExistenceValidation(
                 false,
                 classifierValueRepositoryMock,
+                medicalRiskLimitLevelRepository,
                 errorFactoryMock
         );
         assertEquals(Optional.empty(), limitLevelExistenceValidation.validate(requestMock));
         Mockito.verifyNoInteractions(classifierValueRepositoryMock);
+        Mockito.verifyNoInteractions(medicalRiskLimitLevelRepository);
         Mockito.verifyNoInteractions(errorFactoryMock);
         Mockito.verifyNoInteractions(requestMock);
     }
@@ -48,6 +53,7 @@ class MedicalRiskLimitLevelExistenceValidationTest {
         var limitLevelExistenceValidation = new MedicalRiskLimitLevelExistenceValidation(
                 true,
                 classifierValueRepositoryMock,
+                medicalRiskLimitLevelRepository,
                 errorFactoryMock
         );
         when(requestMock.getSelectedRisks())
@@ -55,8 +61,11 @@ class MedicalRiskLimitLevelExistenceValidationTest {
         when(requestMock.getMedicalRiskLimitLevel())
                 .thenReturn("LIMIT_LEVEL");
         when(classifierValueRepositoryMock
-                .findByClassifierTitleAndIc("MEDICAL_RISK_LIMIT_LEVEL", "LIMIT_LEVEL"))
-                .thenReturn(Optional.of(new ClassifierValue()));
+                .existsByClassifierTitleAndIc("MEDICAL_RISK_LIMIT_LEVEL", "LIMIT_LEVEL"))
+                .thenReturn(true);
+        when(medicalRiskLimitLevelRepository
+                .existsByMedicalRiskLimitIc("LIMIT_LEVEL"))
+                .thenReturn(true);
         assertEquals(Optional.empty(), limitLevelExistenceValidation.validate(requestMock));
         Mockito.verifyNoInteractions(errorFactoryMock);
     }
@@ -66,12 +75,14 @@ class MedicalRiskLimitLevelExistenceValidationTest {
         var limitLevelExistenceValidation = new MedicalRiskLimitLevelExistenceValidation(
                 true,
                 classifierValueRepositoryMock,
+                medicalRiskLimitLevelRepository,
                 errorFactoryMock
         );
         when(requestMock.getSelectedRisks())
                 .thenReturn(List.of("FAKE_RISK"));
         assertEquals(Optional.empty(), limitLevelExistenceValidation.validate(requestMock));
         Mockito.verifyNoInteractions(classifierValueRepositoryMock);
+        Mockito.verifyNoInteractions(medicalRiskLimitLevelRepository);
         Mockito.verifyNoInteractions(errorFactoryMock);
     }
 
@@ -80,12 +91,14 @@ class MedicalRiskLimitLevelExistenceValidationTest {
         var limitLevelExistenceValidation = new MedicalRiskLimitLevelExistenceValidation(
                 true,
                 classifierValueRepositoryMock,
+                medicalRiskLimitLevelRepository,
                 errorFactoryMock
         );
         when(requestMock.getSelectedRisks())
                 .thenReturn(null);
         assertEquals(Optional.empty(), limitLevelExistenceValidation.validate(requestMock));
         Mockito.verifyNoInteractions(classifierValueRepositoryMock);
+        Mockito.verifyNoInteractions(medicalRiskLimitLevelRepository);
         Mockito.verifyNoInteractions(errorFactoryMock);
     }
 
@@ -94,6 +107,7 @@ class MedicalRiskLimitLevelExistenceValidationTest {
         var limitLevelExistenceValidation = new MedicalRiskLimitLevelExistenceValidation(
                 true,
                 classifierValueRepositoryMock,
+                medicalRiskLimitLevelRepository,
                 errorFactoryMock
         );
         when(requestMock.getSelectedRisks())
@@ -102,6 +116,7 @@ class MedicalRiskLimitLevelExistenceValidationTest {
                 .thenReturn(null);
         assertEquals(Optional.empty(), limitLevelExistenceValidation.validate(requestMock));
         Mockito.verifyNoInteractions(classifierValueRepositoryMock);
+        Mockito.verifyNoInteractions(medicalRiskLimitLevelRepository);
         Mockito.verifyNoInteractions(errorFactoryMock);
 
     }
@@ -111,6 +126,7 @@ class MedicalRiskLimitLevelExistenceValidationTest {
         var limitLevelExistenceValidation = new MedicalRiskLimitLevelExistenceValidation(
                 true,
                 classifierValueRepositoryMock,
+                medicalRiskLimitLevelRepository,
                 errorFactoryMock
         );
         when(requestMock.getSelectedRisks())
@@ -119,17 +135,19 @@ class MedicalRiskLimitLevelExistenceValidationTest {
                 .thenReturn("");
         assertEquals(Optional.empty(), limitLevelExistenceValidation.validate(requestMock));
         Mockito.verifyNoInteractions(classifierValueRepositoryMock);
+        Mockito.verifyNoInteractions(medicalRiskLimitLevelRepository);
         Mockito.verifyNoInteractions(errorFactoryMock);
 
     }
 
     @Test
-    void shouldReturnErrorWhenLimitLevelIsNotExistAndHasRequiredRisks() {
+    void shouldReturnErrorWhenLimitLevelIcIsNotExistAndHasRequiredRisks() {
         String limitLevel = "FAKE_LIMIT_LEVEL";
         var placeholder = new Placeholder("NOT_EXISTING_RISK_LEVEL", limitLevel);
         var limitLevelExistenceValidation = new MedicalRiskLimitLevelExistenceValidation(
                 true,
                 classifierValueRepositoryMock,
+                medicalRiskLimitLevelRepository,
                 errorFactoryMock
         );
         when(requestMock.getSelectedRisks())
@@ -137,8 +155,38 @@ class MedicalRiskLimitLevelExistenceValidationTest {
         when(requestMock.getMedicalRiskLimitLevel())
                 .thenReturn(limitLevel);
         when(classifierValueRepositoryMock
-                .findByClassifierTitleAndIc("MEDICAL_RISK_LIMIT_LEVEL", limitLevel))
-                .thenReturn(Optional.empty());
+                .existsByClassifierTitleAndIc("MEDICAL_RISK_LIMIT_LEVEL", limitLevel))
+                .thenReturn(false);
+        when(errorFactoryMock.buildError(
+                "ERROR_CODE_16",
+                List.of(placeholder)
+        )).thenReturn(new ValidationError("", ""));
+        var errorOpt = limitLevelExistenceValidation.validate(requestMock);
+        assertTrue(errorOpt.isPresent());
+        assertEquals(new ValidationError("", ""), errorOpt.get());
+        Mockito.verifyNoInteractions(medicalRiskLimitLevelRepository);
+    }
+
+    @Test
+    void shouldReturnErrorWhenLimitLevelCoefficientIsNotExistAndHasRequiredRisks() {
+        String limitLevel = "LIMIT_LEVEL";
+        var placeholder = new Placeholder("NOT_EXISTING_RISK_LEVEL", limitLevel);
+        var limitLevelExistenceValidation = new MedicalRiskLimitLevelExistenceValidation(
+                true,
+                classifierValueRepositoryMock,
+                medicalRiskLimitLevelRepository,
+                errorFactoryMock
+        );
+        when(requestMock.getSelectedRisks())
+                .thenReturn(List.of("TRAVEL_MEDICAL"));
+        when(requestMock.getMedicalRiskLimitLevel())
+                .thenReturn(limitLevel);
+        when(classifierValueRepositoryMock
+                .existsByClassifierTitleAndIc("MEDICAL_RISK_LIMIT_LEVEL", limitLevel))
+                .thenReturn(true);
+        when(medicalRiskLimitLevelRepository
+                .existsByMedicalRiskLimitIc(limitLevel))
+                .thenReturn(false);
         when(errorFactoryMock.buildError(
                 "ERROR_CODE_16",
                 List.of(placeholder)

@@ -1,6 +1,7 @@
 package org.javaguru.travel.insurance.core.validations;
 
 import org.javaguru.travel.insurance.core.repositories.ClassifierValueRepository;
+import org.javaguru.travel.insurance.core.repositories.MedicalRiskLimitLevelRepository;
 import org.javaguru.travel.insurance.core.util.Placeholder;
 import org.javaguru.travel.insurance.dto.TravelCalculatePremiumRequest;
 import org.javaguru.travel.insurance.dto.ValidationError;
@@ -14,18 +15,19 @@ import java.util.Optional;
 class MedicalRiskLimitLevelExistenceValidation implements TravelRequestValidation {
 
     private final boolean medicalRiskLimitLevelEnabled;
-
     private final ClassifierValueRepository classifierValueRepository;
-
+    private final MedicalRiskLimitLevelRepository medicalRiskLimitLevelRepository;
     private final ValidationErrorFactory validationErrorFactory;
 
     MedicalRiskLimitLevelExistenceValidation(
             @Value("${medical.risk.limit.level.enabled:false}") boolean medicalRiskLimitLevelEnabled,
             ClassifierValueRepository classifierValueRepository,
+            MedicalRiskLimitLevelRepository medicalRiskLimitLevelRepository,
             ValidationErrorFactory validationErrorFactory
     ) {
         this.medicalRiskLimitLevelEnabled = medicalRiskLimitLevelEnabled;
         this.classifierValueRepository = classifierValueRepository;
+        this.medicalRiskLimitLevelRepository = medicalRiskLimitLevelRepository;
         this.validationErrorFactory = validationErrorFactory;
     }
 
@@ -46,15 +48,20 @@ class MedicalRiskLimitLevelExistenceValidation implements TravelRequestValidatio
 
     private Optional<ValidationError> validateMedicalRiskLimitLevelExistence
             (TravelCalculatePremiumRequest request) {
-        return doesLimitLevelExist(request.getMedicalRiskLimitLevel())
+        return doesLimitLevelIcExists(request.getMedicalRiskLimitLevel())
+                && doesLimitLevelCoefficientExists(request.getMedicalRiskLimitLevel())
                 ? Optional.empty()
                 : Optional.of(buildLimitLevelNotFoundError(request.getMedicalRiskLimitLevel()));
     }
 
-    private boolean doesLimitLevelExist(String limitLevel) {
+    private boolean doesLimitLevelIcExists(String limitLevel) {
         return classifierValueRepository
-                .findByClassifierTitleAndIc("MEDICAL_RISK_LIMIT_LEVEL", limitLevel)
-                .isPresent();
+                .existsByClassifierTitleAndIc("MEDICAL_RISK_LIMIT_LEVEL", limitLevel);
+    }
+
+    private boolean doesLimitLevelCoefficientExists(String limitLevel) {
+        return medicalRiskLimitLevelRepository
+                .existsByMedicalRiskLimitIc(limitLevel);
     }
 
     private ValidationError buildLimitLevelNotFoundError(String limitLevel) {

@@ -43,14 +43,12 @@ class CountryExistenceValidation implements TravelRequestValidation {
 
     private boolean doesCountryExist(String countryIc) {
         return classifierValueRepository
-                .findByClassifierTitleAndIc("COUNTRY", countryIc)
-                .isPresent();
+                .existsByClassifierTitleAndIc("COUNTRY", countryIc);
     }
 
     private boolean doesDefaultDayRateExist(String countryIc) {
         return countryDefaultDayRateRepository
-                .findByCountryIc(countryIc)
-                .isPresent();
+                .existsByCountryIc(countryIc);
     }
 
     private ValidationError buildCountryNotFoundError(String countryIc) {

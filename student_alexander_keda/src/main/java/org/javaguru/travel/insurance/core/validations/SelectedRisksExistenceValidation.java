@@ -33,7 +33,7 @@ class SelectedRisksExistenceValidation implements TravelRequestValidation {
     }
 
     private boolean doesRiskExist(String riskIc) {
-        return classifierValueRepository.findByClassifierTitleAndIc("RISK_TYPE", riskIc).isPresent();
+        return classifierValueRepository.existsByClassifierTitleAndIc("RISK_TYPE", riskIc);
     }
 
     private ValidationError buildRiskNotFoundError(String riskIc) {
