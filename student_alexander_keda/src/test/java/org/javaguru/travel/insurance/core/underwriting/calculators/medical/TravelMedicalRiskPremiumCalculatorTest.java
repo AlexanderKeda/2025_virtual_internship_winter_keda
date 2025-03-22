@@ -18,10 +18,10 @@ import static org.mockito.Mockito.when;
 class TravelMedicalRiskPremiumCalculatorTest {
 
     @Mock
-    private MedicalRiskElementCalculator elementCalculatorMock1;
+    private MedicalRiskElement elementCalculatorMock1;
 
     @Mock
-    private MedicalRiskElementCalculator elementCalculatorMock2;
+    private MedicalRiskElement elementCalculatorMock2;
 
     private TravelMedicalRiskPremiumCalculator travelMedicalRiskPremiumCalculator;
 

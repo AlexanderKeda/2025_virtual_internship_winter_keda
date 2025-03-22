@@ -1,6 +1,5 @@
 package org.javaguru.travel.insurance.core.underwriting.calculators.medical;
 
-import org.javaguru.travel.insurance.core.domain.CountryDefaultDayRate;
 import org.javaguru.travel.insurance.core.repositories.CountryDefaultDayRateRepository;
 import org.javaguru.travel.insurance.dto.TravelCalculatePremiumRequest;
 import org.junit.jupiter.api.Test;
@@ -16,13 +15,13 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class CountryDefaultDayRateCalculatorTest {
+class CountryDefaultDayRateElementTest {
 
     @Mock
     private CountryDefaultDayRateRepository countryDefaultDayRateRepositoryMock;
 
     @InjectMocks
-    private CountryDefaultDayRateCalculator countryDefaultDayRateCalculator;
+    private CountryDefaultDayRateElement countryDefaultDayRateElement;
 
     @Mock
     private TravelCalculatePremiumRequest requestMock;
@@ -31,15 +30,15 @@ class CountryDefaultDayRateCalculatorTest {
     void shouldReturnCorrectCountryDefaultDayRate() {
         BigDecimal expectedDayRate = new BigDecimal("1.1");
         when(countryDefaultDayRateRepositoryMock.findByCountryIc(requestMock.getCountry()))
-                .thenReturn(Optional.of(new CountryDefaultDayRate(1L, "", expectedDayRate)));
-        assertEquals(expectedDayRate, countryDefaultDayRateCalculator.calculate(requestMock));
+                .thenReturn(Optional.of(new org.javaguru.travel.insurance.core.domain.CountryDefaultDayRate(1L, "", expectedDayRate)));
+        assertEquals(expectedDayRate, countryDefaultDayRateElement.calculate(requestMock));
     }
 
     @Test
     void shouldThrowExceptionWhenDayRateNotFoundInDB() {
         when(countryDefaultDayRateRepositoryMock.findByCountryIc(requestMock.getCountry()))
                 .thenReturn(Optional.empty());
-        assertThrows(RuntimeException.class, () -> countryDefaultDayRateCalculator.calculate(requestMock));
+        assertThrows(RuntimeException.class, () -> countryDefaultDayRateElement.calculate(requestMock));
     }
 
 }

@@ -14,13 +14,13 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class DayCountCalculatorTest {
+class DayCountElementTest {
 
     @Mock
     private DateTimeUtil dateTimeUtilMock;
 
     @InjectMocks
-    private DayCountCalculator dayCountCalculator;
+    private DayCountElement dayCountElement;
 
     @Mock
     private TravelCalculatePremiumRequest requestMock;
@@ -31,7 +31,7 @@ class DayCountCalculatorTest {
         when(dateTimeUtilMock.calculateDaysBetween(requestMock.getAgreementDateFrom(),
                 requestMock.getAgreementDateTo()))
                 .thenReturn(dayCount);
-        assertEquals(new BigDecimal(dayCount), dayCountCalculator.calculate(requestMock));
+        assertEquals(new BigDecimal(dayCount), dayCountElement.calculate(requestMock));
     }
 
 }

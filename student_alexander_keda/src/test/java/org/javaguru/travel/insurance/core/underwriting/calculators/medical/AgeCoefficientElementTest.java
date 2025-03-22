@@ -1,6 +1,5 @@
 package org.javaguru.travel.insurance.core.underwriting.calculators.medical;
 
-import org.javaguru.travel.insurance.core.domain.AgeCoefficient;
 import org.javaguru.travel.insurance.core.repositories.AgeCoefficientRepository;
 import org.javaguru.travel.insurance.core.util.AgeCalculator;
 import org.javaguru.travel.insurance.dto.TravelCalculatePremiumRequest;
@@ -17,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class AgeCoefficientCalculatorTest {
+class AgeCoefficientElementTest {
 
     @Mock
     private AgeCalculator ageCalculatorMock;
@@ -26,7 +25,7 @@ class AgeCoefficientCalculatorTest {
     private AgeCoefficientRepository ageCoefficientRepositoryMock;
 
     @InjectMocks
-    private AgeCoefficientCalculator ageCoefficientCalculator;
+    private AgeCoefficientElement ageCoefficientElement;
 
     @Mock
     private TravelCalculatePremiumRequest requestMock;
@@ -37,8 +36,8 @@ class AgeCoefficientCalculatorTest {
         when(ageCalculatorMock.calculate(requestMock.getPersonBirthDate()))
                 .thenReturn(25);
         when(ageCoefficientRepositoryMock.findByAge(25))
-                .thenReturn(Optional.of(new AgeCoefficient(1L,20,40, expectedCoefficient)));
-        assertEquals(expectedCoefficient, ageCoefficientCalculator.calculate(requestMock));
+                .thenReturn(Optional.of(new org.javaguru.travel.insurance.core.domain.AgeCoefficient(1L,20,40, expectedCoefficient)));
+        assertEquals(expectedCoefficient, ageCoefficientElement.calculate(requestMock));
     }
 
     @Test
@@ -47,7 +46,7 @@ class AgeCoefficientCalculatorTest {
                 .thenReturn(25);
         when(ageCoefficientRepositoryMock.findByAge(25))
                 .thenReturn(Optional.empty());
-        assertThrows(RuntimeException.class, () -> ageCoefficientCalculator.calculate(requestMock));
+        assertThrows(RuntimeException.class, () -> ageCoefficientElement.calculate(requestMock));
     }
 
 }

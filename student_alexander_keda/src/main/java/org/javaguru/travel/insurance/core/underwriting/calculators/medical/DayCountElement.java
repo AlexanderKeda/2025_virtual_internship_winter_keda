@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 
 @Component
 @RequiredArgsConstructor(access = AccessLevel.MODULE)
-class DayCountCalculator implements MedicalRiskElementCalculator {
+class DayCountElement implements MedicalRiskElement {
 
     private final DateTimeUtil dateTimeUtil;
 

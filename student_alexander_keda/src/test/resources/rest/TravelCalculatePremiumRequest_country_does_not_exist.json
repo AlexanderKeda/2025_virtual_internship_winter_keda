@@ -6,5 +6,5 @@
   "agreementDateTo" : "2026-02-25",
   "country": "FAKE_COUNTRY",
   "selectedRisks": ["TRAVEL_MEDICAL"],
-  "medicalRiskLimitLevel" : "LEVEL_10000"
+  "medicalRiskLimitLevel" : "LEVEL_20000"
 }

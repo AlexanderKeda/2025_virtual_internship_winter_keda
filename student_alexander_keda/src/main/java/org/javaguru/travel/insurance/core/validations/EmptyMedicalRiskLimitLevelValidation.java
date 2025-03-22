@@ -24,10 +24,14 @@ class EmptyMedicalRiskLimitLevelValidation implements TravelRequestValidation {
 
     @Override
     public Optional<ValidationError> validate(TravelCalculatePremiumRequest request) {
-        return medicalRiskLimitLevelEnabled
+        return isMedicalRiskLimitLevelEnabled()
                 && hasRequiredRisks(request)
                 ? validateEmptyMedicalRiskLimitLevel(request)
                 : Optional.empty();
+    }
+
+    private boolean isMedicalRiskLimitLevelEnabled() {
+        return medicalRiskLimitLevelEnabled;
     }
 
     private boolean hasRequiredRisks(TravelCalculatePremiumRequest request) {

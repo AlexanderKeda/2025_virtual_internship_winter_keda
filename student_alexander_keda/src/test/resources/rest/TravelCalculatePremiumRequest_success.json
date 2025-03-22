@@ -11,5 +11,5 @@
   "TRAVEL_THIRD_PARTY_LIABILITY",
   "TRAVEL_EVACUATION",
   "TRAVEL_SPORT_ACTIVITIES"],
-  "medicalRiskLimitLevel" : "LEVEL_10000"
+  "medicalRiskLimitLevel" : "LEVEL_20000"
 }

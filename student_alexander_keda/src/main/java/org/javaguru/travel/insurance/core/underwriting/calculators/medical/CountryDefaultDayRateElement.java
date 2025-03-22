@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 
 @Component
 @RequiredArgsConstructor(access = AccessLevel.MODULE)
-class CountryDefaultDayRateCalculator implements MedicalRiskElementCalculator {
+class CountryDefaultDayRateElement implements MedicalRiskElement {
 
     private final CountryDefaultDayRateRepository countryDefaultDayRateRepository;
 

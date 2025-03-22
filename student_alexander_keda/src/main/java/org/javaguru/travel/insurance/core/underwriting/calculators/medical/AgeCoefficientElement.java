@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 
 @Component
 @RequiredArgsConstructor(access = AccessLevel.MODULE)
-class AgeCoefficientCalculator implements MedicalRiskElementCalculator {
+class AgeCoefficientElement implements MedicalRiskElement {
 
     private final AgeCalculator ageCalculator;
     private final AgeCoefficientRepository ageCoefficientRepository;

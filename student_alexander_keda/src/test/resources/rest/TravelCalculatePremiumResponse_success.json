@@ -6,8 +6,8 @@
   "agreementDateFrom": "2026-02-16",
   "agreementDateTo": "2026-02-25",
   "country": "LATVIA",
-  "medicalRiskLimitLevel": "LEVEL_10000",
-  "agreementPremium": 9.90,
+  "medicalRiskLimitLevel": "LEVEL_20000",
+  "agreementPremium": 14.85,
   "risks": [
     {
       "riskIC": "TRAVEL_CANCELLATION",
@@ -23,7 +23,7 @@
     },
     {
       "riskIC": "TRAVEL_MEDICAL",
-      "premium": 9.90
+      "premium": 14.85
     },
     {
       "riskIC": "TRAVEL_SPORT_ACTIVITIES",

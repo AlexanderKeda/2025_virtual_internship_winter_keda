@@ -1,0 +1,45 @@
+package org.javaguru.travel.insurance.core.underwriting.calculators.medical;
+
+import org.javaguru.travel.insurance.core.repositories.MedicalRiskLimitLevelRepository;
+import org.javaguru.travel.insurance.dto.TravelCalculatePremiumRequest;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
+import java.math.BigDecimal;
+
+@Component
+class MedicalRiskLimitLevelElement implements MedicalRiskElement {
+
+    private final boolean medicalRiskLimitLevelEnabled;
+    private final MedicalRiskLimitLevelRepository medicalRiskLimitLevelRepository;
+
+    MedicalRiskLimitLevelElement(
+            @Value("${medical.risk.limit.level.enabled:false}") boolean medicalRiskLimitLevelEnabled,
+            MedicalRiskLimitLevelRepository medicalRiskLimitLevelRepository
+    ) {
+        this.medicalRiskLimitLevelEnabled = medicalRiskLimitLevelEnabled;
+        this.medicalRiskLimitLevelRepository = medicalRiskLimitLevelRepository;
+    }
+
+    @Override
+    public BigDecimal calculate(TravelCalculatePremiumRequest request) {
+        return isMedicalRiskLimitLevelEnabled()
+                ? getMedicalRiskLimitLevelCoefficient(request)
+                : BigDecimal.ONE;
+    }
+
+    private boolean isMedicalRiskLimitLevelEnabled() {
+        return medicalRiskLimitLevelEnabled;
+    }
+
+    private BigDecimal getMedicalRiskLimitLevelCoefficient(TravelCalculatePremiumRequest request) {
+        var medicalRiskLimitLevelOpt = medicalRiskLimitLevelRepository
+                .findByMedicalRiskLimitIc(request.getMedicalRiskLimitLevel());
+        if (medicalRiskLimitLevelOpt.isEmpty()) {
+            throw new RuntimeException("Country day rate not found by countryIC=" + request.getCountry());
+        }
+        return medicalRiskLimitLevelOpt
+                .get()
+                .getCoefficient();
+    }
+}

@@ -14,12 +14,12 @@ import java.util.List;
 @RequiredArgsConstructor(access = AccessLevel.MODULE)
 class TravelMedicalRiskPremiumCalculator implements TravelRiskPremiumCalculator {
 
-    private final List<MedicalRiskElementCalculator> medicalRiskElementCalculators;
+    private final List<MedicalRiskElement> medicalRiskElements;
 
     @Override
     public BigDecimal calculatePremium(TravelCalculatePremiumRequest request) {
-        return medicalRiskElementCalculators.stream()
-                .map(medicalRiskElementCalculator -> medicalRiskElementCalculator.calculate(request))
+        return medicalRiskElements.stream()
+                .map(medicalRiskElement -> medicalRiskElement.calculate(request))
                 .reduce(BigDecimal.ONE, BigDecimal::multiply)
                 .setScale(2, RoundingMode.HALF_UP);
     }
