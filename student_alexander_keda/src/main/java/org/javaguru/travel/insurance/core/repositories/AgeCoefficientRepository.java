@@ -18,4 +18,12 @@ public interface AgeCoefficientRepository
             @Param("age") Integer age
     );
 
+    @Query("""
+            SELECT 1 FROM AgeCoefficient ac
+            WHERE :age BETWEEN ac.ageFrom AND ac.ageTo
+            """)
+    boolean existsByAge(
+            @Param("age") Integer age
+    );
+
 }

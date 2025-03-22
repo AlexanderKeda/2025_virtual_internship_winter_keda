@@ -9,4 +9,6 @@ public interface CountryDefaultDayRateRepository
         extends JpaRepository<CountryDefaultDayRate, Long> {
 
     Optional<CountryDefaultDayRate> findByCountryIc(String countryIc);
+
+    boolean existsByCountryIc(String countryIc);
 }

@@ -8,4 +8,6 @@ import java.util.Optional;
 public interface ClassifierRepository extends JpaRepository<Classifier, Long> {
 
     Optional<Classifier> findByTitle(String title);
+
+    boolean existsByTitle(String title);
 }
