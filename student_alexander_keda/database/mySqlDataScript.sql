@@ -45,3 +45,8 @@ VALUES (@LIMIT_TYPE_ID, 'LEVEL_10000', 'medical risk limit level 10000 euro'),
     (@LIMIT_TYPE_ID, 'LEVEL_20000', 'medical risk limit level 20000 euro'),
     (@LIMIT_TYPE_ID, 'LEVEL_50000', 'medical risk limit level 50000 euro');
 
+INSERT INTO medical_risk_limit_level (medical_risk_limit_ic, coefficient)
+VALUES ('LEVEL_10000', 1.00),
+	('LEVEL_15000', 1.20),
+    ('LEVEL_20000', 1.50),
+    ('LEVEL_50000', 2.00);

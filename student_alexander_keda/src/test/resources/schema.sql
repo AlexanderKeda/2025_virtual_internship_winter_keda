@@ -11,7 +11,7 @@ CREATE UNIQUE INDEX ix_classifiers_title ON classifiers(title);
 CREATE TABLE classifier_values (
   id BIGINT NOT NULL AUTO_INCREMENT,
   classifier_id BIGINT NOT NULL,
-  ic VARCHAR(200) NOT NULL,
+  ic VARCHAR(200) UNIQUE NOT NULL,
   description VARCHAR(500) NOT NULL,
   PRIMARY KEY (id)
 );
@@ -29,6 +29,9 @@ CREATE TABLE country_default_day_rate (
     PRIMARY KEY (id)
 );
 
+ALTER TABLE country_default_day_rate
+ADD FOREIGN KEY (country_ic) REFERENCES classifier_values(ic);
+
 CREATE TABLE IF NOT EXISTS age_coefficient (
 	id BIGINT NOT NULL AUTO_INCREMENT,
     age_from INT NOT NULL,
@@ -37,5 +40,13 @@ CREATE TABLE IF NOT EXISTS age_coefficient (
     PRIMARY KEY (id)
 );
 
-CREATE UNIQUE INDEX ix_country_default_day_rate_country_ic
-ON country_default_day_rate (country_ic);
+CREATE TABLE IF NOT EXISTS medical_risk_limit_level (
+	id BIGINT NOT NULL AUTO_INCREMENT,
+    medical_risk_limit_ic VARCHAR(200) UNIQUE NOT NULL,
+    coefficient DECIMAL(10,2) NOT NULL,
+    PRIMARY KEY (id)
+);
+
+ALTER TABLE medical_risk_limit_level
+ADD FOREIGN KEY (medical_risk_limit_ic) REFERENCES classifier_values(ic);
+
