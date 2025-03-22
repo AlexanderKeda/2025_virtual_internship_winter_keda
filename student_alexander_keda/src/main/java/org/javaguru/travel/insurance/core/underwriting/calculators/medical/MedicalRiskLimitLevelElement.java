@@ -25,7 +25,7 @@ class MedicalRiskLimitLevelElement implements MedicalRiskElement {
     public BigDecimal calculate(TravelCalculatePremiumRequest request) {
         return isMedicalRiskLimitLevelEnabled()
                 ? getMedicalRiskLimitLevelCoefficient(request)
-                : BigDecimal.ONE;
+                : getDefaultCoefficient();
     }
 
     private boolean isMedicalRiskLimitLevelEnabled() {
@@ -41,5 +41,9 @@ class MedicalRiskLimitLevelElement implements MedicalRiskElement {
         return medicalRiskLimitLevelOpt
                 .get()
                 .getCoefficient();
+    }
+
+    private BigDecimal getDefaultCoefficient() {
+        return BigDecimal.ONE;
     }
 }

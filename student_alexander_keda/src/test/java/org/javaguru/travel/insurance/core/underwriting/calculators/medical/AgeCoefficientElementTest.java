@@ -5,8 +5,8 @@ import org.javaguru.travel.insurance.core.util.AgeCalculator;
 import org.javaguru.travel.insurance.dto.TravelCalculatePremiumRequest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
@@ -24,14 +24,16 @@ class AgeCoefficientElementTest {
     @Mock
     private AgeCoefficientRepository ageCoefficientRepositoryMock;
 
-    @InjectMocks
-    private AgeCoefficientElement ageCoefficientElement;
-
     @Mock
     private TravelCalculatePremiumRequest requestMock;
 
     @Test
     void shouldReturnCorrectAgeCoefficient() {
+        var ageCoefficientElement = new AgeCoefficientElement(
+                true,
+                ageCalculatorMock,
+                ageCoefficientRepositoryMock
+        );
         BigDecimal expectedCoefficient = new BigDecimal("1.3");
         when(ageCalculatorMock.calculate(requestMock.getPersonBirthDate()))
                 .thenReturn(25);
@@ -42,11 +44,29 @@ class AgeCoefficientElementTest {
 
     @Test
     void shouldThrowExceptionWhenCoefficientNotFoundInDB() {
+        var ageCoefficientElement = new AgeCoefficientElement(
+                true,
+                ageCalculatorMock,
+                ageCoefficientRepositoryMock
+        );
         when(ageCalculatorMock.calculate(requestMock.getPersonBirthDate()))
                 .thenReturn(25);
         when(ageCoefficientRepositoryMock.findByAge(25))
                 .thenReturn(Optional.empty());
         assertThrows(RuntimeException.class, () -> ageCoefficientElement.calculate(requestMock));
+    }
+
+    @Test
+    void shouldReturnDefaultCoefficientWhenMedicalRiskAgeCoefficientIsDisabled() {
+        var ageCoefficientElement = new AgeCoefficientElement(
+                false,
+                ageCalculatorMock,
+                ageCoefficientRepositoryMock
+        );
+        assertEquals(BigDecimal.ONE, ageCoefficientElement.calculate(requestMock));
+        Mockito.verifyNoInteractions(requestMock);
+        Mockito.verifyNoInteractions(ageCalculatorMock);
+        Mockito.verifyNoInteractions(ageCoefficientRepositoryMock);
     }
 
 }

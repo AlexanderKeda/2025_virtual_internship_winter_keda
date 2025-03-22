@@ -20,7 +20,8 @@ import static uk.org.webcompere.modelassert.json.JsonAssertions.assertJson;
 @SpringBootTest
 @AutoConfigureMockMvc
 @TestPropertySource(properties = {
-        "medical.risk.limit.level.enabled=true"
+        "medical.risk.limit.level.enabled=true",
+        "medical.risk.age.coefficient.enabled=true"
 })
 class TravelCalculatePremiumControllerTest {
 
