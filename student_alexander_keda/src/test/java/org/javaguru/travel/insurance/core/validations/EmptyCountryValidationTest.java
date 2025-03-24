@@ -9,7 +9,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -28,9 +27,7 @@ class EmptyCountryValidationTest {
     private TravelCalculatePremiumRequest requestMock;
 
     @Test
-    void shouldSucceedWhenCountryIsNotEmptyAndHasRequiredRisks() {
-        when(requestMock.getSelectedRisks())
-                .thenReturn(List.of("TRAVEL_MEDICAL"));
+    void shouldSucceedWhenCountryIsNotEmpty() {
         when(requestMock.getCountry())
                 .thenReturn("LATVIA");
         assertEquals(Optional.empty(), emptyCountryValidation.validate(requestMock));
@@ -38,25 +35,7 @@ class EmptyCountryValidationTest {
     }
 
     @Test
-    void shouldSucceedWhenRequiredRisksAreMissing() {
-        when(requestMock.getSelectedRisks())
-                .thenReturn(List.of("FAKE_RISK"));
-        assertEquals(Optional.empty(), emptyCountryValidation.validate(requestMock));
-        Mockito.verifyNoInteractions(errorFactoryMock);
-    }
-
-    @Test
-    void shouldSucceedWhenRequiredRisksAreNull() {
-        when(requestMock.getSelectedRisks())
-                .thenReturn(null);
-        assertEquals(Optional.empty(), emptyCountryValidation.validate(requestMock));
-        Mockito.verifyNoInteractions(errorFactoryMock);
-    }
-
-    @Test
-    void shouldReturnErrorWhenCountryIsEmptyAndHasRequiredRisks() {
-        when(requestMock.getSelectedRisks())
-                .thenReturn(List.of("TRAVEL_MEDICAL"));
+    void shouldReturnErrorWhenCountryIsEmpty() {
         when(requestMock.getCountry())
                 .thenReturn("");
         when(errorFactoryMock.buildError("ERROR_CODE_10"))
@@ -67,9 +46,7 @@ class EmptyCountryValidationTest {
     }
 
     @Test
-    void shouldReturnErrorWhenCountryIsNullAndHasRequiredRisks() {
-        when(requestMock.getSelectedRisks())
-                .thenReturn(List.of("TRAVEL_MEDICAL"));
+    void shouldReturnErrorWhenCountryIsNull() {
         when(requestMock.getCountry())
                 .thenReturn(null);
         when(errorFactoryMock.buildError("ERROR_CODE_10"))

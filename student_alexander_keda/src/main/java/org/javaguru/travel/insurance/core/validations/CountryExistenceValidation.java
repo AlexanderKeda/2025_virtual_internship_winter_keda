@@ -22,16 +22,10 @@ class CountryExistenceValidation implements TravelRequestValidation {
 
     @Override
     public Optional<ValidationError> validate(TravelCalculatePremiumRequest request) {
-        return hasRequiredRisks(request)
-                && request.getCountry() != null
+        return request.getCountry() != null
                 && !request.getCountry().isBlank()
                 ? validateCountryExistence(request)
                 : Optional.empty();
-    }
-
-    private boolean hasRequiredRisks(TravelCalculatePremiumRequest request) {
-        return request.getSelectedRisks() != null
-                && request.getSelectedRisks().contains("TRAVEL_MEDICAL");
     }
 
     private Optional<ValidationError> validateCountryExistence(TravelCalculatePremiumRequest request) {
