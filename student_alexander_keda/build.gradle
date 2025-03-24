@@ -1,3 +1,8 @@
+plugins {
+    id 'org.springframework.boot' version "3.2.5"
+    id 'maven-publish'
+}
+
 dependencies {
 
     implementation('mysql:mysql-connector-java:8.0.22')
@@ -26,6 +31,44 @@ dependencies {
 
     test {
         useJUnitPlatform()
+    }
+
+}
+
+jar {
+    enabled = false
+}
+
+bootJar {
+    enabled = true
+    archiveBaseName = 'insurance-calculator'
+    archiveVersion = '1.0.0'
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication){
+            artifact bootJar
+
+            groupId = 'org.javaguru'
+            artifactId = 'insurance-calculator'
+            version = '1.0.0'
+
+            pom {
+                name = 'Insurance Calculator Application'
+                description = 'Application to calculate travel insurance premium'
+                licenses {
+                    license {
+                        name = 'The Apache License, Version 2.0'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+            }
+        }
+    }
+
+    repositories {
+        mavenLocal()
     }
 
 }
