@@ -7,6 +7,7 @@ import org.javaguru.travel.insurance.dto.TravelCalculatePremiumRequest;
 import org.javaguru.travel.insurance.dto.ValidationError;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -29,35 +30,14 @@ class MedicalRiskLimitLevelExistenceValidationTest {
     @Mock
     private ValidationErrorFactory errorFactoryMock;
 
+    @InjectMocks
+    private MedicalRiskLimitLevelExistenceValidation limitLevelExistenceValidation;
+
     @Mock
     private TravelCalculatePremiumRequest requestMock;
 
-
     @Test
-    void shouldSucceedWhenLimitLevelDisabled() {
-        var limitLevelExistenceValidation = new MedicalRiskLimitLevelExistenceValidation(
-                false,
-                classifierValueRepositoryMock,
-                medicalRiskLimitLevelRepository,
-                errorFactoryMock
-        );
-        assertEquals(Optional.empty(), limitLevelExistenceValidation.validate(requestMock));
-        Mockito.verifyNoInteractions(classifierValueRepositoryMock);
-        Mockito.verifyNoInteractions(medicalRiskLimitLevelRepository);
-        Mockito.verifyNoInteractions(errorFactoryMock);
-        Mockito.verifyNoInteractions(requestMock);
-    }
-
-    @Test
-    void shouldSucceedWhenLimitLevelExistAndHasRequiredRisks() {
-        var limitLevelExistenceValidation = new MedicalRiskLimitLevelExistenceValidation(
-                true,
-                classifierValueRepositoryMock,
-                medicalRiskLimitLevelRepository,
-                errorFactoryMock
-        );
-        when(requestMock.getSelectedRisks())
-                .thenReturn(List.of("TRAVEL_MEDICAL"));
+    void shouldSucceedWhenLimitLevelExist() {
         when(requestMock.getMedicalRiskLimitLevel())
                 .thenReturn("LIMIT_LEVEL");
         when(classifierValueRepositoryMock
@@ -71,87 +51,29 @@ class MedicalRiskLimitLevelExistenceValidationTest {
     }
 
     @Test
-    void shouldSucceedWhenRequiredRisksAreMissing() {
-        var limitLevelExistenceValidation = new MedicalRiskLimitLevelExistenceValidation(
-                true,
-                classifierValueRepositoryMock,
-                medicalRiskLimitLevelRepository,
-                errorFactoryMock
-        );
-        when(requestMock.getSelectedRisks())
-                .thenReturn(List.of("FAKE_RISK"));
-        assertEquals(Optional.empty(), limitLevelExistenceValidation.validate(requestMock));
-        Mockito.verifyNoInteractions(classifierValueRepositoryMock);
-        Mockito.verifyNoInteractions(medicalRiskLimitLevelRepository);
-        Mockito.verifyNoInteractions(errorFactoryMock);
-    }
-
-    @Test
-    void shouldSucceedWhenRequiredRisksAreNull() {
-        var limitLevelExistenceValidation = new MedicalRiskLimitLevelExistenceValidation(
-                true,
-                classifierValueRepositoryMock,
-                medicalRiskLimitLevelRepository,
-                errorFactoryMock
-        );
-        when(requestMock.getSelectedRisks())
-                .thenReturn(null);
-        assertEquals(Optional.empty(), limitLevelExistenceValidation.validate(requestMock));
-        Mockito.verifyNoInteractions(classifierValueRepositoryMock);
-        Mockito.verifyNoInteractions(medicalRiskLimitLevelRepository);
-        Mockito.verifyNoInteractions(errorFactoryMock);
-    }
-
-    @Test
-    void shouldSucceedWhenLimitLevelIsNullAndHasRequiredRisks() {
-        var limitLevelExistenceValidation = new MedicalRiskLimitLevelExistenceValidation(
-                true,
-                classifierValueRepositoryMock,
-                medicalRiskLimitLevelRepository,
-                errorFactoryMock
-        );
-        when(requestMock.getSelectedRisks())
-                .thenReturn(List.of("TRAVEL_MEDICAL"));
+    void shouldSucceedWhenLimitLevelIsNull() {
         when(requestMock.getMedicalRiskLimitLevel())
                 .thenReturn(null);
         assertEquals(Optional.empty(), limitLevelExistenceValidation.validate(requestMock));
         Mockito.verifyNoInteractions(classifierValueRepositoryMock);
         Mockito.verifyNoInteractions(medicalRiskLimitLevelRepository);
         Mockito.verifyNoInteractions(errorFactoryMock);
-
     }
 
     @Test
-    void shouldSucceedWhenLimitLevelIsEmptyAndHasRequiredRisks() {
-        var limitLevelExistenceValidation = new MedicalRiskLimitLevelExistenceValidation(
-                true,
-                classifierValueRepositoryMock,
-                medicalRiskLimitLevelRepository,
-                errorFactoryMock
-        );
-        when(requestMock.getSelectedRisks())
-                .thenReturn(List.of("TRAVEL_MEDICAL"));
+    void shouldSucceedWhenLimitLevelIsEmpty() {
         when(requestMock.getMedicalRiskLimitLevel())
                 .thenReturn("");
         assertEquals(Optional.empty(), limitLevelExistenceValidation.validate(requestMock));
         Mockito.verifyNoInteractions(classifierValueRepositoryMock);
         Mockito.verifyNoInteractions(medicalRiskLimitLevelRepository);
         Mockito.verifyNoInteractions(errorFactoryMock);
-
     }
 
     @Test
-    void shouldReturnErrorWhenLimitLevelIcIsNotExistAndHasRequiredRisks() {
+    void shouldReturnErrorWhenLimitLevelIcIsNotExist() {
         String limitLevel = "FAKE_LIMIT_LEVEL";
         var placeholder = new Placeholder("NOT_EXISTING_RISK_LEVEL", limitLevel);
-        var limitLevelExistenceValidation = new MedicalRiskLimitLevelExistenceValidation(
-                true,
-                classifierValueRepositoryMock,
-                medicalRiskLimitLevelRepository,
-                errorFactoryMock
-        );
-        when(requestMock.getSelectedRisks())
-                .thenReturn(List.of("TRAVEL_MEDICAL"));
         when(requestMock.getMedicalRiskLimitLevel())
                 .thenReturn(limitLevel);
         when(classifierValueRepositoryMock
@@ -168,17 +90,9 @@ class MedicalRiskLimitLevelExistenceValidationTest {
     }
 
     @Test
-    void shouldReturnErrorWhenLimitLevelCoefficientIsNotExistAndHasRequiredRisks() {
+    void shouldReturnErrorWhenLimitLevelCoefficientIsNotExistAndHasRequiredRisk() {
         String limitLevel = "LIMIT_LEVEL";
         var placeholder = new Placeholder("NOT_EXISTING_RISK_LEVEL", limitLevel);
-        var limitLevelExistenceValidation = new MedicalRiskLimitLevelExistenceValidation(
-                true,
-                classifierValueRepositoryMock,
-                medicalRiskLimitLevelRepository,
-                errorFactoryMock
-        );
-        when(requestMock.getSelectedRisks())
-                .thenReturn(List.of("TRAVEL_MEDICAL"));
         when(requestMock.getMedicalRiskLimitLevel())
                 .thenReturn(limitLevel);
         when(classifierValueRepositoryMock
@@ -194,7 +108,6 @@ class MedicalRiskLimitLevelExistenceValidationTest {
         var errorOpt = limitLevelExistenceValidation.validate(requestMock);
         assertTrue(errorOpt.isPresent());
         assertEquals(new ValidationError("", ""), errorOpt.get());
-
     }
 
 }
