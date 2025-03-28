@@ -42,11 +42,11 @@ CREATE TABLE IF NOT EXISTS age_coefficient (
 
 CREATE TABLE IF NOT EXISTS medical_risk_limit_level (
 	id BIGINT NOT NULL AUTO_INCREMENT,
-    medical_risk_limit_ic VARCHAR(200) UNIQUE NOT NULL,
+    medical_risk_limit_level_ic VARCHAR(200) UNIQUE NOT NULL,
     coefficient DECIMAL(10,2) NOT NULL,
     PRIMARY KEY (id)
 );
 
 ALTER TABLE medical_risk_limit_level
-ADD FOREIGN KEY (medical_risk_limit_ic) REFERENCES classifier_values(ic);
+ADD FOREIGN KEY (medical_risk_limit_level_ic) REFERENCES classifier_values(ic);
 

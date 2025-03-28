@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface MedicalRiskLimitLevelRepository
         extends JpaRepository<MedicalRiskLimitLevel, Long> {
 
-    Optional<MedicalRiskLimitLevel> findByMedicalRiskLimitIc(String medicalRiskLimitIc);
+    Optional<MedicalRiskLimitLevel> findByMedicalRiskLimitLevelIc(String medicalRiskLimitIc);
 
-    boolean existsByMedicalRiskLimitIc(String medicalRiskLimitIc);
+    boolean existsByMedicalRiskLimitLevelIc(String medicalRiskLimitIc);
 }

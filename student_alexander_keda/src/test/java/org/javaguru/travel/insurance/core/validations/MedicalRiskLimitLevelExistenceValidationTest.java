@@ -44,7 +44,7 @@ class MedicalRiskLimitLevelExistenceValidationTest {
                 .existsByClassifierTitleAndIc("MEDICAL_RISK_LIMIT_LEVEL", "LIMIT_LEVEL"))
                 .thenReturn(true);
         when(medicalRiskLimitLevelRepository
-                .existsByMedicalRiskLimitIc("LIMIT_LEVEL"))
+                .existsByMedicalRiskLimitLevelIc("LIMIT_LEVEL"))
                 .thenReturn(true);
         assertEquals(Optional.empty(), limitLevelExistenceValidation.validate(requestMock));
         Mockito.verifyNoInteractions(errorFactoryMock);
@@ -99,7 +99,7 @@ class MedicalRiskLimitLevelExistenceValidationTest {
                 .existsByClassifierTitleAndIc("MEDICAL_RISK_LIMIT_LEVEL", limitLevel))
                 .thenReturn(true);
         when(medicalRiskLimitLevelRepository
-                .existsByMedicalRiskLimitIc(limitLevel))
+                .existsByMedicalRiskLimitLevelIc(limitLevel))
                 .thenReturn(false);
         when(errorFactoryMock.buildError(
                 "ERROR_CODE_16",

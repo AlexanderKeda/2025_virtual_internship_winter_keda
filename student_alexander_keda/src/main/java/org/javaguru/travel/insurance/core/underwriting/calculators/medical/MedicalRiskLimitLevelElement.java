@@ -34,7 +34,7 @@ class MedicalRiskLimitLevelElement implements MedicalRiskElement {
 
     private BigDecimal getMedicalRiskLimitLevelCoefficient(TravelCalculatePremiumRequest request) {
         var medicalRiskLimitLevelOpt = medicalRiskLimitLevelRepository
-                .findByMedicalRiskLimitIc(request.getMedicalRiskLimitLevel());
+                .findByMedicalRiskLimitLevelIc(request.getMedicalRiskLimitLevel());
         if (medicalRiskLimitLevelOpt.isEmpty()) {
             throw new RuntimeException("Country day rate not found by countryIC=" + request.getCountry());
         }

@@ -91,7 +91,7 @@ AUTO_INCREMENT = 1002;
 
 CREATE TABLE IF NOT EXISTS `medical_risk_limit_level` (
 	`id` BIGINT NOT NULL AUTO_INCREMENT,
-    `medical_risk_limit_ic` VARCHAR(200) UNIQUE NOT NULL,
+    `medical_risk_limit_level_ic` VARCHAR(200) UNIQUE NOT NULL,
     `coefficient` DECIMAL(10,2) NOT NULL,
     PRIMARY KEY (`id`)
 )
@@ -99,7 +99,7 @@ ENGINE = InnoDB
 AUTO_INCREMENT = 1002;
 
 ALTER TABLE `medical_risk_limit_level`
-ADD FOREIGN KEY (`medical_risk_limit_ic`) REFERENCES `classifier_values`(`ic`);
+ADD FOREIGN KEY (`medical_risk_limit_level_ic`) REFERENCES `classifier_values`(`ic`);
 
 DELIMITER //
 CREATE PROCEDURE `check_valid_medical_risk_limit_level`(IN `risk_limit_ic` VARCHAR(200))
@@ -120,18 +120,18 @@ BEGIN
     END IF;
 END //
 
-CREATE TRIGGER `insert_check_valid_medical_risk_limit_ic`
+CREATE TRIGGER `insert_check_valid_medical_risk_limit_level_ic`
 BEFORE INSERT ON `medical_risk_limit_level`
 FOR EACH ROW
 BEGIN
-	CALL check_valid_medical_risk_limit_level (NEW.medical_risk_limit_ic);
+	CALL check_valid_medical_risk_limit_level (NEW.medical_risk_limit_level_ic);
 END //
 
-CREATE TRIGGER `update_check_valid_medical_risk_limit_ic`
+CREATE TRIGGER `update_check_valid_medical_risk_limit_level_ic`
 BEFORE UPDATE ON `medical_risk_limit_level`
 FOR EACH ROW
 BEGIN
-	CALL check_valid_medical_risk_limit_level (NEW.medical_risk_limit_ic);
+	CALL check_valid_medical_risk_limit_level (NEW.medical_risk_limit_level_ic);
 END //
 DELIMITER ;
 

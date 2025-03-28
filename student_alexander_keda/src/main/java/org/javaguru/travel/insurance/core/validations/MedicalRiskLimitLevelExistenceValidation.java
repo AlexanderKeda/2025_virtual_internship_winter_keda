@@ -47,7 +47,7 @@ class MedicalRiskLimitLevelExistenceValidation implements TravelRequestValidatio
 
     private boolean doesLimitLevelCoefficientExists(String limitLevel) {
         return medicalRiskLimitLevelRepository
-                .existsByMedicalRiskLimitIc(limitLevel);
+                .existsByMedicalRiskLimitLevelIc(limitLevel);
     }
 
     private ValidationError buildLimitLevelNotFoundError(String limitLevel) {
