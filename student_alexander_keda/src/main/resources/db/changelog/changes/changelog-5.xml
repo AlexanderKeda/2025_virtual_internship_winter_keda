@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<databaseChangeLog
+		xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.2.xsd">
+
+	<changeSet id="8" author="AlexanderKeda">
+		<createTable tableName="medical_risk_limit_level">
+			<column name="id" type="BIGINT" autoIncrement="true">
+				<constraints primaryKey="true" nullable="false"/>
+			</column>
+			<column name="medical_risk_limit_level_ic" type="VARCHAR(200)">
+				<constraints nullable="false" unique="true"/>
+			</column>
+			<column name="coefficient" type="DECIMAL(10,2)">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+
+		<addForeignKeyConstraint baseTableName="medical_risk_limit_level"
+								 baseColumnNames="medical_risk_limit_level_ic"
+								 constraintName="fk_medical_risk_limit_level_medical_risk_limit_level_ic"
+								 referencedTableName="classifier_values"
+								 referencedColumnNames="ic"/>
+	</changeSet>
+
+	<changeSet id="9" author="AlexanderKeda">
+		<createProcedure>
+			CREATE PROCEDURE `check_valid_medical_risk_limit_level`(IN `risk_limit_ic` VARCHAR(200))
+			BEGIN
+			IF NOT EXISTS (
+			SELECT 1
+			FROM classifier_values AS cv
+			WHERE cv.ic = risk_limit_ic
+			AND cv.classifier_id = (
+			SELECT id
+			FROM classifiers
+			WHERE title = 'MEDICAL_RISK_LIMIT_LEVEL'
+			)
+			) THEN
+			SET @ERROR_MSG = CONCAT('Error: medical_risk_limit_level=', risk_limit_ic,' does not exist');
+			SIGNAL SQLSTATE '45000'
+			SET MESSAGE_TEXT = @ERROR_MSG;
+			END IF;
+			END;
+		</createProcedure>
+	</changeSet>
+
+	<changeSet id="10" author="AlexanderKeda">
+		<sql>
+			CREATE TRIGGER `insert_check_valid_medical_risk_limit_level_ic`
+			BEFORE INSERT ON `medical_risk_limit_level`
+			FOR EACH ROW
+			BEGIN
+			CALL check_valid_medical_risk_limit_level (NEW.medical_risk_limit_level_ic);
+			END;
+		</sql>
+	</changeSet>
+
+	<changeSet id="11" author="AlexanderKeda">
+		<sql>
+			CREATE TRIGGER `update_check_valid_medical_risk_limit_level_ic`
+			BEFORE UPDATE ON `medical_risk_limit_level`
+			FOR EACH ROW
+			BEGIN
+			CALL check_valid_medical_risk_limit_level (NEW.medical_risk_limit_level_ic);
+			END;
+		</sql>
+	</changeSet>
+
+</databaseChangeLog>
