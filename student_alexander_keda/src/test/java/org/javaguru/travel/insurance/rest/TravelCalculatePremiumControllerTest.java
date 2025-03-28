@@ -59,7 +59,7 @@ class TravelCalculatePremiumControllerTest {
 
         String expectedResponseJson = jsonFileReader.readJsonFromFile(expectedResponsePath);
 
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/insurance/travel/")
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/insurance/travel/api/")
                         .content(requestJson)
                         .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isOk())

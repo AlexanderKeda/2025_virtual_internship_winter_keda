@@ -6,7 +6,7 @@ import org.javaguru.travel.insurance.core.util.BigDecimalSerializer;
 import java.math.BigDecimal;
 
 public record RiskPremium(
-        String riskIC,
+        String riskIc,
         @JsonSerialize(using = BigDecimalSerializer.class) BigDecimal premium
 ) {
 }

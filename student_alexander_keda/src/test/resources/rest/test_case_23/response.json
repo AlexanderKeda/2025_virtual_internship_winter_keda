@@ -10,27 +10,27 @@
   "agreementPremium": 14.85,
   "risks": [
     {
-      "riskIC": "TRAVEL_CANCELLATION",
+      "riskIc": "TRAVEL_CANCELLATION",
       "premium": 0.00
     },
     {
-      "riskIC": "TRAVEL_EVACUATION",
+      "riskIc": "TRAVEL_EVACUATION",
       "premium": 0.00
     },
     {
-      "riskIC": "TRAVEL_LOSS_BAGGAGE",
+      "riskIc": "TRAVEL_LOSS_BAGGAGE",
       "premium": 0.00
     },
     {
-      "riskIC": "TRAVEL_MEDICAL",
+      "riskIc": "TRAVEL_MEDICAL",
       "premium": 14.85
     },
     {
-      "riskIC": "TRAVEL_SPORT_ACTIVITIES",
+      "riskIc": "TRAVEL_SPORT_ACTIVITIES",
       "premium": 0.00
     },
     {
-      "riskIC": "TRAVEL_THIRD_PARTY_LIABILITY",
+      "riskIc": "TRAVEL_THIRD_PARTY_LIABILITY",
       "premium": 0.00
     }
   ]
