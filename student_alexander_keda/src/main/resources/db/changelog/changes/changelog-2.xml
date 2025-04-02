@@ -14,7 +14,7 @@
                 <constraints nullable="false"/>
             </column>
             <column name="ic" type="VARCHAR(200)">
-                <constraints nullable="false"/>
+                <constraints nullable="false" unique="true"/>
             </column>
             <column name="description" type="VARCHAR(500)">
                 <constraints nullable="false"/>

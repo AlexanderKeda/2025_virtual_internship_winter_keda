@@ -25,7 +25,7 @@
 								 referencedColumnNames="ic"/>
 	</changeSet>
 
-	<changeSet id="9" author="AlexanderKeda">
+	<changeSet id="9" author="AlexanderKeda" dbms="mysql">
 		<createProcedure>
 			CREATE PROCEDURE `check_valid_medical_risk_limit_level`(IN `risk_limit_ic` VARCHAR(200))
 			BEGIN
@@ -47,7 +47,7 @@
 		</createProcedure>
 	</changeSet>
 
-	<changeSet id="10" author="AlexanderKeda">
+	<changeSet id="10" author="AlexanderKeda" dbms="mysql">
 		<sql>
 			CREATE TRIGGER `insert_check_valid_medical_risk_limit_level_ic`
 			BEFORE INSERT ON `medical_risk_limit_level`
@@ -58,7 +58,7 @@
 		</sql>
 	</changeSet>
 
-	<changeSet id="11" author="AlexanderKeda">
+	<changeSet id="11" author="AlexanderKeda" dbms="mysql">
 		<sql>
 			CREATE TRIGGER `update_check_valid_medical_risk_limit_level_ic`
 			BEFORE UPDATE ON `medical_risk_limit_level`

@@ -26,7 +26,7 @@
 
 	</changeSet>
 
-	<changeSet id="4" author="AlexanderKeda">
+	<changeSet id="4" author="AlexanderKeda" dbms="mysql">
 		<createProcedure>
 			CREATE PROCEDURE `check_valid_country_ic`(IN `country_ic` VARCHAR(200))
 			BEGIN
@@ -48,7 +48,7 @@
 		</createProcedure>
 	</changeSet>
 
-	<changeSet id="5" author="AlexanderKeda">
+	<changeSet id="5" author="AlexanderKeda" dbms="mysql">
 		<sql>
 			CREATE TRIGGER `insert_check_valid_country_ic`
 			BEFORE INSERT ON `country_default_day_rate`
@@ -59,7 +59,7 @@
 		</sql>
 	</changeSet>
 
-	<changeSet id="6" author="AlexanderKeda">
+	<changeSet id="6" author="AlexanderKeda" dbms="mysql">
 		<sql>
 			CREATE TRIGGER `update_check_valid_country_ic`
 			BEFORE UPDATE ON `country_default_day_rate`
