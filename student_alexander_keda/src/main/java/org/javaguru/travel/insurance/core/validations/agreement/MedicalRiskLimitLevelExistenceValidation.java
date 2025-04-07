@@ -7,7 +7,7 @@ import org.javaguru.travel.insurance.core.repositories.MedicalRiskLimitLevelRepo
 import org.javaguru.travel.insurance.core.util.Placeholder;
 import org.javaguru.travel.insurance.core.validations.TravelRequestValidation;
 import org.javaguru.travel.insurance.core.validations.ValidationErrorFactory;
-import org.javaguru.travel.insurance.dto.TravelCalculatePremiumRequest;
+import org.javaguru.travel.insurance.dto.v1.TravelCalculatePremiumRequestV1;
 import org.javaguru.travel.insurance.dto.ValidationError;
 import org.springframework.stereotype.Component;
 
@@ -23,19 +23,19 @@ class MedicalRiskLimitLevelExistenceValidation implements TravelRequestValidatio
     private final ValidationErrorFactory validationErrorFactory;
 
     @Override
-    public Optional<ValidationError> validate(TravelCalculatePremiumRequest request) {
+    public Optional<ValidationError> validate(TravelCalculatePremiumRequestV1 request) {
         return isMedicalRiskLimitLevelNotBlank(request)
                 ? validateMedicalRiskLimitLevelExistence(request)
                 : Optional.empty();
     }
 
-    private boolean isMedicalRiskLimitLevelNotBlank(TravelCalculatePremiumRequest request) {
+    private boolean isMedicalRiskLimitLevelNotBlank(TravelCalculatePremiumRequestV1 request) {
         return request.getMedicalRiskLimitLevel() != null
                 && !request.getMedicalRiskLimitLevel().isBlank();
     }
 
     private Optional<ValidationError> validateMedicalRiskLimitLevelExistence
-            (TravelCalculatePremiumRequest request) {
+            (TravelCalculatePremiumRequestV1 request) {
         return doesLimitLevelIcExists(request.getMedicalRiskLimitLevel())
                 && doesLimitLevelCoefficientExists(request.getMedicalRiskLimitLevel())
                 ? Optional.empty()

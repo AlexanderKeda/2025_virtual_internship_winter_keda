@@ -2,7 +2,7 @@ package org.javaguru.travel.insurance.core.underwriting;
 
 import org.javaguru.travel.insurance.core.underwriting.calculators.TravelRiskPremiumCalculator;
 import org.javaguru.travel.insurance.dto.RiskPremium;
-import org.javaguru.travel.insurance.dto.TravelCalculatePremiumRequest;
+import org.javaguru.travel.insurance.dto.v1.TravelCalculatePremiumRequestV1;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -29,7 +29,7 @@ class SelectedRisksPremiumCalculatorTest {
     private SelectedRisksPremiumCalculator risksPremiumCalculator;
 
     @Mock
-    private TravelCalculatePremiumRequest requestMock;
+    private TravelCalculatePremiumRequestV1 requestMock;
 
     @BeforeEach
     void setUp() {

@@ -1,7 +1,10 @@
-package org.javaguru.travel.insurance.dto;
+package org.javaguru.travel.insurance.dto.v2;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -10,14 +13,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class TravelCalculatePremiumRequest {
-
-    private String personFirstName;
-    private String personLastName;
-
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDate personBirthDate;
+public class TravelCalculatePremiumRequestV2 {
 
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate agreementDateFrom;
@@ -27,8 +23,9 @@ public class TravelCalculatePremiumRequest {
 
     private String country;
 
-    private List<String> selectedRisks;
-
     private String medicalRiskLimitLevel;
 
+    private List<String> selectedRisks;
+
+    private List<PersonRequestDTO> persons;
 }

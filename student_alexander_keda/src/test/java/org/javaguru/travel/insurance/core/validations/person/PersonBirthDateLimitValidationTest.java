@@ -2,7 +2,7 @@ package org.javaguru.travel.insurance.core.validations.person;
 
 import org.javaguru.travel.insurance.core.util.AgeCalculator;
 import org.javaguru.travel.insurance.core.validations.ValidationErrorFactory;
-import org.javaguru.travel.insurance.dto.TravelCalculatePremiumRequest;
+import org.javaguru.travel.insurance.dto.v1.TravelCalculatePremiumRequestV1;
 import org.javaguru.travel.insurance.dto.ValidationError;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -29,7 +29,7 @@ class PersonBirthDateLimitValidationTest {
     private PersonBirthDateLimitValidation personBirthDateLimitValidation;
 
     @Mock
-    private TravelCalculatePremiumRequest requestMock;
+    private TravelCalculatePremiumRequestV1 requestMock;
 
     @Test
     void shouldNotReturnErrorWhenBirthDateIsValid() {

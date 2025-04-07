@@ -7,7 +7,7 @@ import org.javaguru.travel.insurance.core.repositories.CountryDefaultDayRateRepo
 import org.javaguru.travel.insurance.core.util.Placeholder;
 import org.javaguru.travel.insurance.core.validations.TravelRequestValidation;
 import org.javaguru.travel.insurance.core.validations.ValidationErrorFactory;
-import org.javaguru.travel.insurance.dto.TravelCalculatePremiumRequest;
+import org.javaguru.travel.insurance.dto.v1.TravelCalculatePremiumRequestV1;
 import org.javaguru.travel.insurance.dto.ValidationError;
 import org.springframework.stereotype.Component;
 
@@ -23,14 +23,14 @@ class CountryExistenceValidation implements TravelRequestValidation {
     private final CountryDefaultDayRateRepository countryDefaultDayRateRepository;
 
     @Override
-    public Optional<ValidationError> validate(TravelCalculatePremiumRequest request) {
+    public Optional<ValidationError> validate(TravelCalculatePremiumRequestV1 request) {
         return request.getCountry() != null
                 && !request.getCountry().isBlank()
                 ? validateCountryExistence(request)
                 : Optional.empty();
     }
 
-    private Optional<ValidationError> validateCountryExistence(TravelCalculatePremiumRequest request) {
+    private Optional<ValidationError> validateCountryExistence(TravelCalculatePremiumRequestV1 request) {
         return doesCountryExist(request.getCountry())
                 && doesDefaultDayRateExist(request.getCountry())
                 ? Optional.empty()

@@ -1,7 +1,7 @@
 package org.javaguru.travel.insurance.core.underwriting.calculators.medical;
 
 import org.javaguru.travel.insurance.core.repositories.MedicalRiskLimitLevelRepository;
-import org.javaguru.travel.insurance.dto.TravelCalculatePremiumRequest;
+import org.javaguru.travel.insurance.dto.v1.TravelCalculatePremiumRequestV1;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -22,7 +22,7 @@ class MedicalRiskLimitLevelElement implements MedicalRiskElement {
     }
 
     @Override
-    public BigDecimal calculate(TravelCalculatePremiumRequest request) {
+    public BigDecimal calculate(TravelCalculatePremiumRequestV1 request) {
         return isMedicalRiskLimitLevelEnabled()
                 ? getMedicalRiskLimitLevelCoefficient(request)
                 : getDefaultCoefficient();
@@ -32,7 +32,7 @@ class MedicalRiskLimitLevelElement implements MedicalRiskElement {
         return medicalRiskLimitLevelEnabled;
     }
 
-    private BigDecimal getMedicalRiskLimitLevelCoefficient(TravelCalculatePremiumRequest request) {
+    private BigDecimal getMedicalRiskLimitLevelCoefficient(TravelCalculatePremiumRequestV1 request) {
         var medicalRiskLimitLevelOpt = medicalRiskLimitLevelRepository
                 .findByMedicalRiskLimitLevelIc(request.getMedicalRiskLimitLevel());
         if (medicalRiskLimitLevelOpt.isEmpty()) {

@@ -3,7 +3,7 @@ package org.javaguru.travel.insurance.core.underwriting.calculators.medical;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import org.javaguru.travel.insurance.core.repositories.CountryDefaultDayRateRepository;
-import org.javaguru.travel.insurance.dto.TravelCalculatePremiumRequest;
+import org.javaguru.travel.insurance.dto.v1.TravelCalculatePremiumRequestV1;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -15,7 +15,7 @@ class CountryDefaultDayRateElement implements MedicalRiskElement {
     private final CountryDefaultDayRateRepository countryDefaultDayRateRepository;
 
     @Override
-    public BigDecimal calculate(TravelCalculatePremiumRequest request) {
+    public BigDecimal calculate(TravelCalculatePremiumRequestV1 request) {
         var dayRateOpt = countryDefaultDayRateRepository
                 .findByCountryIc(request.getCountry());
         if (dayRateOpt.isEmpty()) {

@@ -1,10 +1,10 @@
 package org.javaguru.travel.insurance.core.services;
 
-import org.javaguru.travel.insurance.dto.TravelCalculatePremiumRequest;
-import org.javaguru.travel.insurance.dto.TravelCalculatePremiumResponse;
+import org.javaguru.travel.insurance.dto.v1.TravelCalculatePremiumRequestV1;
+import org.javaguru.travel.insurance.dto.v1.TravelCalculatePremiumResponseV1;
 
 public interface TravelCalculatePremiumService {
 
-    TravelCalculatePremiumResponse calculatePremium(TravelCalculatePremiumRequest request);
+    TravelCalculatePremiumResponseV1 calculatePremium(TravelCalculatePremiumRequestV1 request);
 
 }

@@ -6,7 +6,7 @@ import org.javaguru.travel.insurance.core.repositories.ClassifierValueRepository
 import org.javaguru.travel.insurance.core.util.Placeholder;
 import org.javaguru.travel.insurance.core.validations.TravelRequestValidation;
 import org.javaguru.travel.insurance.core.validations.ValidationErrorFactory;
-import org.javaguru.travel.insurance.dto.TravelCalculatePremiumRequest;
+import org.javaguru.travel.insurance.dto.v1.TravelCalculatePremiumRequestV1;
 import org.javaguru.travel.insurance.dto.ValidationError;
 import org.springframework.stereotype.Component;
 
@@ -21,13 +21,13 @@ class SelectedRisksExistenceValidation implements TravelRequestValidation {
     private final ClassifierValueRepository classifierValueRepository;
 
     @Override
-    public List<ValidationError> validateList(TravelCalculatePremiumRequest request) {
+    public List<ValidationError> validateList(TravelCalculatePremiumRequestV1 request) {
         return request.getSelectedRisks() != null
                 ? validateSelectedRisksExistence(request)
                 : List.of();
     }
 
-    private List<ValidationError> validateSelectedRisksExistence(TravelCalculatePremiumRequest request) {
+    private List<ValidationError> validateSelectedRisksExistence(TravelCalculatePremiumRequestV1 request) {
         return request.getSelectedRisks().stream()
                 .filter(Predicate.not(this::doesRiskExist))
                 .map(this::buildRiskNotFoundError)

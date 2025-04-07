@@ -4,7 +4,7 @@ import org.javaguru.travel.insurance.core.underwriting.TravelPremiumCalculationR
 import org.javaguru.travel.insurance.core.underwriting.TravelPremiumUnderwriting;
 import org.javaguru.travel.insurance.core.validations.TravelCalculatePremiumRequestValidator;
 import org.javaguru.travel.insurance.dto.RiskPremium;
-import org.javaguru.travel.insurance.dto.TravelCalculatePremiumRequest;
+import org.javaguru.travel.insurance.dto.v1.TravelCalculatePremiumRequestV1;
 import org.javaguru.travel.insurance.dto.ValidationError;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -146,7 +146,7 @@ class TravelCalculatePremiumServiceImplTest {
 
     @Test
     void shouldReturnResponseWithErrors() {
-        var request = new TravelCalculatePremiumRequest();
+        var request = new TravelCalculatePremiumRequestV1();
         when(requestValidatorMock.validate(request))
                 .thenReturn(List.of(new ValidationError("field", "message")));
         var response = travelCalculatePremiumService.calculatePremium(request);
@@ -155,7 +155,7 @@ class TravelCalculatePremiumServiceImplTest {
 
     @Test
     void allFieldsMustBeEmptyWhenResponseContainsError() {
-        var request = new TravelCalculatePremiumRequest();
+        var request = new TravelCalculatePremiumRequestV1();
         when(requestValidatorMock.validate(request))
                 .thenReturn(List.of(new ValidationError("field", "message")));
         var response = travelCalculatePremiumService.calculatePremium(request);
@@ -169,15 +169,15 @@ class TravelCalculatePremiumServiceImplTest {
 
     @Test
     void shouldNotBeInteractionWithUnderwritingWhenResponseContainsError() {
-        var request = new TravelCalculatePremiumRequest();
+        var request = new TravelCalculatePremiumRequestV1();
         when(requestValidatorMock.validate(request))
                 .thenReturn(List.of(new ValidationError("field", "message")));
         travelCalculatePremiumService.calculatePremium(request);
         Mockito.verifyNoInteractions(underwritingMock);
     }
 
-    TravelCalculatePremiumRequest createValidRequest() {
-        return new TravelCalculatePremiumRequest(
+    TravelCalculatePremiumRequestV1 createValidRequest() {
+        return new TravelCalculatePremiumRequestV1(
                 FIRST_NAME,
                 LAST_NAME,
                 BIRTH_DATE,

@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.javaguru.travel.insurance.core.util.AgeCalculator;
 import org.javaguru.travel.insurance.core.validations.TravelRequestValidation;
 import org.javaguru.travel.insurance.core.validations.ValidationErrorFactory;
-import org.javaguru.travel.insurance.dto.TravelCalculatePremiumRequest;
+import org.javaguru.travel.insurance.dto.v1.TravelCalculatePremiumRequestV1;
 import org.javaguru.travel.insurance.dto.ValidationError;
 import org.springframework.stereotype.Component;
 
@@ -19,7 +19,7 @@ class PersonBirthDateLimitValidation implements TravelRequestValidation {
     private final AgeCalculator ageCalculator;
 
     @Override
-    public Optional<ValidationError> validate(TravelCalculatePremiumRequest request) {
+    public Optional<ValidationError> validate(TravelCalculatePremiumRequestV1 request) {
         return (request.getPersonBirthDate() != null
                 && ageCalculator.calculate(request.getPersonBirthDate()) > 150L)
                 ? Optional.of(validationErrorFactory.buildError("ERROR_CODE_14"))
