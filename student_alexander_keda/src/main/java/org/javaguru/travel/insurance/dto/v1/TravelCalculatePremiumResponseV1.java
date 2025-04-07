@@ -3,7 +3,7 @@ package org.javaguru.travel.insurance.dto.v1;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.*;
-import org.javaguru.travel.insurance.core.util.BigDecimalSerializer;
+import org.javaguru.travel.insurance.dto.util.BigDecimalSerializer;
 import org.javaguru.travel.insurance.dto.CoreResponse;
 import org.javaguru.travel.insurance.dto.RiskPremium;
 import org.javaguru.travel.insurance.dto.ValidationError;

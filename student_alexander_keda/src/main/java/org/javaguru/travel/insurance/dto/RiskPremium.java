@@ -1,7 +1,7 @@
 package org.javaguru.travel.insurance.dto;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import org.javaguru.travel.insurance.core.util.BigDecimalSerializer;
+import org.javaguru.travel.insurance.dto.util.BigDecimalSerializer;
 
 import java.math.BigDecimal;
 

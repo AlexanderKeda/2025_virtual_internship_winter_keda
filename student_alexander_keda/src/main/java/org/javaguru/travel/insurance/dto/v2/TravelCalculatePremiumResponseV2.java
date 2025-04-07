@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.javaguru.travel.insurance.core.util.BigDecimalSerializer;
+import org.javaguru.travel.insurance.dto.util.BigDecimalSerializer;
 import org.javaguru.travel.insurance.dto.CoreResponse;
 import org.javaguru.travel.insurance.dto.ValidationError;
 
