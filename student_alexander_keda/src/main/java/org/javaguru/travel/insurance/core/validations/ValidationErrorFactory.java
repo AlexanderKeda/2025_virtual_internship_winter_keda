@@ -11,15 +11,15 @@ import java.util.List;
 
 @Component
 @RequiredArgsConstructor(access = AccessLevel.PACKAGE)
-class ValidationErrorFactory {
+public class ValidationErrorFactory {
 
     private final ErrorCodeUtil errorCodeUtil;
 
-    ValidationError buildError(String errorCode) {
+    public ValidationError buildError(String errorCode) {
         return new ValidationError(errorCode, errorCodeUtil.getErrorDescription(errorCode));
     }
 
-    ValidationError buildError(String errorCode, List<Placeholder> placeholders) {
+    public ValidationError buildError(String errorCode, List<Placeholder> placeholders) {
         return new ValidationError(errorCode, errorCodeUtil.getErrorDescription(errorCode, placeholders));
     }
 }
