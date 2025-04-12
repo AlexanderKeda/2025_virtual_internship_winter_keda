@@ -1,0 +1,68 @@
+Test case 01:
+allFields_not_provided
+
+Test case 02:
+birthDate_exceeds_limit
+
+Test case 03:
+birthDate_in_the_future
+
+Test case 04:
+birthDate_is_null
+
+Test case 05:
+country_does_not_exist
+
+Test case 06:
+country_is_null
+
+Test case 07:
+country_not_provided
+
+Test case 08:
+dateFrom_in_the_past
+
+Test case 09:
+dateFrom_not_provided
+
+Test case 10:
+dateTo_in_the_past
+
+Test case 11:
+dateTo_lessThen_dateFrom
+
+Test case 12:
+dateTo_not_provided
+
+Test case 13:
+firstName_is_null
+
+Test case 14:
+firstName_not_provided
+
+Test case 15:
+lastName_is_null
+
+Test case 16:
+lastName_not_provided
+
+Test case 17:
+medicalRiskLimitLevel_does_not_exist
+
+Test case 18:
+medicalRiskLimitLevel_is_null
+
+Test case 19:
+medicalRiskLimitLevel_not_provided
+
+Test case 20:
+selectedRisks_does_not_exist
+
+Test case 21:
+selectedRisks_is_null
+
+Test case 22:
+selectedRisks_not_provided
+
+Test case 23:
+success

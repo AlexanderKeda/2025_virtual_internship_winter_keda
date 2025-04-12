@@ -1,0 +1,15 @@
+{
+  "personFirstName" : "Ivan",
+  "personLastName" : "Ivanov",
+  "personBirthDate" : "2000-02-16",
+  "agreementDateFrom" : "2026-02-16",
+  "agreementDateTo" : "2026-02-25",
+  "country": "LATVIA",
+  "selectedRisks": ["TRAVEL_MEDICAL",
+  "TRAVEL_CANCELLATION",
+  "TRAVEL_LOSS_BAGGAGE",
+  "TRAVEL_THIRD_PARTY_LIABILITY",
+  "TRAVEL_EVACUATION",
+  "TRAVEL_SPORT_ACTIVITIES"],
+  "medicalRiskLimitLevel" : null
+}

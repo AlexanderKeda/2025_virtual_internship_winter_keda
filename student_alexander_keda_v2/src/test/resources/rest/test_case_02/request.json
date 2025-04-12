@@ -1,0 +1,10 @@
+{
+  "personFirstName" : "Ivan",
+  "personLastName" : "Ivanov",
+  "personBirthDate" : "1870-02-16",
+  "agreementDateFrom" : "2026-02-16",
+  "agreementDateTo" : "2026-02-25",
+  "country": "LATVIA",
+  "selectedRisks": ["TRAVEL_MEDICAL"],
+  "medicalRiskLimitLevel" : "LEVEL_20000"
+}
