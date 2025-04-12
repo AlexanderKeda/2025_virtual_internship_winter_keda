@@ -7,7 +7,6 @@ import org.javaguru.travel.insurance.core.api.dto.ValidationErrorDTO;
 import org.javaguru.travel.insurance.core.repositories.ClassifierValueRepository;
 import org.javaguru.travel.insurance.core.repositories.MedicalRiskLimitLevelRepository;
 import org.javaguru.travel.insurance.core.util.Placeholder;
-import org.javaguru.travel.insurance.core.validations.TravelRequestValidation;
 import org.javaguru.travel.insurance.core.validations.ValidationErrorFactory;
 import org.springframework.stereotype.Component;
 
@@ -16,7 +15,7 @@ import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor(access = AccessLevel.PACKAGE)
-class MedicalRiskLimitLevelExistenceValidation implements TravelRequestValidation {
+class MedicalRiskLimitLevelExistenceValidation implements TravelAgreementValidation {
 
     private final ClassifierValueRepository classifierValueRepository;
     private final MedicalRiskLimitLevelRepository medicalRiskLimitLevelRepository;
