@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor(access = AccessLevel.PACKAGE)
-class EmptySelectedRisksValidation implements TravelAgreementValidation {
+class EmptySelectedRisksValidation implements TravelAgreementFieldsValidation {
 
     private final ValidationErrorFactory validationErrorFactory;
 

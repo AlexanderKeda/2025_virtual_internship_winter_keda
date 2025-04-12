@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor(access = AccessLevel.PACKAGE)
-class DateFromIsBeforeDateToValidation implements TravelAgreementValidation {
+class DateFromIsBeforeDateToValidation implements TravelAgreementFieldsValidation {
 
     private final ValidationErrorFactory validationErrorFactory;
 

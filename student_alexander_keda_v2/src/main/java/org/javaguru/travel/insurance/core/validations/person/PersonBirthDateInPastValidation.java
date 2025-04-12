@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor(access = AccessLevel.MODULE)
-class PersonBirthDateInPastValidation implements TravelPersonValidation {
+class PersonBirthDateInPastValidation implements TravelPersonFieldsValidation {
 
     private final ValidationErrorFactory validationErrorFactory;
 

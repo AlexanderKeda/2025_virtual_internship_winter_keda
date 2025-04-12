@@ -14,7 +14,7 @@ import java.util.function.Predicate;
 
 @Component
 @RequiredArgsConstructor(access = AccessLevel.PACKAGE)
-class SelectedRisksExistenceValidation implements TravelAgreementValidation {
+class SelectedRisksExistenceValidation implements TravelAgreementFieldsValidation {
 
     private final ValidationErrorFactory validationErrorFactory;
     private final ClassifierValueRepository classifierValueRepository;

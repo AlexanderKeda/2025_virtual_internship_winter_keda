@@ -15,7 +15,7 @@ import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor(access = AccessLevel.PACKAGE)
-class MedicalRiskLimitLevelExistenceValidation implements TravelAgreementValidation {
+class MedicalRiskLimitLevelExistenceValidation implements TravelAgreementFieldsValidation {
 
     private final ClassifierValueRepository classifierValueRepository;
     private final MedicalRiskLimitLevelRepository medicalRiskLimitLevelRepository;

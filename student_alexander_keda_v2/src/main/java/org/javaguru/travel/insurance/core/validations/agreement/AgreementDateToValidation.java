@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor(access = AccessLevel.PACKAGE)
-class AgreementDateToValidation implements TravelAgreementValidation {
+class AgreementDateToValidation implements TravelAgreementFieldsValidation {
 
     private final ValidationErrorFactory validationErrorFactory;
 

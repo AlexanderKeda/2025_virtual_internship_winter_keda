@@ -6,7 +6,7 @@ import org.javaguru.travel.insurance.core.api.dto.ValidationErrorDTO;
 import java.util.List;
 import java.util.Optional;
 
-public interface TravelAgreementValidation {
+public interface TravelAgreementFieldsValidation {
 
     default Optional<ValidationErrorDTO> validate(AgreementDTO agreement) {
         return Optional.empty();

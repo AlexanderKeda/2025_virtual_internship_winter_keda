@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor(access = AccessLevel.MODULE)
-class PersonBirthDateLimitValidation implements TravelPersonValidation {
+class PersonBirthDateLimitValidation implements TravelPersonFieldsValidation {
 
     private final ValidationErrorFactory validationErrorFactory;
     private final AgeCalculator ageCalculator;

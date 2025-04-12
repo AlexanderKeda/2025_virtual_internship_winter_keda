@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor(access = AccessLevel.PACKAGE)
-class PersonFirstNameValidation implements TravelPersonValidation {
+class PersonFirstNameValidation implements TravelPersonFieldsValidation {
 
     private final ValidationErrorFactory validationErrorFactory;
 

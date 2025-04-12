@@ -15,7 +15,7 @@ import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor(access = AccessLevel.PACKAGE)
-class CountryExistenceValidation implements TravelAgreementValidation {
+class CountryExistenceValidation implements TravelAgreementFieldsValidation {
 
     private final ValidationErrorFactory validationErrorFactory;
     private final ClassifierValueRepository classifierValueRepository;

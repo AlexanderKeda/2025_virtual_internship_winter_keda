@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import java.util.Optional;
 
 @Component
-class EmptyMedicalRiskLimitLevelValidation implements TravelAgreementValidation {
+class EmptyMedicalRiskLimitLevelValidation implements TravelAgreementFieldsValidation {
 
     private final boolean medicalRiskLimitLevelEnabled;
 
