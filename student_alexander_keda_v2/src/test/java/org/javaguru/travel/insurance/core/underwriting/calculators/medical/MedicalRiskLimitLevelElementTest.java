@@ -1,8 +1,9 @@
 package org.javaguru.travel.insurance.core.underwriting.calculators.medical;
 
+import org.javaguru.travel.insurance.core.api.dto.AgreementDTO;
+import org.javaguru.travel.insurance.core.api.dto.PersonDTO;
 import org.javaguru.travel.insurance.core.domain.MedicalRiskLimitLevel;
 import org.javaguru.travel.insurance.core.repositories.MedicalRiskLimitLevelRepository;
-import org.javaguru.travel.insurance.dto.v1.TravelCalculatePremiumRequestV1;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -12,7 +13,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.math.BigDecimal;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -22,7 +24,10 @@ class MedicalRiskLimitLevelElementTest {
     private MedicalRiskLimitLevelRepository medicalRiskLimitLevelRepositoryMock;
 
     @Mock
-    private TravelCalculatePremiumRequestV1 requestMock;
+    private AgreementDTO agreementMock;
+
+    @Mock
+    private PersonDTO personMock;
 
     @Test
     void shouldReturnCorrectCountryDefaultDayRate() {
@@ -32,9 +37,9 @@ class MedicalRiskLimitLevelElementTest {
         );
         var expectedLimitLevelCoefficient = new BigDecimal("1.1");
         var medicalRiskLimitLevel = new MedicalRiskLimitLevel(1L,"", expectedLimitLevelCoefficient);
-        when(medicalRiskLimitLevelRepositoryMock.findByMedicalRiskLimitLevelIc(requestMock.getMedicalRiskLimitLevel()))
+        when(medicalRiskLimitLevelRepositoryMock.findByMedicalRiskLimitLevelIc(agreementMock.getMedicalRiskLimitLevel()))
                 .thenReturn(Optional.of(medicalRiskLimitLevel));
-        assertEquals(expectedLimitLevelCoefficient, medicalRiskLimitLevelElement.calculate(requestMock));
+        assertEquals(expectedLimitLevelCoefficient, medicalRiskLimitLevelElement.calculate(agreementMock, personMock));
     }
 
     @Test
@@ -43,8 +48,8 @@ class MedicalRiskLimitLevelElementTest {
                 false,
                 medicalRiskLimitLevelRepositoryMock
         );
-        assertEquals(BigDecimal.ONE, medicalRiskLimitLevelElement.calculate(requestMock));
-        Mockito.verifyNoInteractions(requestMock);
+        assertEquals(BigDecimal.ONE, medicalRiskLimitLevelElement.calculate(agreementMock, personMock));
+        Mockito.verifyNoInteractions(agreementMock);
         Mockito.verifyNoInteractions(medicalRiskLimitLevelRepositoryMock);
     }
 
@@ -54,9 +59,9 @@ class MedicalRiskLimitLevelElementTest {
                 true,
                 medicalRiskLimitLevelRepositoryMock
         );
-        when(medicalRiskLimitLevelRepositoryMock.findByMedicalRiskLimitLevelIc(requestMock.getMedicalRiskLimitLevel()))
+        when(medicalRiskLimitLevelRepositoryMock.findByMedicalRiskLimitLevelIc(agreementMock.getMedicalRiskLimitLevel()))
                 .thenReturn(Optional.empty());
-        assertThrows(RuntimeException.class, () -> medicalRiskLimitLevelElement.calculate(requestMock));
+        assertThrows(RuntimeException.class, () -> medicalRiskLimitLevelElement.calculate(agreementMock, personMock));
     }
 
 }
