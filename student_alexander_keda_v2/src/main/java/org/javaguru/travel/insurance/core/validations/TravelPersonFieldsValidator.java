@@ -18,6 +18,12 @@ class TravelPersonFieldsValidator {
     private final List<TravelPersonFieldsValidation> personFieldsValidations;
 
     List<ValidationErrorDTO> validate(List<PersonDTO> persons) {
+        return persons != null
+                ? validatePersons(persons)
+                : List.of();
+    }
+
+    private List<ValidationErrorDTO> validatePersons(List<PersonDTO> persons) {
         return persons.stream()
                 .map(this::collectPersonErrors)
                 .flatMap(List::stream)

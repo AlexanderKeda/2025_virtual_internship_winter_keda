@@ -65,6 +65,12 @@ class TravelPersonFieldsValidatorTest {
     }
 
     @Test
+    void shouldNotReturnErrorsWhenPersonsIsNull() {
+        var errors = personFieldsValidator.validate(null);
+        assertTrue(errors.isEmpty());
+    }
+
+    @Test
     void shouldReturnSingleErrors() {
         when(validation1Mock.validate(person1Mock))
                 .thenReturn(Optional.of(new ValidationErrorDTO("", "")));
