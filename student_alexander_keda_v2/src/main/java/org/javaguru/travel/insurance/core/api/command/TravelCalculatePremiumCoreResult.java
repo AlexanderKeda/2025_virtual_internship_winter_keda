@@ -1,24 +1,18 @@
 package org.javaguru.travel.insurance.core.api.command;
 
-import lombok.Getter;
 import org.javaguru.travel.insurance.core.api.dto.AgreementDTO;
 import org.javaguru.travel.insurance.core.api.dto.ValidationErrorDTO;
 
 import java.util.List;
 
-@Getter
-public class TravelCalculatePremiumCoreResult {
-
-    private List<ValidationErrorDTO> errors;
-
-    private AgreementDTO agreement;
+public record TravelCalculatePremiumCoreResult(List<ValidationErrorDTO> errors, AgreementDTO agreement) {
 
     public TravelCalculatePremiumCoreResult(List<ValidationErrorDTO> errors) {
-        this.errors = errors;
+        this(errors, null);
     }
 
     public TravelCalculatePremiumCoreResult(AgreementDTO agreement) {
-        this.agreement = agreement;
+        this(null, agreement);
     }
 
     public boolean hasErrors() {

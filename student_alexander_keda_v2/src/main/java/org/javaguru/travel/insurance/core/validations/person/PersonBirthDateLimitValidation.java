@@ -19,8 +19,8 @@ class PersonBirthDateLimitValidation implements TravelPersonFieldsValidation {
 
     @Override
     public Optional<ValidationErrorDTO> validate(PersonDTO person) {
-        return (person.getPersonBirthDate() != null
-                && ageCalculator.calculate(person.getPersonBirthDate()) > 150L)
+        return (person.personBirthDate() != null
+                && ageCalculator.calculate(person.personBirthDate()) > 150L)
                 ? Optional.of(validationErrorFactory.buildError("ERROR_CODE_14"))
                 : Optional.empty();
     }

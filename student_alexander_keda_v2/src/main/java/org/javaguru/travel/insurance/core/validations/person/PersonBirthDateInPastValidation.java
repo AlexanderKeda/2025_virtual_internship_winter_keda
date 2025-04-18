@@ -18,8 +18,8 @@ class PersonBirthDateInPastValidation implements TravelPersonFieldsValidation {
 
     @Override
     public Optional<ValidationErrorDTO> validate(PersonDTO person) {
-        return (person.getPersonBirthDate() != null
-                && person.getPersonBirthDate().isAfter(LocalDate.now()))
+        return (person.personBirthDate() != null
+                && person.personBirthDate().isAfter(LocalDate.now()))
                 ? Optional.of(validationErrorFactory.buildError("ERROR_CODE_13"))
                 : Optional.empty();
     }

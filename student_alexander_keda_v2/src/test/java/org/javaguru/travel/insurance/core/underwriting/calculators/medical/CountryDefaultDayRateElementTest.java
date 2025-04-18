@@ -34,14 +34,14 @@ class CountryDefaultDayRateElementTest {
     @Test
     void shouldReturnCorrectCountryDefaultDayRate() {
         BigDecimal expectedDayRate = new BigDecimal("1.1");
-        when(countryDefaultDayRateRepositoryMock.findByCountryIc(agreementMock.getCountry()))
+        when(countryDefaultDayRateRepositoryMock.findByCountryIc(agreementMock.country()))
                 .thenReturn(Optional.of(new org.javaguru.travel.insurance.core.domain.CountryDefaultDayRate(1L, "", expectedDayRate)));
         assertEquals(expectedDayRate, countryDefaultDayRateElement.calculate(agreementMock, personMock));
     }
 
     @Test
     void shouldThrowExceptionWhenDayRateNotFoundInDB() {
-        when(countryDefaultDayRateRepositoryMock.findByCountryIc(agreementMock.getCountry()))
+        when(countryDefaultDayRateRepositoryMock.findByCountryIc(agreementMock.country()))
                 .thenReturn(Optional.empty());
         assertThrows(RuntimeException.class, () -> countryDefaultDayRateElement.calculate(agreementMock, personMock));
     }

@@ -21,13 +21,13 @@ class SelectedRisksExistenceValidation implements TravelAgreementFieldsValidatio
 
     @Override
     public List<ValidationErrorDTO> validateList(AgreementDTO agreement) {
-        return agreement.getSelectedRisks() != null
+        return agreement.selectedRisks() != null
                 ? validateSelectedRisksExistence(agreement)
                 : List.of();
     }
 
     private List<ValidationErrorDTO> validateSelectedRisksExistence(AgreementDTO agreement) {
-        return agreement.getSelectedRisks().stream()
+        return agreement.selectedRisks().stream()
                 .filter(Predicate.not(this::doesRiskExist))
                 .map(this::buildRiskNotFoundError)
                 .toList();

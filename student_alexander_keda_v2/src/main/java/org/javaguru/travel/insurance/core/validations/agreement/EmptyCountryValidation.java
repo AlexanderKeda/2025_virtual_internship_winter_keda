@@ -17,7 +17,7 @@ class EmptyCountryValidation implements TravelAgreementFieldsValidation {
 
     @Override
     public Optional<ValidationErrorDTO> validate(AgreementDTO agreement) {
-        return (agreement.getCountry() == null || agreement.getCountry().isBlank())
+        return (agreement.country() == null || agreement.country().isBlank())
                 ? Optional.of(validationErrorFactory.buildError("ERROR_CODE_10"))
                 : Optional.empty();
     }

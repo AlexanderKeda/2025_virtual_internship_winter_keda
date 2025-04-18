@@ -40,7 +40,7 @@ class MedicalRiskLimitLevelExistenceValidationTest {
 
     @Test
     void shouldSucceedWhenLimitLevelExist() {
-        when(agreementMock.getMedicalRiskLimitLevel())
+        when(agreementMock.medicalRiskLimitLevel())
                 .thenReturn("LIMIT_LEVEL");
         when(classifierValueRepositoryMock
                 .existsByClassifierTitleAndIc("MEDICAL_RISK_LIMIT_LEVEL", "LIMIT_LEVEL"))
@@ -54,7 +54,7 @@ class MedicalRiskLimitLevelExistenceValidationTest {
 
     @Test
     void shouldSucceedWhenLimitLevelIsNull() {
-        when(agreementMock.getMedicalRiskLimitLevel())
+        when(agreementMock.medicalRiskLimitLevel())
                 .thenReturn(null);
         assertEquals(Optional.empty(), limitLevelExistenceValidation.validate(agreementMock));
         Mockito.verifyNoInteractions(classifierValueRepositoryMock);
@@ -64,7 +64,7 @@ class MedicalRiskLimitLevelExistenceValidationTest {
 
     @Test
     void shouldSucceedWhenLimitLevelIsEmpty() {
-        when(agreementMock.getMedicalRiskLimitLevel())
+        when(agreementMock.medicalRiskLimitLevel())
                 .thenReturn("");
         assertEquals(Optional.empty(), limitLevelExistenceValidation.validate(agreementMock));
         Mockito.verifyNoInteractions(classifierValueRepositoryMock);
@@ -76,7 +76,7 @@ class MedicalRiskLimitLevelExistenceValidationTest {
     void shouldReturnErrorWhenLimitLevelIcIsNotExist() {
         String limitLevel = "FAKE_LIMIT_LEVEL";
         var placeholder = new Placeholder("NOT_EXISTING_RISK_LEVEL", limitLevel);
-        when(agreementMock.getMedicalRiskLimitLevel())
+        when(agreementMock.medicalRiskLimitLevel())
                 .thenReturn(limitLevel);
         when(classifierValueRepositoryMock
                 .existsByClassifierTitleAndIc("MEDICAL_RISK_LIMIT_LEVEL", limitLevel))
@@ -95,7 +95,7 @@ class MedicalRiskLimitLevelExistenceValidationTest {
     void shouldReturnErrorWhenLimitLevelCoefficientIsNotExistAndHasRequiredRisk() {
         String limitLevel = "LIMIT_LEVEL";
         var placeholder = new Placeholder("NOT_EXISTING_RISK_LEVEL", limitLevel);
-        when(agreementMock.getMedicalRiskLimitLevel())
+        when(agreementMock.medicalRiskLimitLevel())
                 .thenReturn(limitLevel);
         when(classifierValueRepositoryMock
                 .existsByClassifierTitleAndIc("MEDICAL_RISK_LIMIT_LEVEL", limitLevel))

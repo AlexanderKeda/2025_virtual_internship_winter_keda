@@ -35,7 +35,7 @@ class SelectedRisksExistenceValidationTest {
 
     @Test
     void shouldNotReturnErrorWhenAllRisksExist() {
-        when(agreementMock.getSelectedRisks()).thenReturn(List.of("RISK_1", "RISK_2", "RISK_3"));
+        when(agreementMock.selectedRisks()).thenReturn(List.of("RISK_1", "RISK_2", "RISK_3"));
         when(classifierValueRepositoryMock.existsByClassifierTitleAndIc("RISK_TYPE", "RISK_1"))
                 .thenReturn(true);
         when(classifierValueRepositoryMock.existsByClassifierTitleAndIc("RISK_TYPE", "RISK_2"))
@@ -48,7 +48,7 @@ class SelectedRisksExistenceValidationTest {
 
     @Test
     void shouldNotReturnErrorWhenRiskListIsEmpty() {
-        when(agreementMock.getSelectedRisks()).thenReturn(List.of());
+        when(agreementMock.selectedRisks()).thenReturn(List.of());
         assertTrue(selectedRisksExistenceValidation.validateList(agreementMock).isEmpty());
         Mockito.verifyNoInteractions(validationErrorFactoryMock);
         Mockito.verifyNoInteractions(classifierValueRepositoryMock);
@@ -56,7 +56,7 @@ class SelectedRisksExistenceValidationTest {
 
     @Test
     void shouldNotReturnErrorWhenRiskListIsNull() {
-        when(agreementMock.getSelectedRisks()).thenReturn(null);
+        when(agreementMock.selectedRisks()).thenReturn(null);
         assertTrue(selectedRisksExistenceValidation.validateList(agreementMock).isEmpty());
         Mockito.verifyNoInteractions(validationErrorFactoryMock);
         Mockito.verifyNoInteractions(classifierValueRepositoryMock);
@@ -64,7 +64,7 @@ class SelectedRisksExistenceValidationTest {
 
     @Test
     void shouldReturnErrorWhenRiskDoesNotExist() {
-        when(agreementMock.getSelectedRisks()).thenReturn(List.of("FAKE_RISK"));
+        when(agreementMock.selectedRisks()).thenReturn(List.of("FAKE_RISK"));
         when(classifierValueRepositoryMock.existsByClassifierTitleAndIc("RISK_TYPE", "FAKE_RISK"))
                 .thenReturn(false);
         when(validationErrorFactoryMock
@@ -77,7 +77,7 @@ class SelectedRisksExistenceValidationTest {
 
     @Test
     void shouldReturnCorrectErrorCountWhenRisksDoNotExist() {
-        when(agreementMock.getSelectedRisks()).thenReturn(List.of("FAKE_RISK_1", "FAKE_RISK_2", "FAKE_RISK_3", "RISK_1"));
+        when(agreementMock.selectedRisks()).thenReturn(List.of("FAKE_RISK_1", "FAKE_RISK_2", "FAKE_RISK_3", "RISK_1"));
         when(classifierValueRepositoryMock.existsByClassifierTitleAndIc("RISK_TYPE", "FAKE_RISK_1"))
                 .thenReturn(false);
         when(classifierValueRepositoryMock.existsByClassifierTitleAndIc("RISK_TYPE", "FAKE_RISK_2"))

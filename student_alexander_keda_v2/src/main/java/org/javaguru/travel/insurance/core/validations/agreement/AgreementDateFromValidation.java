@@ -17,7 +17,7 @@ class AgreementDateFromValidation implements TravelAgreementFieldsValidation {
 
     @Override
     public Optional<ValidationErrorDTO> validate(AgreementDTO agreement) {
-        return (agreement.getAgreementDateFrom() == null)
+        return (agreement.agreementDateFrom() == null)
                 ? Optional.of(validationErrorFactory.buildError("ERROR_CODE_3"))
                 : Optional.empty();
     }

@@ -17,7 +17,7 @@ class EmptySelectedRisksValidation implements TravelAgreementFieldsValidation {
 
     @Override
     public Optional<ValidationErrorDTO> validate(AgreementDTO agreement) {
-        return agreement.getSelectedRisks() == null || agreement.getSelectedRisks().isEmpty()
+        return agreement.selectedRisks() == null || agreement.selectedRisks().isEmpty()
                 ? Optional.of(validationErrorFactory.buildError("ERROR_CODE_5"))
                 : Optional.empty();
     }

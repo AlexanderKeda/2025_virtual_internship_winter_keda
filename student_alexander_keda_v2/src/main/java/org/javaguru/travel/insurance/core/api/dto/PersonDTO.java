@@ -1,33 +1,31 @@
 package org.javaguru.travel.insurance.core.api.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-
 import java.time.LocalDate;
 import java.util.List;
 
-@Getter
-@AllArgsConstructor
-public class PersonDTO {
+public record PersonDTO (
+        String personFirstName,
+        String personLastName,
+        LocalDate personBirthDate,
+        List<RiskDTO> risks) {
 
-    private String personFirstName;
+    public PersonDTO {
+        risks = List.copyOf(risks);
+    }
 
-    private String personLastName;
+    public PersonDTO(String personFirstName,
+                     String personLastName,
+                     LocalDate personBirthDate) {
+        this(personFirstName, personLastName, personBirthDate, List.of());
+    }
 
-    private LocalDate personBirthDate;
-
-    @Setter
-    private List<RiskDTO> risks;
-
-    public PersonDTO(
-            String personFirstName,
-            String personLastName,
-            LocalDate personBirthDate
-    ) {
-        this.personFirstName = personFirstName;
-        this.personLastName = personLastName;
-        this.personBirthDate = personBirthDate;
+    public PersonDTO withRisks(List<RiskDTO> risks) {
+        return new PersonDTO(
+                this.personFirstName,
+                this.personLastName,
+                this.personBirthDate,
+                risks
+        );
     }
 
 }

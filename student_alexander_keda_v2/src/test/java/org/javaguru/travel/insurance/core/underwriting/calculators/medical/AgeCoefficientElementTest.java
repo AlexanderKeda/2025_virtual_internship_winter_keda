@@ -40,7 +40,7 @@ class AgeCoefficientElementTest {
                 ageCoefficientRepositoryMock
         );
         BigDecimal expectedCoefficient = new BigDecimal("1.3");
-        when(ageCalculatorMock.calculate(personMock.getPersonBirthDate()))
+        when(ageCalculatorMock.calculate(personMock.personBirthDate()))
                 .thenReturn(25);
         when(ageCoefficientRepositoryMock.findByAge(25))
                 .thenReturn(Optional.of(new org.javaguru.travel.insurance.core.domain.AgeCoefficient(1L,20,40, expectedCoefficient)));
@@ -54,7 +54,7 @@ class AgeCoefficientElementTest {
                 ageCalculatorMock,
                 ageCoefficientRepositoryMock
         );
-        when(ageCalculatorMock.calculate(personMock.getPersonBirthDate()))
+        when(ageCalculatorMock.calculate(personMock.personBirthDate()))
                 .thenReturn(25);
         when(ageCoefficientRepositoryMock.findByAge(25))
                 .thenReturn(Optional.empty());

@@ -43,9 +43,9 @@ class EmptyMedicalRiskLimitLevelValidationTest {
                 true,
                 errorFactoryMock
         );
-        when(agreementMock.getSelectedRisks())
+        when(agreementMock.selectedRisks())
                 .thenReturn(List.of("TRAVEL_MEDICAL"));
-        when(agreementMock.getMedicalRiskLimitLevel())
+        when(agreementMock.medicalRiskLimitLevel())
                 .thenReturn("LIMIT_LEVEL");
         assertEquals(Optional.empty(), emptyLimitLevelValidation.validate(agreementMock));
         Mockito.verifyNoInteractions(errorFactoryMock);
@@ -57,7 +57,7 @@ class EmptyMedicalRiskLimitLevelValidationTest {
                 true,
                 errorFactoryMock
         );
-        when(agreementMock.getSelectedRisks())
+        when(agreementMock.selectedRisks())
                 .thenReturn(List.of("FAKE_RISK"));
         assertEquals(Optional.empty(), emptyLimitLevelValidation.validate(agreementMock));
         Mockito.verifyNoInteractions(errorFactoryMock);
@@ -69,7 +69,7 @@ class EmptyMedicalRiskLimitLevelValidationTest {
                 true,
                 errorFactoryMock
         );
-        when(agreementMock.getSelectedRisks())
+        when(agreementMock.selectedRisks())
                 .thenReturn(null);
         assertEquals(Optional.empty(), emptyLimitLevelValidation.validate(agreementMock));
         Mockito.verifyNoInteractions(errorFactoryMock);
@@ -81,9 +81,9 @@ class EmptyMedicalRiskLimitLevelValidationTest {
                 true,
                 errorFactoryMock
         );
-        when(agreementMock.getSelectedRisks())
+        when(agreementMock.selectedRisks())
                 .thenReturn(List.of("TRAVEL_MEDICAL"));
-        when(agreementMock.getMedicalRiskLimitLevel())
+        when(agreementMock.medicalRiskLimitLevel())
                 .thenReturn("");
         when(errorFactoryMock.buildError("ERROR_CODE_15"))
                 .thenReturn(new ValidationErrorDTO("", ""));
@@ -98,9 +98,9 @@ class EmptyMedicalRiskLimitLevelValidationTest {
                 true,
                 errorFactoryMock
         );
-        when(agreementMock.getSelectedRisks())
+        when(agreementMock.selectedRisks())
                 .thenReturn(List.of("TRAVEL_MEDICAL"));
-        when(agreementMock.getMedicalRiskLimitLevel())
+        when(agreementMock.medicalRiskLimitLevel())
                 .thenReturn(null);
         when(errorFactoryMock.buildError("ERROR_CODE_15"))
                 .thenReturn(new ValidationErrorDTO("", ""));

@@ -30,7 +30,7 @@ class AgreementDateFromValidationTest {
 
     @Test
     void shouldNotReturnErrorWhenDateFromIsValid() {
-        when(agreementMock.getAgreementDateFrom()).thenReturn(LocalDate.now());
+        when(agreementMock.agreementDateFrom()).thenReturn(LocalDate.now());
         var errorOptional = agreementDateFromValidation.validate(agreementMock);
         assertTrue(errorOptional.isEmpty());
         Mockito.verifyNoInteractions(validationErrorFactory);
@@ -38,7 +38,7 @@ class AgreementDateFromValidationTest {
 
     @Test
     void shouldReturnErrorWhenDateFromIsNull() {
-        when(agreementMock.getAgreementDateFrom()).thenReturn(null);
+        when(agreementMock.agreementDateFrom()).thenReturn(null);
         when(validationErrorFactory.buildError("ERROR_CODE_3"))
                 .thenReturn(new ValidationErrorDTO("ERROR_CODE_3", "Description"));
         var errorOptional = agreementDateFromValidation.validate(agreementMock);

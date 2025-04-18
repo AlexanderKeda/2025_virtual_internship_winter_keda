@@ -56,7 +56,7 @@ class SelectedRisksPremiumCalculatorTest {
                 premium2
         );
 
-        when(agreementMock.getSelectedRisks())
+        when(agreementMock.selectedRisks())
                 .thenReturn(List.of(riskIc1, riskIc2));
         when(calculatorMock1.getRiskIc())
                 .thenReturn(riskIc1);
@@ -82,7 +82,7 @@ class SelectedRisksPremiumCalculatorTest {
                 premium1
         );
 
-        when(agreementMock.getSelectedRisks())
+        when(agreementMock.selectedRisks())
                 .thenReturn(List.of(riskIc1));
         when(calculatorMock1.getRiskIc())
                 .thenReturn(riskIc1);

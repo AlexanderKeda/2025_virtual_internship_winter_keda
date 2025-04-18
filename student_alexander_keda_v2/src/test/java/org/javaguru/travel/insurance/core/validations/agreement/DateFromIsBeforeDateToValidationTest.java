@@ -29,8 +29,8 @@ class DateFromIsBeforeDateToValidationTest {
 
     @Test
     void shouldNotReturnErrorWhenDateFromIsBeforeDateTo() {
-        when(agreementMock.getAgreementDateFrom()).thenReturn(LocalDate.now());
-        when(agreementMock.getAgreementDateTo()).thenReturn(LocalDate.now().plusDays(1));
+        when(agreementMock.agreementDateFrom()).thenReturn(LocalDate.now());
+        when(agreementMock.agreementDateTo()).thenReturn(LocalDate.now().plusDays(1));
 
         var errorOptional = dateFromIsBeforeDateToValidation
                 .validate(agreementMock);
@@ -40,8 +40,8 @@ class DateFromIsBeforeDateToValidationTest {
 
     @Test
     void shouldReturnErrorWhenDateFromIsAfterDateTo() {
-        when(agreementMock.getAgreementDateFrom()).thenReturn(LocalDate.now().plusDays(1));
-        when(agreementMock.getAgreementDateTo()).thenReturn(LocalDate.now());
+        when(agreementMock.agreementDateFrom()).thenReturn(LocalDate.now().plusDays(1));
+        when(agreementMock.agreementDateTo()).thenReturn(LocalDate.now());
         when(validationErrorFactory.buildError("ERROR_CODE_8"))
                 .thenReturn(new ValidationErrorDTO("ERROR_CODE_8", "Description"));
         var errorOptional = dateFromIsBeforeDateToValidation
@@ -54,13 +54,13 @@ class DateFromIsBeforeDateToValidationTest {
 
     @Test
     void shouldNotThrowExceptionWhenDateFromIsNull() {
-        when(agreementMock.getAgreementDateFrom()).thenReturn(null);
+        when(agreementMock.agreementDateFrom()).thenReturn(null);
         assertDoesNotThrow(() -> dateFromIsBeforeDateToValidation.validate(agreementMock));
     }
 
     @Test
     void shouldNotThrowExceptionWhenDateToIsNull() {
-        when(agreementMock.getAgreementDateTo()).thenReturn(null);
+        when(agreementMock.agreementDateTo()).thenReturn(null);
         assertDoesNotThrow(() -> dateFromIsBeforeDateToValidation.validate(agreementMock));
     }
 

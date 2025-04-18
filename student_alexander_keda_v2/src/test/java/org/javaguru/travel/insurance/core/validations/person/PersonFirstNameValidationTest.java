@@ -29,7 +29,7 @@ class PersonFirstNameValidationTest {
 
     @Test
     void shouldNotReturnErrorWhenFirstNameIsValid() {
-        when(personMock.getPersonFirstName()).thenReturn("Ivan");
+        when(personMock.personFirstName()).thenReturn("Ivan");
         var errorOptional = personFirstNameValidation.validate(personMock);
         assertTrue(errorOptional.isEmpty());
         Mockito.verifyNoInteractions(validationErrorFactory);
@@ -37,7 +37,7 @@ class PersonFirstNameValidationTest {
 
     @Test
     void shouldReturnErrorWhenFirstNameIsNull() {
-        when(personMock.getPersonFirstName()).thenReturn(null);
+        when(personMock.personFirstName()).thenReturn(null);
         when(validationErrorFactory.buildError("ERROR_CODE_1"))
                 .thenReturn(new ValidationErrorDTO("ERROR_CODE_1", "Description"));
         var errorOptional = personFirstNameValidation.validate(personMock);
@@ -48,7 +48,7 @@ class PersonFirstNameValidationTest {
 
     @Test
     void shouldReturnErrorWhenFirstNameIsEmpty() {
-        when(personMock.getPersonFirstName()).thenReturn("");
+        when(personMock.personFirstName()).thenReturn("");
         when(validationErrorFactory.buildError("ERROR_CODE_1"))
                 .thenReturn(new ValidationErrorDTO("ERROR_CODE_1", "Description"));
         var errorOptional = personFirstNameValidation.validate(personMock);

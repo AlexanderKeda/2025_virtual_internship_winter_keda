@@ -32,8 +32,8 @@ class DayCountElementTest {
     @Test
     void shouldReturnCorrectDayCount() {
         long dayCount = 10;
-        when(dateTimeUtilMock.calculateDaysBetween(agreementMock.getAgreementDateFrom(),
-                agreementMock.getAgreementDateTo()))
+        when(dateTimeUtilMock.calculateDaysBetween(agreementMock.agreementDateFrom(),
+                agreementMock.agreementDateTo()))
                 .thenReturn(dayCount);
         assertEquals(new BigDecimal(dayCount), dayCountElement.calculate(agreementMock, personMock));
     }

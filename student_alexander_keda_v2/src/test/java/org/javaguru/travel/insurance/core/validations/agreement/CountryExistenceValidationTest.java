@@ -40,7 +40,7 @@ class CountryExistenceValidationTest {
 
     @Test
     void shouldSucceedWhenCountryExistAndHasRequiredRisks() {
-        when(agreementMock.getCountry())
+        when(agreementMock.country())
                 .thenReturn("LATVIA");
         when(classifierValueRepositoryMock.existsByClassifierTitleAndIc("COUNTRY", "LATVIA"))
                 .thenReturn(true);
@@ -51,7 +51,7 @@ class CountryExistenceValidationTest {
 
     @Test
     void shouldSucceedWhenCountryIsNull() {
-        when(agreementMock.getCountry())
+        when(agreementMock.country())
                 .thenReturn(null);
         assertEquals(Optional.empty(), countryExistenceValidation.validate(agreementMock));
         Mockito.verifyNoInteractions(classifierValueRepositoryMock);
@@ -59,7 +59,7 @@ class CountryExistenceValidationTest {
 
     @Test
     void shouldSucceedWhenCountryIsEmpty() {
-        when(agreementMock.getCountry())
+        when(agreementMock.country())
                 .thenReturn("");
         assertEquals(Optional.empty(), countryExistenceValidation.validate(agreementMock));
         Mockito.verifyNoInteractions(classifierValueRepositoryMock);
@@ -69,7 +69,7 @@ class CountryExistenceValidationTest {
     void shouldReturnErrorWhenCountryIsNotExist() {
         String countryName = "FAKE_COUNTRY";
         Placeholder correctPlaceholder = new Placeholder("NOT_EXISTING_COUNTRY", countryName);
-        when(agreementMock.getCountry())
+        when(agreementMock.country())
                 .thenReturn(countryName);
         when(classifierValueRepositoryMock.existsByClassifierTitleAndIc("COUNTRY", countryName))
                 .thenReturn(false);
@@ -86,7 +86,7 @@ class CountryExistenceValidationTest {
     void shouldReturnErrorWhenDefaultDayRateIsNotExist() {
         String countryName = "FAKE_COUNTRY";
         Placeholder correctPlaceholder = new Placeholder("NOT_EXISTING_COUNTRY", countryName);
-        when(agreementMock.getCountry())
+        when(agreementMock.country())
                 .thenReturn(countryName);
         when(classifierValueRepositoryMock.existsByClassifierTitleAndIc("COUNTRY", countryName))
                 .thenReturn(true);

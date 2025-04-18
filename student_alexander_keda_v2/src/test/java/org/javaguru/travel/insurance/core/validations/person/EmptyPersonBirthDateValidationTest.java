@@ -30,7 +30,7 @@ class EmptyPersonBirthDateValidationTest {
 
     @Test
     void shouldNotReturnErrorWhenDateFromIsValid() {
-        when(personMock.getPersonBirthDate())
+        when(personMock.personBirthDate())
                 .thenReturn(LocalDate.now());
         var errorOpt = emptyPersonBirthDateValidation.validate(personMock);
         assertTrue(errorOpt.isEmpty());
@@ -39,7 +39,7 @@ class EmptyPersonBirthDateValidationTest {
 
     @Test
     void shouldReturnErrorWhenDateFromIsNull() {
-        when(personMock.getPersonBirthDate())
+        when(personMock.personBirthDate())
                 .thenReturn(null);
         when(errorFactoryMock.buildError("ERROR_CODE_12"))
                 .thenReturn(new ValidationErrorDTO("ERROR_CODE_12", "description"));

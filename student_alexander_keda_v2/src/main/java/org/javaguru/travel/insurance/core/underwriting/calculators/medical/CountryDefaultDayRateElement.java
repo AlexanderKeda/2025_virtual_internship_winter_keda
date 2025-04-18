@@ -18,9 +18,9 @@ class CountryDefaultDayRateElement implements MedicalRiskElement {
     @Override
     public BigDecimal calculate(AgreementDTO agreement, PersonDTO person) {
         var dayRateOpt = countryDefaultDayRateRepository
-                .findByCountryIc(agreement.getCountry());
+                .findByCountryIc(agreement.country());
         if (dayRateOpt.isEmpty()) {
-            throw new RuntimeException("Country day rate not found by countryIC=" + agreement.getCountry());
+            throw new RuntimeException("Country day rate not found by countryIC=" + agreement.country());
         }
         return dayRateOpt
                 .get()

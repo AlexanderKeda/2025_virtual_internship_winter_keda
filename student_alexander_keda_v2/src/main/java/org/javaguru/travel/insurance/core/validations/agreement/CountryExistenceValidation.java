@@ -23,17 +23,17 @@ class CountryExistenceValidation implements TravelAgreementFieldsValidation {
 
     @Override
     public Optional<ValidationErrorDTO> validate(AgreementDTO agreement) {
-        return agreement.getCountry() != null
-                && !agreement.getCountry().isBlank()
+        return agreement.country() != null
+                && !agreement.country().isBlank()
                 ? validateCountryExistence(agreement)
                 : Optional.empty();
     }
 
     private Optional<ValidationErrorDTO> validateCountryExistence(AgreementDTO agreement) {
-        return doesCountryExist(agreement.getCountry())
-                && doesDefaultDayRateExist(agreement.getCountry())
+        return doesCountryExist(agreement.country())
+                && doesDefaultDayRateExist(agreement.country())
                 ? Optional.empty()
-                : Optional.of(buildCountryNotFoundError(agreement.getCountry()));
+                : Optional.of(buildCountryNotFoundError(agreement.country()));
     }
 
     private boolean doesCountryExist(String countryIc) {

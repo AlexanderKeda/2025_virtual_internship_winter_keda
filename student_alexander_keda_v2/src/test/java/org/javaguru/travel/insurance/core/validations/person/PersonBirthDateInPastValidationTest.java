@@ -29,7 +29,7 @@ class PersonBirthDateInPastValidationTest {
 
     @Test
     void shouldNotReturnErrorWhenBirthDateIsValid() {
-        when(personMock.getPersonBirthDate()).thenReturn(LocalDate.now().minusYears(20));
+        when(personMock.personBirthDate()).thenReturn(LocalDate.now().minusYears(20));
         var errorOpt = personBirthDateInPastValidation
                 .validate(personMock);
         assertTrue(errorOpt.isEmpty());
@@ -38,7 +38,7 @@ class PersonBirthDateInPastValidationTest {
 
     @Test
     void shouldReturnErrorWhenBirthDateIsInTheFuture() {
-        when(personMock.getPersonBirthDate()).thenReturn(LocalDate.now().plusYears(1));
+        when(personMock.personBirthDate()).thenReturn(LocalDate.now().plusYears(1));
         when(errorFactoryMock.buildError("ERROR_CODE_13"))
                 .thenReturn(new ValidationErrorDTO("ERROR_CODE_13", "Description"));
         var errorOpt = personBirthDateInPastValidation
@@ -50,7 +50,7 @@ class PersonBirthDateInPastValidationTest {
 
     @Test
     void shouldNotThrowExceptionWhenDateToIsNull() {
-        when(personMock.getPersonBirthDate()).thenReturn(null);
+        when(personMock.personBirthDate()).thenReturn(null);
         assertDoesNotThrow(() -> personBirthDateInPastValidation.validate(personMock));
     }
 

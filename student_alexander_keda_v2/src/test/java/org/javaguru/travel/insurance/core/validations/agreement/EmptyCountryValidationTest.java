@@ -30,7 +30,7 @@ class EmptyCountryValidationTest {
 
     @Test
     void shouldSucceedWhenCountryIsNotEmpty() {
-        when(agreementMock.getCountry())
+        when(agreementMock.country())
                 .thenReturn("LATVIA");
         assertEquals(Optional.empty(), emptyCountryValidation.validate(agreementMock));
         Mockito.verifyNoInteractions(errorFactoryMock);
@@ -38,7 +38,7 @@ class EmptyCountryValidationTest {
 
     @Test
     void shouldReturnErrorWhenCountryIsEmpty() {
-        when(agreementMock.getCountry())
+        when(agreementMock.country())
                 .thenReturn("");
         when(errorFactoryMock.buildError("ERROR_CODE_10"))
                 .thenReturn(new ValidationErrorDTO("", ""));
@@ -49,7 +49,7 @@ class EmptyCountryValidationTest {
 
     @Test
     void shouldReturnErrorWhenCountryIsNull() {
-        when(agreementMock.getCountry())
+        when(agreementMock.country())
                 .thenReturn(null);
         when(errorFactoryMock.buildError("ERROR_CODE_10"))
                 .thenReturn(new ValidationErrorDTO("", ""));

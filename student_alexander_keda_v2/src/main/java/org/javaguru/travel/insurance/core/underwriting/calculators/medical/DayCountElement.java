@@ -18,7 +18,7 @@ class DayCountElement implements MedicalRiskElement {
     @Override
     public BigDecimal calculate(AgreementDTO agreement, PersonDTO person) {
         return new BigDecimal(dateTimeUtil.calculateDaysBetween(
-                agreement.getAgreementDateFrom(),
-                agreement.getAgreementDateTo()));
+                agreement.agreementDateFrom(),
+                agreement.agreementDateTo()));
     }
 }

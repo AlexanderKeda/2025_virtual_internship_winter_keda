@@ -29,16 +29,16 @@ class MedicalRiskLimitLevelExistenceValidation implements TravelAgreementFieldsV
     }
 
     private boolean isMedicalRiskLimitLevelNotBlank(AgreementDTO agreement) {
-        return agreement.getMedicalRiskLimitLevel() != null
-                && !agreement.getMedicalRiskLimitLevel().isBlank();
+        return agreement.medicalRiskLimitLevel() != null
+                && !agreement.medicalRiskLimitLevel().isBlank();
     }
 
     private Optional<ValidationErrorDTO> validateMedicalRiskLimitLevelExistence
             (AgreementDTO agreement) {
-        return doesLimitLevelIcExists(agreement.getMedicalRiskLimitLevel())
-                && doesLimitLevelCoefficientExists(agreement.getMedicalRiskLimitLevel())
+        return doesLimitLevelIcExists(agreement.medicalRiskLimitLevel())
+                && doesLimitLevelCoefficientExists(agreement.medicalRiskLimitLevel())
                 ? Optional.empty()
-                : Optional.of(buildLimitLevelNotFoundError(agreement.getMedicalRiskLimitLevel()));
+                : Optional.of(buildLimitLevelNotFoundError(agreement.medicalRiskLimitLevel()));
     }
 
     private boolean doesLimitLevelIcExists(String limitLevel) {

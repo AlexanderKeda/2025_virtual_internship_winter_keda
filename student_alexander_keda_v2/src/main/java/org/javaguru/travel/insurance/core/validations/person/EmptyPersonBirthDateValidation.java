@@ -18,7 +18,7 @@ class EmptyPersonBirthDateValidation implements TravelPersonFieldsValidation {
 
     @Override
     public Optional<ValidationErrorDTO> validate(PersonDTO person) {
-        return person.getPersonBirthDate() == null
+        return person.personBirthDate() == null
                 ? Optional.of(validationErrorFactory.buildError("ERROR_CODE_12"))
                 : Optional.empty();
     }

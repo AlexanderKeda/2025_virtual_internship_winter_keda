@@ -36,14 +36,14 @@ class EmptyMedicalRiskLimitLevelValidation implements TravelAgreementFieldsValid
     }
 
     private boolean hasRequiredRisks(AgreementDTO agreement) {
-        return agreement.getSelectedRisks() != null
-                && agreement.getSelectedRisks().contains("TRAVEL_MEDICAL");
+        return agreement.selectedRisks() != null
+                && agreement.selectedRisks().contains("TRAVEL_MEDICAL");
     }
 
     private Optional<ValidationErrorDTO> validateEmptyMedicalRiskLimitLevel
             (AgreementDTO agreement) {
-        return  agreement.getMedicalRiskLimitLevel() == null
-                || agreement.getMedicalRiskLimitLevel().isBlank()
+        return  agreement.medicalRiskLimitLevel() == null
+                || agreement.medicalRiskLimitLevel().isBlank()
                 ? Optional.of(validationErrorFactory.buildError("ERROR_CODE_15"))
                 : Optional.empty();
     }

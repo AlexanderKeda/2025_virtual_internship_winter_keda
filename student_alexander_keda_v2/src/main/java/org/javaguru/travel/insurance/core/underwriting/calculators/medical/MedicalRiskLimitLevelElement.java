@@ -35,9 +35,9 @@ class MedicalRiskLimitLevelElement implements MedicalRiskElement {
 
     private BigDecimal getMedicalRiskLimitLevelCoefficient(AgreementDTO agreement) {
         var medicalRiskLimitLevelOpt = medicalRiskLimitLevelRepository
-                .findByMedicalRiskLimitLevelIc(agreement.getMedicalRiskLimitLevel());
+                .findByMedicalRiskLimitLevelIc(agreement.medicalRiskLimitLevel());
         if (medicalRiskLimitLevelOpt.isEmpty()) {
-            throw new RuntimeException("Country day rate not found by countryIC=" + agreement.getCountry());
+            throw new RuntimeException("Country day rate not found by countryIC=" + agreement.country());
         }
         return medicalRiskLimitLevelOpt
                 .get()

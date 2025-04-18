@@ -18,8 +18,8 @@ class DateFromIsBeforeDateToValidation implements TravelAgreementFieldsValidatio
 
     @Override
     public Optional<ValidationErrorDTO> validate(AgreementDTO agreement) {
-        LocalDate dateFrom = agreement.getAgreementDateFrom();
-        LocalDate dateTo = agreement.getAgreementDateTo();
+        LocalDate dateFrom = agreement.agreementDateFrom();
+        LocalDate dateTo = agreement.agreementDateTo();
         return (dateFrom != null &&
                 dateTo != null &&
                 dateTo.isBefore(dateFrom))

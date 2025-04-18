@@ -29,7 +29,7 @@ class AgreementDateFromInFutureValidationTest {
 
     @Test
     void shouldNotReturnErrorWhenDateFromIsValid() {
-        when(agreementMock.getAgreementDateFrom()).thenReturn(LocalDate.now());
+        when(agreementMock.agreementDateFrom()).thenReturn(LocalDate.now());
         var errorOptional = agreementDateFromInFutureValidation
                 .validate(agreementMock);
         assertTrue(errorOptional.isEmpty());
@@ -38,7 +38,7 @@ class AgreementDateFromInFutureValidationTest {
 
     @Test
     void shouldReturnErrorWhenDateFromIsInThePast() {
-        when(agreementMock.getAgreementDateFrom()).thenReturn(LocalDate.now().minusDays(1));
+        when(agreementMock.agreementDateFrom()).thenReturn(LocalDate.now().minusDays(1));
         when(validationErrorFactory.buildError("ERROR_CODE_6"))
                 .thenReturn(new ValidationErrorDTO("ERROR_CODE_6", "Description"));
         var errorOptional = agreementDateFromInFutureValidation
@@ -50,7 +50,7 @@ class AgreementDateFromInFutureValidationTest {
 
     @Test
     void shouldNotThrowExceptionWhenDateFromIsNull() {
-        when(agreementMock.getAgreementDateFrom()).thenReturn(null);
+        when(agreementMock.agreementDateFrom()).thenReturn(null);
         assertDoesNotThrow(() -> agreementDateFromInFutureValidation.validate(agreementMock));
     }
 

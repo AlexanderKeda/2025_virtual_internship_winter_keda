@@ -18,7 +18,7 @@ class SelectedRisksPremiumCalculator {
 
     List<RiskDTO> calculatePremiumForAllRisks(AgreementDTO agreement, PersonDTO person) {
         return travelRiskPremiumCalculators.stream()
-                .filter(riskCalculator -> agreement.getSelectedRisks().contains(riskCalculator.getRiskIc()))
+                .filter(riskCalculator -> agreement.selectedRisks().contains(riskCalculator.getRiskIc()))
                 .map(riskPremiumCalculator -> new RiskDTO(
                         riskPremiumCalculator.getRiskIc(),
                         riskPremiumCalculator.calculatePremium(agreement, person)))

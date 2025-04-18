@@ -30,7 +30,7 @@ class EmptySelectedRisksValidationTest {
 
     @Test
     void shouldNotReturnErrorWhenRisksIsNotEmpty() {
-        when(agreementMock.getSelectedRisks()).thenReturn(List.of("risk1", "risk2"));
+        when(agreementMock.selectedRisks()).thenReturn(List.of("risk1", "risk2"));
         var errorOptional = emptyRisksValidation.validate(agreementMock);
         assertTrue(errorOptional.isEmpty());
         Mockito.verifyNoInteractions(validationErrorFactory);
@@ -38,7 +38,7 @@ class EmptySelectedRisksValidationTest {
 
     @Test
     void shouldReturnErrorWhenRisksIsEmpty() {
-        when(agreementMock.getSelectedRisks()).thenReturn(List.of());
+        when(agreementMock.selectedRisks()).thenReturn(List.of());
         when(validationErrorFactory.buildError("ERROR_CODE_5"))
                 .thenReturn(new ValidationErrorDTO("ERROR_CODE_5", "Description"));
         var errorOptional = emptyRisksValidation.validate(agreementMock);
@@ -49,7 +49,7 @@ class EmptySelectedRisksValidationTest {
 
     @Test
     void shouldReturnErrorWhenRisksIsNull() {
-        when(agreementMock.getSelectedRisks()).thenReturn(null);
+        when(agreementMock.selectedRisks()).thenReturn(null);
         when(validationErrorFactory.buildError("ERROR_CODE_5"))
                 .thenReturn(new ValidationErrorDTO("ERROR_CODE_5", "Description"));
         var errorOptional = emptyRisksValidation.validate(agreementMock);

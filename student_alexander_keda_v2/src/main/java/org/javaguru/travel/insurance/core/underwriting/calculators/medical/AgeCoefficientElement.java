@@ -35,9 +35,9 @@ class AgeCoefficientElement implements MedicalRiskElement {
 
     private BigDecimal getAgeCoefficient(PersonDTO person) {
         var ageCoefficientOpt = ageCoefficientRepository
-                .findByAge(ageCalculator.calculate(person.getPersonBirthDate()));
+                .findByAge(ageCalculator.calculate(person.personBirthDate()));
         if (ageCoefficientOpt.isEmpty()) {
-            throw new RuntimeException("Age coefficient not found by birth date=" + person.getPersonBirthDate());
+            throw new RuntimeException("Age coefficient not found by birth date=" + person.personBirthDate());
         }
         return ageCoefficientOpt
                 .get()

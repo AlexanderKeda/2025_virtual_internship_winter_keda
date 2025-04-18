@@ -18,8 +18,8 @@ class AgreementDateToInFutureValidation implements TravelAgreementFieldsValidati
 
     @Override
     public Optional<ValidationErrorDTO> validate(AgreementDTO agreement) {
-        return (agreement.getAgreementDateTo() != null &&
-                agreement.getAgreementDateTo().isBefore(LocalDate.now()))
+        return (agreement.agreementDateTo() != null &&
+                agreement.agreementDateTo().isBefore(LocalDate.now()))
                 ? Optional.of(validationErrorFactory.buildError("ERROR_CODE_7"))
                 : Optional.empty();
     }
