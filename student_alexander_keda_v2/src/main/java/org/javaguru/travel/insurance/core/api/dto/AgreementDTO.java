@@ -14,8 +14,12 @@ public record AgreementDTO(LocalDate agreementDateFrom,
                            BigDecimal agreementPremium) {
 
     public AgreementDTO {
-        selectedRisks = List.copyOf(selectedRisks);
-        persons = List.copyOf(persons);
+        selectedRisks = selectedRisks != null
+                ? List.copyOf(selectedRisks)
+                : null;
+        persons = persons != null
+                ? List.copyOf(persons)
+                : null;
     }
 
     public AgreementDTO(
@@ -38,7 +42,7 @@ public record AgreementDTO(LocalDate agreementDateFrom,
 
     public AgreementDTO withPersonsAndPremium(List<PersonDTO> persons,
                                               BigDecimal agreementPremium) {
-        return  new AgreementDTO(
+        return new AgreementDTO(
                 this.agreementDateFrom,
                 this.agreementDateTo,
                 this.country,

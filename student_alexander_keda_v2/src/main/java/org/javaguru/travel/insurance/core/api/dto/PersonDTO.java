@@ -3,14 +3,16 @@ package org.javaguru.travel.insurance.core.api.dto;
 import java.time.LocalDate;
 import java.util.List;
 
-public record PersonDTO (
+public record PersonDTO(
         String personFirstName,
         String personLastName,
         LocalDate personBirthDate,
         List<RiskDTO> risks) {
 
     public PersonDTO {
-        risks = List.copyOf(risks);
+        risks = risks != null
+                ? List.copyOf(risks)
+                : null;
     }
 
     public PersonDTO(String personFirstName,
