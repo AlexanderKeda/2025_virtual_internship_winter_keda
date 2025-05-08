@@ -1,4 +1,4 @@
-package org.javaguru.travel.insurance.rest.v1;
+package org.javaguru.travel.insurance.rest.common;
 
 import com.google.common.base.Stopwatch;
 import org.slf4j.Logger;
@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 public class TravelCalculatePremiumRequestExecutionTimeLogger {
     private static final Logger logger = LoggerFactory.getLogger(TravelCalculatePremiumRequestExecutionTimeLogger.class);
 
-    void log(Stopwatch stopwatch) {
+    public void log(Stopwatch stopwatch) {
         stopwatch.stop();
         logger.info("Request processing time (µs): {}", stopwatch.elapsed(TimeUnit.MICROSECONDS));
     }

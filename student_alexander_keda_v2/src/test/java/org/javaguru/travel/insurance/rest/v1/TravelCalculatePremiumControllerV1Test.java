@@ -1,5 +1,6 @@
 package org.javaguru.travel.insurance.rest.v1;
 
+import org.javaguru.travel.insurance.rest.common.JsonFileReader;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -27,7 +28,7 @@ import static uk.org.webcompere.modelassert.json.JsonAssertions.assertJson;
         "medical.risk.limit.level.enabled=true",
         "medical.risk.age.coefficient.enabled=true"
 })
-class TravelCalculatePremiumControllerTest {
+class TravelCalculatePremiumControllerV1Test {
 
     @Autowired
     JsonFileReader jsonFileReader;
