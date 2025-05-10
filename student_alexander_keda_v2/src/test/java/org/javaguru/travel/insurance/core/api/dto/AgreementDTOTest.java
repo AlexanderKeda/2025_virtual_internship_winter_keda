@@ -50,16 +50,6 @@ class AgreementDTOTest {
     }
 
     @Test
-    void shouldReturnWithTheSameMedicalRiskLimitLevel() {
-        var agreement = getCorrectAgreementDTO();
-        var person = getCorrectPersonDTO();
-        var premium = BigDecimal.ONE;
-        var updatedAgreement = agreement.withPersonsAndPremium(List.of(person), premium);
-        assertEquals(agreement.medicalRiskLimitLevel(),
-                updatedAgreement.medicalRiskLimitLevel());
-    }
-
-    @Test
     void shouldReturnWithTheSameSelectedRisks() {
         var agreement = getCorrectAgreementDTO();
         var person = getCorrectPersonDTO();
@@ -97,7 +87,6 @@ class AgreementDTOTest {
                 LocalDate.now(),
                 LocalDate.now().plusDays(5),
                 "Latvia",
-                "Limit_1000",
                 List.of("risk1", "risk2"),
                 List.of()
         );

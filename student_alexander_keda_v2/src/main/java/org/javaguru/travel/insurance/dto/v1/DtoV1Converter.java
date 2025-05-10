@@ -36,7 +36,6 @@ public class DtoV1Converter {
                 request.getAgreementDateFrom(),
                 request.getAgreementDateTo(),
                 request.getCountry(),
-                request.getMedicalRiskLimitLevel(),
                 request.getSelectedRisks(),
                 List.of(person)
         );

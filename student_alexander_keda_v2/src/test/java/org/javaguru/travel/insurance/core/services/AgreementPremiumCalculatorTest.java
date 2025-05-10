@@ -53,15 +53,6 @@ class AgreementPremiumCalculatorTest {
     }
 
     @Test
-    void shouldReturnCorrectMedicalRiskLimitLevel() {
-        var agreement = getCorrectAgreement();
-        when(personsPremiumCalculatorMock.calculate(agreement))
-                .thenReturn(List.of());
-        var resultAgreement = agreementPremiumCalculator.calculateAgreementPremiums(agreement);
-        assertEquals(agreement.medicalRiskLimitLevel(), resultAgreement.medicalRiskLimitLevel());
-    }
-
-    @Test
     void shouldReturnCorrectSelectedRisks() {
         var agreement = getCorrectAgreement();
         when(personsPremiumCalculatorMock.calculate(agreement))
@@ -119,13 +110,11 @@ class AgreementPremiumCalculatorTest {
         LocalDate dateFrom = LocalDate.now();
         LocalDate dateTo = LocalDate.now().plusDays(5);
         String country = "Latvia";
-        String medicalRiskLimitLevel = "level_1000";
         List<String> selectedRisks = List.of("risk1", "risk2");
         List<PersonDTO> persons = List.of();
         return new AgreementDTO(dateFrom,
                 dateTo,
                 country,
-                medicalRiskLimitLevel,
                 selectedRisks,
                 persons);
     }

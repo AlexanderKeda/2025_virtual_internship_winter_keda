@@ -32,7 +32,6 @@ public class DtoV2Converter {
                 request.getAgreementDateFrom(),
                 request.getAgreementDateTo(),
                 request.getCountry(),
-                request.getMedicalRiskLimitLevel(),
                 request.getSelectedRisks(),
                 persons
         );
@@ -46,7 +45,7 @@ public class DtoV2Converter {
                 .map(person -> new PersonDTO(person.getPersonFirstName(),
                         person.getPersonLastName(),
                         person.getPersonBirthDate(),
-                        request.getMedicalRiskLimitLevel()
+                        person.getMedicalRiskLimitLevel()
                 ))
                 .toList();
     }
@@ -69,7 +68,6 @@ public class DtoV2Converter {
                 agreement.agreementDateFrom(),
                 agreement.agreementDateTo(),
                 agreement.country(),
-                agreement.medicalRiskLimitLevel(),
                 agreement.agreementPremium(),
                 persons
         );
@@ -82,7 +80,8 @@ public class DtoV2Converter {
                         person.personLastName(),
                         person.personBirthDate(),
                         calculatePremiumByRisks(person.risks()),
-                        transformRiskPremiumsToV2(person.risks())
+                        transformRiskPremiumsToV2(person.risks()),
+                        person.medicalRiskLimitLevel()
                 ))
                 .toList();
     }

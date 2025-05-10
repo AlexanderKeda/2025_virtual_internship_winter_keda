@@ -8,7 +8,6 @@ import java.util.List;
 public record AgreementDTO(LocalDate agreementDateFrom,
                            LocalDate agreementDateTo,
                            String country,
-                           String medicalRiskLimitLevel,
                            List<String> selectedRisks,
                            List<PersonDTO> persons,
                            BigDecimal agreementPremium) {
@@ -26,14 +25,12 @@ public record AgreementDTO(LocalDate agreementDateFrom,
             LocalDate agreementDateFrom,
             LocalDate agreementDateTo,
             String country,
-            String medicalRiskLimitLevel,
             List<String> selectedRisks,
             List<PersonDTO> persons
     ) {
         this(agreementDateFrom,
                 agreementDateTo,
                 country,
-                medicalRiskLimitLevel,
                 selectedRisks,
                 persons,
                 new BigDecimal("-1")
@@ -46,7 +43,6 @@ public record AgreementDTO(LocalDate agreementDateFrom,
                 this.agreementDateFrom,
                 this.agreementDateTo,
                 this.country,
-                this.medicalRiskLimitLevel,
                 this.selectedRisks,
                 persons,
                 agreementPremium

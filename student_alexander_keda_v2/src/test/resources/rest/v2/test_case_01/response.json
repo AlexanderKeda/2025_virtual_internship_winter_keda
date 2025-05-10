@@ -3,7 +3,6 @@
   "agreementDateFrom": "2025-05-25",
   "agreementDateTo": "2025-05-29",
   "country": "SPAIN",
-  "medicalRiskLimitLevel": "LEVEL_10000",
   "agreementPremium": 26.00,
   "persons": [
     {
@@ -16,7 +15,8 @@
           "riskIc": "TRAVEL_MEDICAL",
           "premium": 11.00
         }
-      ]
+      ],
+      "medicalRiskLimitLevel": "LEVEL_10000"
     },
     {
       "personFirstName": "Petja",
@@ -28,7 +28,8 @@
           "riskIc": "TRAVEL_MEDICAL",
           "premium": 15.00
         }
-      ]
+      ],
+      "medicalRiskLimitLevel": "LEVEL_10000"
     }
   ]
 }

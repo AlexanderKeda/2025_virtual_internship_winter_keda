@@ -40,7 +40,6 @@ class TravelCalculatePremiumServiceImplTest {
         var agreement = new AgreementDTO(LocalDate.now(),
                 LocalDate.now(),
                 "",
-                "",
                 List.of(),
                 List.of());
         when(commandMock.agreement()).thenReturn(agreementMock);

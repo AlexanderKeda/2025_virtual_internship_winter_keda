@@ -31,4 +31,6 @@ public class PersonResponseDTO {
 
     @JsonAlias("person_risks")
     private List<RiskPremium> personRisks;
+
+    private String medicalRiskLimitLevel;
 }
