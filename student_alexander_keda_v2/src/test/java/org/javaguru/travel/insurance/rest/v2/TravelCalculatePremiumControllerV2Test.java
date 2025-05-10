@@ -36,7 +36,7 @@ class TravelCalculatePremiumControllerV2Test {
     @Autowired
     private MockMvc mockMvc;
 
-    private static final int NUMBER_OF_TEST_CASES = 5;
+    private static final int NUMBER_OF_TEST_CASES = 9;
 
     static Stream<String> testCasesStream() {
         return IntStream.rangeClosed(1, NUMBER_OF_TEST_CASES)

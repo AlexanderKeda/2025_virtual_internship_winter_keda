@@ -12,3 +12,19 @@ person_data_are_empty
 
 Test case 05:
 all_fields_are_null
+
+Test case 06:
+Request: selectedRisks is not supported (one risk).
+Response: error code = ERROR_CODE_9
+
+Test case 07:
+Request: selectedRisks is not supported (two risks).
+Response: multiple error codes = ERROR_CODE_9
+
+Test case 08:
+Request: country is null, RISK_TYPE - TRAVEL_MEDICAL.
+Response: error code = ERROR_CODE_10
+
+Test case 09:
+Request: country is empty, RISK_TYPE - TRAVEL_MEDICAL.
+Response: error code = ERROR_CODE_10
