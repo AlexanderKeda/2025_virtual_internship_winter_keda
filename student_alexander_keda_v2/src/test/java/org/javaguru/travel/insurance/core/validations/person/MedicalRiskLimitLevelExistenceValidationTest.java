@@ -1,6 +1,7 @@
-package org.javaguru.travel.insurance.core.validations.agreement;
+package org.javaguru.travel.insurance.core.validations.person;
 
 import org.javaguru.travel.insurance.core.api.dto.AgreementDTO;
+import org.javaguru.travel.insurance.core.api.dto.PersonDTO;
 import org.javaguru.travel.insurance.core.api.dto.ValidationErrorDTO;
 import org.javaguru.travel.insurance.core.repositories.ClassifierValueRepository;
 import org.javaguru.travel.insurance.core.repositories.MedicalRiskLimitLevelRepository;
@@ -36,11 +37,14 @@ class MedicalRiskLimitLevelExistenceValidationTest {
     private MedicalRiskLimitLevelExistenceValidation limitLevelExistenceValidation;
 
     @Mock
+    private PersonDTO personMock;
+
+    @Mock
     private AgreementDTO agreementMock;
 
     @Test
     void shouldSucceedWhenLimitLevelExist() {
-        when(agreementMock.medicalRiskLimitLevel())
+        when(personMock.medicalRiskLimitLevel())
                 .thenReturn("LIMIT_LEVEL");
         when(classifierValueRepositoryMock
                 .existsByClassifierTitleAndIc("MEDICAL_RISK_LIMIT_LEVEL", "LIMIT_LEVEL"))
@@ -48,15 +52,15 @@ class MedicalRiskLimitLevelExistenceValidationTest {
         when(medicalRiskLimitLevelRepository
                 .existsByMedicalRiskLimitLevelIc("LIMIT_LEVEL"))
                 .thenReturn(true);
-        assertEquals(Optional.empty(), limitLevelExistenceValidation.validate(agreementMock));
+        assertEquals(Optional.empty(), limitLevelExistenceValidation.validate(agreementMock, personMock));
         Mockito.verifyNoInteractions(errorFactoryMock);
     }
 
     @Test
     void shouldSucceedWhenLimitLevelIsNull() {
-        when(agreementMock.medicalRiskLimitLevel())
+        when(personMock.medicalRiskLimitLevel())
                 .thenReturn(null);
-        assertEquals(Optional.empty(), limitLevelExistenceValidation.validate(agreementMock));
+        assertEquals(Optional.empty(), limitLevelExistenceValidation.validate(agreementMock, personMock));
         Mockito.verifyNoInteractions(classifierValueRepositoryMock);
         Mockito.verifyNoInteractions(medicalRiskLimitLevelRepository);
         Mockito.verifyNoInteractions(errorFactoryMock);
@@ -64,9 +68,9 @@ class MedicalRiskLimitLevelExistenceValidationTest {
 
     @Test
     void shouldSucceedWhenLimitLevelIsEmpty() {
-        when(agreementMock.medicalRiskLimitLevel())
+        when(personMock.medicalRiskLimitLevel())
                 .thenReturn("");
-        assertEquals(Optional.empty(), limitLevelExistenceValidation.validate(agreementMock));
+        assertEquals(Optional.empty(), limitLevelExistenceValidation.validate(agreementMock, personMock));
         Mockito.verifyNoInteractions(classifierValueRepositoryMock);
         Mockito.verifyNoInteractions(medicalRiskLimitLevelRepository);
         Mockito.verifyNoInteractions(errorFactoryMock);
@@ -76,7 +80,7 @@ class MedicalRiskLimitLevelExistenceValidationTest {
     void shouldReturnErrorWhenLimitLevelIcIsNotExist() {
         String limitLevel = "FAKE_LIMIT_LEVEL";
         var placeholder = new Placeholder("NOT_EXISTING_RISK_LEVEL", limitLevel);
-        when(agreementMock.medicalRiskLimitLevel())
+        when(personMock.medicalRiskLimitLevel())
                 .thenReturn(limitLevel);
         when(classifierValueRepositoryMock
                 .existsByClassifierTitleAndIc("MEDICAL_RISK_LIMIT_LEVEL", limitLevel))
@@ -85,7 +89,7 @@ class MedicalRiskLimitLevelExistenceValidationTest {
                 "ERROR_CODE_16",
                 List.of(placeholder)
         )).thenReturn(new ValidationErrorDTO("", ""));
-        var errorOpt = limitLevelExistenceValidation.validate(agreementMock);
+        var errorOpt = limitLevelExistenceValidation.validate(agreementMock, personMock);
         assertTrue(errorOpt.isPresent());
         assertEquals(new ValidationErrorDTO("", ""), errorOpt.get());
         Mockito.verifyNoInteractions(medicalRiskLimitLevelRepository);
@@ -95,7 +99,7 @@ class MedicalRiskLimitLevelExistenceValidationTest {
     void shouldReturnErrorWhenLimitLevelCoefficientIsNotExistAndHasRequiredRisk() {
         String limitLevel = "LIMIT_LEVEL";
         var placeholder = new Placeholder("NOT_EXISTING_RISK_LEVEL", limitLevel);
-        when(agreementMock.medicalRiskLimitLevel())
+        when(personMock.medicalRiskLimitLevel())
                 .thenReturn(limitLevel);
         when(classifierValueRepositoryMock
                 .existsByClassifierTitleAndIc("MEDICAL_RISK_LIMIT_LEVEL", limitLevel))
@@ -107,7 +111,7 @@ class MedicalRiskLimitLevelExistenceValidationTest {
                 "ERROR_CODE_16",
                 List.of(placeholder)
         )).thenReturn(new ValidationErrorDTO("", ""));
-        var errorOpt = limitLevelExistenceValidation.validate(agreementMock);
+        var errorOpt = limitLevelExistenceValidation.validate(agreementMock, personMock);
         assertTrue(errorOpt.isPresent());
         assertEquals(new ValidationErrorDTO("", ""), errorOpt.get());
     }

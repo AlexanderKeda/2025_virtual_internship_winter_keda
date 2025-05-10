@@ -12,10 +12,7 @@ class PersonDTOTest {
 
     @Test
     void shouldReturnNewPersonDTO() {
-        var person = new PersonDTO(
-                "FirstName",
-                "LastName",
-                LocalDate.now());
+        var person = getCorrectPersonDTO();
         var risk = new RiskDTO("ic", BigDecimal.ZERO);
         var personWithRisks = person.withRisks(List.of(risk));
         assertNotSame(person, personWithRisks);
@@ -23,10 +20,7 @@ class PersonDTOTest {
 
     @Test
     void shouldReturnWithTheSameFirstName() {
-        var person = new PersonDTO(
-                "FirstName",
-                "LastName",
-                LocalDate.now());
+        var person = getCorrectPersonDTO();
         var risk = new RiskDTO("ic", BigDecimal.ZERO);
         var personWithRisks = person.withRisks(List.of(risk));
         assertEquals(person.personFirstName(),
@@ -35,10 +29,7 @@ class PersonDTOTest {
 
     @Test
     void shouldReturnWithTheSameLastName() {
-        var person = new PersonDTO(
-                "FirstName",
-                "LastName",
-                LocalDate.now());
+        var person = getCorrectPersonDTO();
         var risk = new RiskDTO("ic", BigDecimal.ZERO);
         var personWithRisks = person.withRisks(List.of(risk));
         assertEquals(person.personLastName(),
@@ -47,10 +38,7 @@ class PersonDTOTest {
 
     @Test
     void shouldReturnWithTheSameBirthDate() {
-        var person = new PersonDTO(
-                "FirstName",
-                "LastName",
-                LocalDate.now());
+        var person = getCorrectPersonDTO();
         var risk = new RiskDTO("ic", BigDecimal.ZERO);
         var personWithRisks = person.withRisks(List.of(risk));
         assertEquals(person.personBirthDate(),
@@ -58,16 +46,31 @@ class PersonDTOTest {
     }
 
     @Test
+    void shouldReturnWithTheSameLimitLevel() {
+        var person = getCorrectPersonDTO();
+        var risk = new RiskDTO("ic", BigDecimal.ZERO);
+        var personWithRisks = person.withRisks(List.of(risk));
+        assertEquals(person.medicalRiskLimitLevel(),
+                personWithRisks.medicalRiskLimitLevel());
+    }
+
+    @Test
     void shouldReturnWithNewRisks() {
-        var person = new PersonDTO(
-                "FirstName",
-                "LastName",
-                LocalDate.now());
+        var person = getCorrectPersonDTO();
         var risk = new RiskDTO("ic", BigDecimal.ZERO);
         var risks = List.of(risk);
         var personWithRisks = person.withRisks(risks);
         assertEquals(risks,
                 personWithRisks.risks());
+    }
+
+    private PersonDTO getCorrectPersonDTO() {
+        return new PersonDTO(
+                "first",
+                "last",
+                LocalDate.now(),
+                "LimitLevel"
+        );
     }
 
 }

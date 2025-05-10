@@ -1,6 +1,7 @@
-package org.javaguru.travel.insurance.core.validations.agreement;
+package org.javaguru.travel.insurance.core.validations.person;
 
 import org.javaguru.travel.insurance.core.api.dto.AgreementDTO;
+import org.javaguru.travel.insurance.core.api.dto.PersonDTO;
 import org.javaguru.travel.insurance.core.api.dto.ValidationErrorDTO;
 import org.javaguru.travel.insurance.core.validations.ValidationErrorFactory;
 import org.junit.jupiter.api.Test;
@@ -23,8 +24,10 @@ class EmptyMedicalRiskLimitLevelValidationTest {
     private ValidationErrorFactory errorFactoryMock;
 
     @Mock
-    private AgreementDTO agreementMock;
+    private PersonDTO personMock;
 
+    @Mock
+    private AgreementDTO agreementMock;
 
     @Test
     void shouldSucceedWhenLimitLevelDisabled() {
@@ -32,7 +35,7 @@ class EmptyMedicalRiskLimitLevelValidationTest {
                 false,
                 errorFactoryMock
         );
-        assertEquals(Optional.empty(), emptyLimitLevelValidation.validate(agreementMock));
+        assertEquals(Optional.empty(), emptyLimitLevelValidation.validate(agreementMock, personMock));
         Mockito.verifyNoInteractions(errorFactoryMock);
         Mockito.verifyNoInteractions(agreementMock);
     }
@@ -45,9 +48,9 @@ class EmptyMedicalRiskLimitLevelValidationTest {
         );
         when(agreementMock.selectedRisks())
                 .thenReturn(List.of("TRAVEL_MEDICAL"));
-        when(agreementMock.medicalRiskLimitLevel())
+        when(personMock.medicalRiskLimitLevel())
                 .thenReturn("LIMIT_LEVEL");
-        assertEquals(Optional.empty(), emptyLimitLevelValidation.validate(agreementMock));
+        assertEquals(Optional.empty(), emptyLimitLevelValidation.validate(agreementMock, personMock));
         Mockito.verifyNoInteractions(errorFactoryMock);
     }
 
@@ -59,7 +62,7 @@ class EmptyMedicalRiskLimitLevelValidationTest {
         );
         when(agreementMock.selectedRisks())
                 .thenReturn(List.of("FAKE_RISK"));
-        assertEquals(Optional.empty(), emptyLimitLevelValidation.validate(agreementMock));
+        assertEquals(Optional.empty(), emptyLimitLevelValidation.validate(agreementMock, personMock));
         Mockito.verifyNoInteractions(errorFactoryMock);
     }
 
@@ -71,7 +74,7 @@ class EmptyMedicalRiskLimitLevelValidationTest {
         );
         when(agreementMock.selectedRisks())
                 .thenReturn(null);
-        assertEquals(Optional.empty(), emptyLimitLevelValidation.validate(agreementMock));
+        assertEquals(Optional.empty(), emptyLimitLevelValidation.validate(agreementMock, personMock));
         Mockito.verifyNoInteractions(errorFactoryMock);
     }
 
@@ -83,11 +86,11 @@ class EmptyMedicalRiskLimitLevelValidationTest {
         );
         when(agreementMock.selectedRisks())
                 .thenReturn(List.of("TRAVEL_MEDICAL"));
-        when(agreementMock.medicalRiskLimitLevel())
+        when(personMock.medicalRiskLimitLevel())
                 .thenReturn("");
         when(errorFactoryMock.buildError("ERROR_CODE_15"))
                 .thenReturn(new ValidationErrorDTO("", ""));
-        var errorOpt = emptyLimitLevelValidation.validate(agreementMock);
+        var errorOpt = emptyLimitLevelValidation.validate(agreementMock, personMock);
         assertTrue(errorOpt.isPresent());
         assertEquals(new ValidationErrorDTO("", ""), errorOpt.get());
     }
@@ -100,11 +103,11 @@ class EmptyMedicalRiskLimitLevelValidationTest {
         );
         when(agreementMock.selectedRisks())
                 .thenReturn(List.of("TRAVEL_MEDICAL"));
-        when(agreementMock.medicalRiskLimitLevel())
+        when(personMock.medicalRiskLimitLevel())
                 .thenReturn(null);
         when(errorFactoryMock.buildError("ERROR_CODE_15"))
                 .thenReturn(new ValidationErrorDTO("", ""));
-        var errorOpt = emptyLimitLevelValidation.validate(agreementMock);
+        var errorOpt = emptyLimitLevelValidation.validate(agreementMock, personMock);
         assertTrue(errorOpt.isPresent());
         assertEquals(new ValidationErrorDTO("", ""), errorOpt.get());
     }

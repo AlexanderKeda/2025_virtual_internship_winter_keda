@@ -31,8 +31,9 @@ class EmptyPersonsValidationTest {
 
     @Test
     void shouldSucceedWhenCountryIsNotEmpty() {
+        var person = new PersonDTO("", "", null,"");
         when(agreementMock.persons())
-                .thenReturn(List.of(new PersonDTO("", "", null)));
+                .thenReturn(List.of(person));
         assertEquals(Optional.empty(), emptyPersonsValidation.validate(agreementMock));
         Mockito.verifyNoInteractions(errorFactoryMock);
     }

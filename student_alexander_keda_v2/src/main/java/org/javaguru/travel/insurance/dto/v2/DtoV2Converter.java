@@ -16,18 +16,18 @@ import java.util.List;
 @Component
 public class DtoV2Converter {
 
-    public TravelCalculatePremiumCoreCommand buildCoreCommand (TravelCalculatePremiumRequestV2 request) {
+    public TravelCalculatePremiumCoreCommand buildCoreCommand(TravelCalculatePremiumRequestV2 request) {
         return new TravelCalculatePremiumCoreCommand(buildAgreement(request));
     }
 
-    public TravelCalculatePremiumResponseV2 buildResponse (TravelCalculatePremiumCoreResult result) {
+    public TravelCalculatePremiumResponseV2 buildResponse(TravelCalculatePremiumCoreResult result) {
         return result.hasErrors()
                 ? buildResponseWithErrors(result)
                 : buildSuccessfulResponse(result);
     }
 
-    private AgreementDTO buildAgreement (TravelCalculatePremiumRequestV2 request) {
-        List<PersonDTO> persons = transformPersonRequestV2ToPersonDtoList(request.getPersons());
+    private AgreementDTO buildAgreement(TravelCalculatePremiumRequestV2 request) {
+        List<PersonDTO> persons = transformPersonRequestV2ToPersonDtoList(request);
         return new AgreementDTO(
                 request.getAgreementDateFrom(),
                 request.getAgreementDateTo(),
@@ -38,11 +38,16 @@ public class DtoV2Converter {
         );
     }
 
-    private List<PersonDTO> transformPersonRequestV2ToPersonDtoList(List<PersonRequestDTO> persons) {
+    private List<PersonDTO> transformPersonRequestV2ToPersonDtoList(TravelCalculatePremiumRequestV2 request) {
+        var persons = request.getPersons();
         return persons == null
                 ? null
                 : persons.stream()
-                .map(person -> new PersonDTO(person.getPersonFirstName(), person.getPersonLastName(), person.getPersonBirthDate()))
+                .map(person -> new PersonDTO(person.getPersonFirstName(),
+                        person.getPersonLastName(),
+                        person.getPersonBirthDate(),
+                        request.getMedicalRiskLimitLevel()
+                ))
                 .toList();
     }
 
@@ -88,7 +93,7 @@ public class DtoV2Converter {
                 .toList();
     }
 
-    private BigDecimal calculatePremiumByRisks (List<RiskDTO> risks) {
+    private BigDecimal calculatePremiumByRisks(List<RiskDTO> risks) {
         return risks.stream()
                 .map(RiskDTO::premium)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);

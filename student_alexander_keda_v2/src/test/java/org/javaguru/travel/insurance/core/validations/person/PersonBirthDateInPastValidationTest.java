@@ -1,5 +1,6 @@
 package org.javaguru.travel.insurance.core.validations.person;
 
+import org.javaguru.travel.insurance.core.api.dto.AgreementDTO;
 import org.javaguru.travel.insurance.core.api.dto.PersonDTO;
 import org.javaguru.travel.insurance.core.api.dto.ValidationErrorDTO;
 import org.javaguru.travel.insurance.core.validations.ValidationErrorFactory;
@@ -27,11 +28,14 @@ class PersonBirthDateInPastValidationTest {
     @Mock
     private PersonDTO personMock;
 
+    @Mock
+    private AgreementDTO agreementMock;
+
     @Test
     void shouldNotReturnErrorWhenBirthDateIsValid() {
         when(personMock.personBirthDate()).thenReturn(LocalDate.now().minusYears(20));
         var errorOpt = personBirthDateInPastValidation
-                .validate(personMock);
+                .validate(agreementMock, personMock);
         assertTrue(errorOpt.isEmpty());
         Mockito.verifyNoInteractions(errorFactoryMock);
     }
@@ -42,7 +46,7 @@ class PersonBirthDateInPastValidationTest {
         when(errorFactoryMock.buildError("ERROR_CODE_13"))
                 .thenReturn(new ValidationErrorDTO("ERROR_CODE_13", "Description"));
         var errorOpt = personBirthDateInPastValidation
-                .validate(personMock);
+                .validate(agreementMock, personMock);
         assertTrue(errorOpt.isPresent());
         assertEquals("ERROR_CODE_13", errorOpt.get().errorCode());
         assertEquals("Description", errorOpt.get().description());
@@ -51,7 +55,7 @@ class PersonBirthDateInPastValidationTest {
     @Test
     void shouldNotThrowExceptionWhenDateToIsNull() {
         when(personMock.personBirthDate()).thenReturn(null);
-        assertDoesNotThrow(() -> personBirthDateInPastValidation.validate(personMock));
+        assertDoesNotThrow(() -> personBirthDateInPastValidation.validate(agreementMock, personMock));
     }
 
 }

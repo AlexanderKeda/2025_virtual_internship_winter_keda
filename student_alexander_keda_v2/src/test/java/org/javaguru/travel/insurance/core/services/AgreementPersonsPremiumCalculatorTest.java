@@ -32,7 +32,7 @@ class AgreementPersonsPremiumCalculatorTest {
 
     @Test
     void shouldReturnCorrectFirstName() {
-        var person = new PersonDTO("name", "", LocalDate.now());
+        var person = getCorrectPersonDTO();
         var risks = List.of(new RiskDTO("ic", BigDecimal.ZERO));
         when(agreementMock.persons())
                 .thenReturn(List.of(person));
@@ -45,7 +45,7 @@ class AgreementPersonsPremiumCalculatorTest {
 
     @Test
     void shouldReturnCorrectLastName() {
-        var person = new PersonDTO("name", "", LocalDate.now());
+        var person = getCorrectPersonDTO();
         var risks = List.of(new RiskDTO("ic", BigDecimal.ZERO));
         when(agreementMock.persons())
                 .thenReturn(List.of(person));
@@ -57,8 +57,21 @@ class AgreementPersonsPremiumCalculatorTest {
     }
 
     @Test
+    void shouldReturnCorrectMedicalRiskLimitLevel() {
+        var person = getCorrectPersonDTO();
+        var risks = List.of(new RiskDTO("ic", BigDecimal.ZERO));
+        when(agreementMock.persons())
+                .thenReturn(List.of(person));
+        when(underwritingMock.calculatePremium(agreementMock, person))
+                .thenReturn(new TravelPremiumCalculationResult(BigDecimal.ZERO, risks));
+        var updatedPersons = personsPremiumCalculator.calculate(agreementMock);
+        assertEquals(person.medicalRiskLimitLevel(),
+                updatedPersons.getFirst().medicalRiskLimitLevel());
+    }
+
+    @Test
     void shouldReturnCorrectBirthDate() {
-        var person = new PersonDTO("name", "", LocalDate.now());
+        var person = getCorrectPersonDTO();
         var risks = List.of(new RiskDTO("ic", BigDecimal.ZERO));
         when(agreementMock.persons())
                 .thenReturn(List.of(person));
@@ -71,7 +84,7 @@ class AgreementPersonsPremiumCalculatorTest {
 
     @Test
     void shouldReturnCorrectRisks() {
-        var person = new PersonDTO("name", "", LocalDate.now());
+        var person = getCorrectPersonDTO();
         var risks = List.of(new RiskDTO("ic", BigDecimal.ZERO));
         when(agreementMock.persons())
                 .thenReturn(List.of(person));
@@ -80,6 +93,15 @@ class AgreementPersonsPremiumCalculatorTest {
         var updatedPersons = personsPremiumCalculator.calculate(agreementMock);
         assertEquals(risks,
                 updatedPersons.getFirst().risks());
+    }
+
+    private PersonDTO getCorrectPersonDTO() {
+        return new PersonDTO(
+                "first",
+                "last",
+                LocalDate.now(),
+                "LimitLevel"
+        );
     }
 
 

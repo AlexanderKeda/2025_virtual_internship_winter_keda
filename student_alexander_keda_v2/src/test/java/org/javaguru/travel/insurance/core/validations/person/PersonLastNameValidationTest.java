@@ -1,5 +1,6 @@
 package org.javaguru.travel.insurance.core.validations.person;
 
+import org.javaguru.travel.insurance.core.api.dto.AgreementDTO;
 import org.javaguru.travel.insurance.core.api.dto.PersonDTO;
 import org.javaguru.travel.insurance.core.api.dto.ValidationErrorDTO;
 import org.javaguru.travel.insurance.core.validations.ValidationErrorFactory;
@@ -26,10 +27,13 @@ class PersonLastNameValidationTest {
     @Mock
     private PersonDTO personMock;
 
+    @Mock
+    private AgreementDTO agreementMock;
+
     @Test
     void shouldNotReturnErrorWhenLastNameIsValid() {
         when(personMock.personLastName()).thenReturn("Ivanov");
-        var errorOptional = personLastNameValidation.validate(personMock);
+        var errorOptional = personLastNameValidation.validate(agreementMock, personMock);
         assertTrue(errorOptional.isEmpty());
         Mockito.verifyNoInteractions(validationErrorFactory);
     }
@@ -39,7 +43,7 @@ class PersonLastNameValidationTest {
         when(personMock.personLastName()).thenReturn(null);
         when(validationErrorFactory.buildError("ERROR_CODE_2"))
                 .thenReturn(new ValidationErrorDTO("ERROR_CODE_2", "Description"));
-        var errorOptional = personLastNameValidation.validate(personMock);
+        var errorOptional = personLastNameValidation.validate(agreementMock, personMock);
         assertTrue(errorOptional.isPresent());
         assertEquals("ERROR_CODE_2", errorOptional.get().errorCode());
         assertEquals("Description", errorOptional.get().description());
@@ -50,7 +54,7 @@ class PersonLastNameValidationTest {
         when(personMock.personLastName()).thenReturn("");
         when(validationErrorFactory.buildError("ERROR_CODE_2"))
                 .thenReturn(new ValidationErrorDTO("ERROR_CODE_2", "Description"));
-        var errorOptional = personLastNameValidation.validate(personMock);
+        var errorOptional = personLastNameValidation.validate(agreementMock, personMock);
         assertTrue(errorOptional.isPresent());
         assertEquals("ERROR_CODE_2", errorOptional.get().errorCode());
         assertEquals("Description", errorOptional.get().description());

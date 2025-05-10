@@ -1,8 +1,9 @@
-package org.javaguru.travel.insurance.core.validations.agreement;
+package org.javaguru.travel.insurance.core.validations.person;
 
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import org.javaguru.travel.insurance.core.api.dto.AgreementDTO;
+import org.javaguru.travel.insurance.core.api.dto.PersonDTO;
 import org.javaguru.travel.insurance.core.api.dto.ValidationErrorDTO;
 import org.javaguru.travel.insurance.core.repositories.ClassifierValueRepository;
 import org.javaguru.travel.insurance.core.repositories.MedicalRiskLimitLevelRepository;
@@ -15,30 +16,30 @@ import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor(access = AccessLevel.PACKAGE)
-class MedicalRiskLimitLevelExistenceValidation implements TravelAgreementFieldsValidation {
+class MedicalRiskLimitLevelExistenceValidation implements TravelPersonFieldsValidation {
 
     private final ClassifierValueRepository classifierValueRepository;
     private final MedicalRiskLimitLevelRepository medicalRiskLimitLevelRepository;
     private final ValidationErrorFactory validationErrorFactory;
 
     @Override
-    public Optional<ValidationErrorDTO> validate(AgreementDTO agreement) {
-        return isMedicalRiskLimitLevelNotBlank(agreement)
-                ? validateMedicalRiskLimitLevelExistence(agreement)
+    public Optional<ValidationErrorDTO> validate(AgreementDTO agreement, PersonDTO person) {
+        return isMedicalRiskLimitLevelNotBlank(person)
+                ? validateMedicalRiskLimitLevelExistence(person)
                 : Optional.empty();
     }
 
-    private boolean isMedicalRiskLimitLevelNotBlank(AgreementDTO agreement) {
-        return agreement.medicalRiskLimitLevel() != null
-                && !agreement.medicalRiskLimitLevel().isBlank();
+    private boolean isMedicalRiskLimitLevelNotBlank(PersonDTO person) {
+        return person.medicalRiskLimitLevel() != null
+                && !person.medicalRiskLimitLevel().isBlank();
     }
 
     private Optional<ValidationErrorDTO> validateMedicalRiskLimitLevelExistence
-            (AgreementDTO agreement) {
-        return doesLimitLevelIcExists(agreement.medicalRiskLimitLevel())
-                && doesLimitLevelCoefficientExists(agreement.medicalRiskLimitLevel())
+            (PersonDTO person) {
+        return doesLimitLevelIcExists(person.medicalRiskLimitLevel())
+                && doesLimitLevelCoefficientExists(person.medicalRiskLimitLevel())
                 ? Optional.empty()
-                : Optional.of(buildLimitLevelNotFoundError(agreement.medicalRiskLimitLevel()));
+                : Optional.of(buildLimitLevelNotFoundError(person.medicalRiskLimitLevel()));
     }
 
     private boolean doesLimitLevelIcExists(String limitLevel) {

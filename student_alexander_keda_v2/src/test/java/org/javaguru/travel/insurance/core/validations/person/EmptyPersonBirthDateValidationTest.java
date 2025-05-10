@@ -1,5 +1,6 @@
 package org.javaguru.travel.insurance.core.validations.person;
 
+import org.javaguru.travel.insurance.core.api.dto.AgreementDTO;
 import org.javaguru.travel.insurance.core.api.dto.PersonDTO;
 import org.javaguru.travel.insurance.core.api.dto.ValidationErrorDTO;
 import org.javaguru.travel.insurance.core.validations.ValidationErrorFactory;
@@ -28,11 +29,14 @@ class EmptyPersonBirthDateValidationTest {
     @Mock
     private PersonDTO personMock;
 
+    @Mock
+    private AgreementDTO agreementMock;
+
     @Test
     void shouldNotReturnErrorWhenDateFromIsValid() {
         when(personMock.personBirthDate())
                 .thenReturn(LocalDate.now());
-        var errorOpt = emptyPersonBirthDateValidation.validate(personMock);
+        var errorOpt = emptyPersonBirthDateValidation.validate(agreementMock, personMock);
         assertTrue(errorOpt.isEmpty());
         Mockito.verifyNoInteractions(errorFactoryMock);
     }
@@ -43,7 +47,7 @@ class EmptyPersonBirthDateValidationTest {
                 .thenReturn(null);
         when(errorFactoryMock.buildError("ERROR_CODE_12"))
                 .thenReturn(new ValidationErrorDTO("ERROR_CODE_12", "description"));
-        var errorOpt = emptyPersonBirthDateValidation.validate(personMock);
+        var errorOpt = emptyPersonBirthDateValidation.validate(agreementMock, personMock);
         assertTrue(errorOpt.isPresent());
         assertEquals("ERROR_CODE_12", errorOpt.get().errorCode());
         assertEquals("description", errorOpt.get().description());

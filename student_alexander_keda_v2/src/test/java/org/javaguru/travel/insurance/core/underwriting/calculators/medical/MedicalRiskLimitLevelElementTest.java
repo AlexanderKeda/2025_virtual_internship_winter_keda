@@ -37,7 +37,7 @@ class MedicalRiskLimitLevelElementTest {
         );
         var expectedLimitLevelCoefficient = new BigDecimal("1.1");
         var medicalRiskLimitLevel = new MedicalRiskLimitLevel(1L,"", expectedLimitLevelCoefficient);
-        when(medicalRiskLimitLevelRepositoryMock.findByMedicalRiskLimitLevelIc(agreementMock.medicalRiskLimitLevel()))
+        when(medicalRiskLimitLevelRepositoryMock.findByMedicalRiskLimitLevelIc(personMock.medicalRiskLimitLevel()))
                 .thenReturn(Optional.of(medicalRiskLimitLevel));
         assertEquals(expectedLimitLevelCoefficient, medicalRiskLimitLevelElement.calculate(agreementMock, personMock));
     }
@@ -59,7 +59,7 @@ class MedicalRiskLimitLevelElementTest {
                 true,
                 medicalRiskLimitLevelRepositoryMock
         );
-        when(medicalRiskLimitLevelRepositoryMock.findByMedicalRiskLimitLevelIc(agreementMock.medicalRiskLimitLevel()))
+        when(medicalRiskLimitLevelRepositoryMock.findByMedicalRiskLimitLevelIc(personMock.medicalRiskLimitLevel()))
                 .thenReturn(Optional.empty());
         assertThrows(RuntimeException.class, () -> medicalRiskLimitLevelElement.calculate(agreementMock, personMock));
     }

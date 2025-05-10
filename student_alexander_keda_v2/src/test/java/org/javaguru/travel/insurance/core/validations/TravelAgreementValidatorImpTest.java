@@ -32,7 +32,7 @@ class TravelAgreementValidatorImpTest {
     void shouldNotReturnErrors() {
         when(agreementFieldsValidator.validate(agreementMock))
                 .thenReturn(List.of());
-        when(personFieldsValidator.validate(agreementMock.persons()))
+        when(personFieldsValidator.validate(agreementMock))
                 .thenReturn(List.of());
 
         var errors = agreementValidator.validate(agreementMock);
@@ -43,7 +43,7 @@ class TravelAgreementValidatorImpTest {
     void shouldReturnExpectedErrorCount() {
         when(agreementFieldsValidator.validate(agreementMock))
                 .thenReturn(List.of(new ValidationErrorDTO("", ""), new ValidationErrorDTO("", "")));
-        when(personFieldsValidator.validate(agreementMock.persons()))
+        when(personFieldsValidator.validate(agreementMock))
                 .thenReturn(List.of(new ValidationErrorDTO("", "")));
 
         var errors = agreementValidator.validate(agreementMock);

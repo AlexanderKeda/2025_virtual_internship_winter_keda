@@ -107,7 +107,8 @@ class AgreementDTOTest {
         return new PersonDTO(
                 "first",
                 "last",
-                LocalDate.now()
+                LocalDate.now(),
+                "LimitLevel"
         );
     }
 }

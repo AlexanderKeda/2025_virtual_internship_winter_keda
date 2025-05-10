@@ -29,7 +29,8 @@ public class DtoV1Converter {
         PersonDTO person = new PersonDTO(
                 request.getPersonFirstName(),
                 request.getPersonLastName(),
-                request.getPersonBirthDate()
+                request.getPersonBirthDate(),
+                request.getMedicalRiskLimitLevel()
         );
         return new AgreementDTO(
                 request.getAgreementDateFrom(),
@@ -63,7 +64,7 @@ public class DtoV1Converter {
                 agreement.agreementDateFrom(),
                 agreement.agreementDateTo(),
                 agreement.country(),
-                agreement.medicalRiskLimitLevel(),
+                person.medicalRiskLimitLevel(),
                 agreement.agreementPremium(),
                 riskPremiums
         );

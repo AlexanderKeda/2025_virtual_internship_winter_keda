@@ -1,5 +1,6 @@
 package org.javaguru.travel.insurance.core.validations.person;
 
+import org.javaguru.travel.insurance.core.api.dto.AgreementDTO;
 import org.javaguru.travel.insurance.core.api.dto.PersonDTO;
 import org.javaguru.travel.insurance.core.api.dto.ValidationErrorDTO;
 import org.javaguru.travel.insurance.core.util.AgeCalculator;
@@ -31,13 +32,16 @@ class PersonBirthDateLimitValidationTest {
     @Mock
     private PersonDTO personMock;
 
+    @Mock
+    private AgreementDTO agreementMock;
+
     @Test
     void shouldNotReturnErrorWhenBirthDateIsValid() {
         LocalDate birthDate = LocalDate.now().minusYears(20);
         when(personMock.personBirthDate()).thenReturn(birthDate);
         when(ageCalculator.calculate(birthDate)).thenReturn(20);
         var errorOpt = personBirthDateLimitValidation
-                .validate(personMock);
+                .validate(agreementMock, personMock);
         assertTrue(errorOpt.isEmpty());
         Mockito.verifyNoInteractions(errorFactoryMock);
     }
@@ -50,7 +54,7 @@ class PersonBirthDateLimitValidationTest {
         when(errorFactoryMock.buildError("ERROR_CODE_14"))
                 .thenReturn(new ValidationErrorDTO("ERROR_CODE_14", "Description"));
         var errorOpt = personBirthDateLimitValidation
-                .validate(personMock);
+                .validate(agreementMock, personMock);
         assertTrue(errorOpt.isPresent());
         assertEquals("ERROR_CODE_14", errorOpt.get().errorCode());
         assertEquals("Description", errorOpt.get().description());
@@ -59,7 +63,7 @@ class PersonBirthDateLimitValidationTest {
     @Test
     void shouldNotThrowExceptionWhenDateToIsNull() {
         when(personMock.personBirthDate()).thenReturn(null);
-        assertDoesNotThrow(() -> personBirthDateLimitValidation.validate(personMock));
+        assertDoesNotThrow(() -> personBirthDateLimitValidation.validate(agreementMock, personMock));
     }
 
 }
