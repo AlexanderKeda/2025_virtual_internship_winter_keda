@@ -14,17 +14,25 @@ Test case 05:
 all_fields_are_null
 
 Test case 06:
-Request: selectedRisks is not supported (one risk).
+Request: selectedRisks is not supported (one risk)
 Response: error code = ERROR_CODE_9
 
 Test case 07:
-Request: selectedRisks is not supported (two risks).
+Request: selectedRisks is not supported (two risks)
 Response: multiple error codes = ERROR_CODE_9
 
 Test case 08:
-Request: country is null, RISK_TYPE - TRAVEL_MEDICAL.
+Request: country is null, RISK_TYPE - TRAVEL_MEDICAL
 Response: error code = ERROR_CODE_10
 
 Test case 09:
-Request: country is empty, RISK_TYPE - TRAVEL_MEDICAL.
+Request: country is empty, RISK_TYPE - TRAVEL_MEDICAL
 Response: error code = ERROR_CODE_10
+
+Test Case 10:
+Request: country is not supported, RISK_TYPE - TRAVEL_MEDICAL
+Response: error code = ERROR_CODE_15
+
+Test Case 11:
+Request: medicalRiskLimitLevel is not supported, RISK_TYPE - TRAVEL_MEDICAL
+Response: error code = ERROR_CODE_14
