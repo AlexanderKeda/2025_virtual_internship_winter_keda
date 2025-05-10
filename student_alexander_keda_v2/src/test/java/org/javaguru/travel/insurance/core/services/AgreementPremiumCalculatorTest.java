@@ -67,13 +67,15 @@ class AgreementPremiumCalculatorTest {
         var person1 = new PersonDTO("name1",
                 "name1",
                 LocalDate.now(),
-                List.of(),
-                "LimitLevel");
+                "LimitLevel",
+                List.of()
+        );
         var person2 = new PersonDTO("name1",
                 "name1",
                 LocalDate.now(),
-                List.of(),
-                "LimitLevel");
+                "LimitLevel",
+                List.of()
+        );
         when(personsPremiumCalculatorMock.calculate(agreement))
                 .thenReturn(List.of(person1, person2));
         var resultAgreement = agreementPremiumCalculator.calculateAgreementPremiums(agreement);
@@ -92,13 +94,15 @@ class AgreementPremiumCalculatorTest {
         var person1 = new PersonDTO("name1",
                 "name1",
                 LocalDate.now(),
-                List.of(risk1, risk2),
-                "LimitLevel");
+                "LimitLevel",
+                List.of(risk1, risk2)
+        );
         var person2 = new PersonDTO("name1",
                 "name1",
                 LocalDate.now(),
-                List.of(risk3),
-                "LimitLevel");
+                "LimitLevel",
+                List.of(risk3)
+        );
         when(personsPremiumCalculatorMock.calculate(agreement))
                 .thenReturn(List.of(person1, person2));
         var resultAgreement = agreementPremiumCalculator.calculateAgreementPremiums(agreement);

@@ -7,8 +7,8 @@ public record PersonDTO(
         String personFirstName,
         String personLastName,
         LocalDate personBirthDate,
-        List<RiskDTO> risks,
-        String medicalRiskLimitLevel) {
+        String medicalRiskLimitLevel, List<RiskDTO> risks
+) {
 
     public PersonDTO {
         risks = risks != null
@@ -20,7 +20,7 @@ public record PersonDTO(
                      String personLastName,
                      LocalDate personBirthDate,
                      String medicalRiskLimitLevel) {
-        this(personFirstName, personLastName, personBirthDate, List.of(), medicalRiskLimitLevel);
+        this(personFirstName, personLastName, personBirthDate, medicalRiskLimitLevel, List.of());
     }
 
     public PersonDTO withRisks(List<RiskDTO> risks) {
@@ -28,8 +28,8 @@ public record PersonDTO(
                 this.personFirstName,
                 this.personLastName,
                 this.personBirthDate,
-                risks,
-                this.medicalRiskLimitLevel
+                this.medicalRiskLimitLevel,
+                risks
         );
     }
 

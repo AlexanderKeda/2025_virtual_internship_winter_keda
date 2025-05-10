@@ -79,9 +79,9 @@ public class DtoV2Converter {
                         person.personFirstName(),
                         person.personLastName(),
                         person.personBirthDate(),
+                        person.medicalRiskLimitLevel(),
                         calculatePremiumByRisks(person.risks()),
-                        transformRiskPremiumsToV2(person.risks()),
-                        person.medicalRiskLimitLevel()
+                        transformRiskPremiumsToV2(person.risks())
                 ))
                 .toList();
     }

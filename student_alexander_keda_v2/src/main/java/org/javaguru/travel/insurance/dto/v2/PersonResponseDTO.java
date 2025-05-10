@@ -26,11 +26,12 @@ public class PersonResponseDTO {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate personBirthDate;
 
+    private String medicalRiskLimitLevel;
+
     @JsonSerialize(using = BigDecimalSerializer.class)
     private BigDecimal personPremium;
 
     @JsonAlias("person_risks")
     private List<RiskPremium> personRisks;
 
-    private String medicalRiskLimitLevel;
 }
