@@ -27,7 +27,7 @@ public class PersonResponseDTO {
     private LocalDate personBirthDate;
 
     @JsonSerialize(using = BigDecimalSerializer.class)
-    private BigDecimal agreementPremium;
+    private BigDecimal personPremium;
 
     @JsonAlias("person_risks")
     private List<RiskPremium> personRisks;

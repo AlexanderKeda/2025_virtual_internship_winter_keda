@@ -1,4 +1,4 @@
-package org.javaguru.travel.insurance.rest.v1;
+package org.javaguru.travel.insurance.rest.v2;
 
 import org.javaguru.travel.insurance.rest.common.JsonFileReader;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -28,7 +28,7 @@ import static uk.org.webcompere.modelassert.json.JsonAssertions.assertJson;
         "medical.risk.limit.level.enabled=true",
         "medical.risk.age.coefficient.enabled=true"
 })
-class TravelCalculatePremiumControllerV1Test {
+class TravelCalculatePremiumControllerV2Test {
 
     @Autowired
     JsonFileReader jsonFileReader;
@@ -36,7 +36,7 @@ class TravelCalculatePremiumControllerV1Test {
     @Autowired
     private MockMvc mockMvc;
 
-    private static final int NUMBER_OF_TEST_CASES = 23;
+    private static final int NUMBER_OF_TEST_CASES = 5;
 
     static Stream<String> testCasesStream() {
         return IntStream.rangeClosed(1, NUMBER_OF_TEST_CASES)
@@ -50,8 +50,8 @@ class TravelCalculatePremiumControllerV1Test {
     }
 
     private void runTestCase(String testCase) throws Exception {
-        String requestPath = "/rest/v1/" + testCase + "/request.json";
-        String expectedResponsePath = "/rest/v1/" + testCase + "/response.json";
+        String requestPath = "/rest/v2/" + testCase + "/request.json";
+        String expectedResponsePath = "/rest/v2/" + testCase + "/response.json";
         performAndCheck(requestPath, expectedResponsePath);
     }
 
@@ -60,7 +60,7 @@ class TravelCalculatePremiumControllerV1Test {
 
         String expectedResponseJson = jsonFileReader.readJsonFromFile(expectedResponsePath);
 
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/insurance/travel/api/v1/")
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/insurance/travel/api/v2/")
                         .content(requestJson)
                         .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isOk())
