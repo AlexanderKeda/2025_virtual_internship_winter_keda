@@ -65,17 +65,15 @@ class AgreementPremiumCalculatorTest {
     void shouldReturnCorrectPersons() {
         var agreement = getCorrectAgreement();
         var person1 = new PersonDTO("name1",
-                "name1",
-                LocalDate.now(),
+                "name1", "code" ,
                 "LimitLevel",
-                List.of()
-        );
+                List.of(),
+                LocalDate.now());
         var person2 = new PersonDTO("name1",
-                "name1",
-                LocalDate.now(),
+                "name1", "code",
                 "LimitLevel",
-                List.of()
-        );
+                List.of(),
+                LocalDate.now());
         when(personsPremiumCalculatorMock.calculate(agreement))
                 .thenReturn(List.of(person1, person2));
         var resultAgreement = agreementPremiumCalculator.calculateAgreementPremiums(agreement);
@@ -92,17 +90,15 @@ class AgreementPremiumCalculatorTest {
         var risk2 = new RiskDTO("ic2", premium2);
         var risk3 = new RiskDTO("ic1", premium3);
         var person1 = new PersonDTO("name1",
-                "name1",
-                LocalDate.now(),
+                "name1", "code",
                 "LimitLevel",
-                List.of(risk1, risk2)
-        );
+                List.of(risk1, risk2),
+                LocalDate.now());
         var person2 = new PersonDTO("name1",
-                "name1",
-                LocalDate.now(),
+                "name1", "code",
                 "LimitLevel",
-                List.of(risk3)
-        );
+                List.of(risk3),
+                LocalDate.now());
         when(personsPremiumCalculatorMock.calculate(agreement))
                 .thenReturn(List.of(person1, person2));
         var resultAgreement = agreementPremiumCalculator.calculateAgreementPremiums(agreement);

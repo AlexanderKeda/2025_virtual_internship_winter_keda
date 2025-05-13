@@ -6,8 +6,10 @@ import java.util.List;
 public record PersonDTO(
         String personFirstName,
         String personLastName,
-        LocalDate personBirthDate,
-        String medicalRiskLimitLevel, List<RiskDTO> risks
+        String personCode,
+        String medicalRiskLimitLevel,
+        List<RiskDTO> risks,
+        LocalDate personBirthDate
 ) {
 
     public PersonDTO {
@@ -18,19 +20,20 @@ public record PersonDTO(
 
     public PersonDTO(String personFirstName,
                      String personLastName,
+                     String personCode,
                      LocalDate personBirthDate,
                      String medicalRiskLimitLevel) {
-        this(personFirstName, personLastName, personBirthDate, medicalRiskLimitLevel, List.of());
+        this(personFirstName, personLastName,personCode , medicalRiskLimitLevel, List.of(), personBirthDate);
     }
 
     public PersonDTO withRisks(List<RiskDTO> risks) {
         return new PersonDTO(
                 this.personFirstName,
                 this.personLastName,
-                this.personBirthDate,
+                this.personCode,
                 this.medicalRiskLimitLevel,
-                risks
-        );
+                risks,
+                this.personBirthDate);
     }
 
 }

@@ -96,6 +96,7 @@ class AgreementDTOTest {
         return new PersonDTO(
                 "first",
                 "last",
+                "code",
                 LocalDate.now(),
                 "LimitLevel"
         );

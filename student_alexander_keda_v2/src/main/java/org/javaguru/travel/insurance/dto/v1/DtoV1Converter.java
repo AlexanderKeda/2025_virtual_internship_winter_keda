@@ -29,6 +29,7 @@ public class DtoV1Converter {
         PersonDTO person = new PersonDTO(
                 request.getPersonFirstName(),
                 request.getPersonLastName(),
+                request.getPersonCode(),
                 request.getPersonBirthDate(),
                 request.getMedicalRiskLimitLevel()
         );
@@ -59,6 +60,7 @@ public class DtoV1Converter {
         return new TravelCalculatePremiumResponseV1(
                 person.personFirstName(),
                 person.personLastName(),
+                person.personCode(),
                 person.personBirthDate(),
                 agreement.agreementDateFrom(),
                 agreement.agreementDateTo(),

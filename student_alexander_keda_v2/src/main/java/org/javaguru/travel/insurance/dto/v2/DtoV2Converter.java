@@ -44,6 +44,7 @@ public class DtoV2Converter {
                 : persons.stream()
                 .map(person -> new PersonDTO(person.getPersonFirstName(),
                         person.getPersonLastName(),
+                        person.getPersonCode(),
                         person.getPersonBirthDate(),
                         person.getMedicalRiskLimitLevel()
                 ))
@@ -78,6 +79,7 @@ public class DtoV2Converter {
                 .map(person -> new PersonResponseDTO(
                         person.personFirstName(),
                         person.personLastName(),
+                        person.personCode(),
                         person.personBirthDate(),
                         person.medicalRiskLimitLevel(),
                         calculatePremiumByRisks(person.risks()),

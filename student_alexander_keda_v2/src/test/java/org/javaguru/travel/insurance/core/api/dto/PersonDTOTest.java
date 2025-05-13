@@ -68,6 +68,7 @@ class PersonDTOTest {
         return new PersonDTO(
                 "first",
                 "last",
+                "code",
                 LocalDate.now(),
                 "LimitLevel"
         );

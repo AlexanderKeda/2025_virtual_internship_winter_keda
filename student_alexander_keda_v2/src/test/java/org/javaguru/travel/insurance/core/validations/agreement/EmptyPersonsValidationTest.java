@@ -31,7 +31,7 @@ class EmptyPersonsValidationTest {
 
     @Test
     void shouldSucceedWhenCountryIsNotEmpty() {
-        var person = new PersonDTO("", "", null,"");
+        var person = new PersonDTO("", "", "code", null, "");
         when(agreementMock.persons())
                 .thenReturn(List.of(person));
         assertEquals(Optional.empty(), emptyPersonsValidation.validate(agreementMock));

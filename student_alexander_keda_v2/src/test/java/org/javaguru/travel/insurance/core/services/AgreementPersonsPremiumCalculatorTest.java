@@ -99,6 +99,7 @@ class AgreementPersonsPremiumCalculatorTest {
         return new PersonDTO(
                 "first",
                 "last",
+                "code",
                 LocalDate.now(),
                 "LimitLevel"
         );
