@@ -1,14 +1,15 @@
 package org.javaguru.travel.insurance.core.services;
 
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import org.javaguru.travel.insurance.core.api.dto.PersonDTO;
-import org.javaguru.travel.insurance.core.domain.PersonEntity;
-import org.javaguru.travel.insurance.core.repositories.PersonEntityRepository;
+import org.javaguru.travel.insurance.core.domain.entities.PersonEntity;
+import org.javaguru.travel.insurance.core.repositories.entities.PersonEntityRepository;
 import org.springframework.stereotype.Component;
 
 @Component
-@RequiredArgsConstructor
-public class PersonEntityFactory {
+@RequiredArgsConstructor(access = AccessLevel.PACKAGE)
+class PersonEntityFactory {
 
 private final PersonEntityRepository personEntityRepository;
 

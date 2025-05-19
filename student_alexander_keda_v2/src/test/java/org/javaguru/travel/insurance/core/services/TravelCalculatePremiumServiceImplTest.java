@@ -26,7 +26,7 @@ class TravelCalculatePremiumServiceImplTest {
     @Mock
     private TravelAgreementValidator agreementValidatorMock;
     @Mock
-    private PersonEntityFactory personEntityFactoryMock;
+    private AgreementEntityFactory agreementEntityFactoryMock;
 
     @InjectMocks
     private TravelCalculatePremiumServiceImpl travelCalculatePremiumService;
