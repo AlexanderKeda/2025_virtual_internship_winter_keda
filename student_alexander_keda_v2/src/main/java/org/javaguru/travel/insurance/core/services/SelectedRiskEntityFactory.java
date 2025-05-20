@@ -22,7 +22,6 @@ class SelectedRiskEntityFactory {
     ) {
         return agreementDTO.selectedRisks().stream()
                 .map(riskIc -> createSelectedRiskEntity(agreementEntity, riskIc))
-                .map(selectedRisksEntityRepository::save)
                 .toList();
     }
 
@@ -30,11 +29,12 @@ class SelectedRiskEntityFactory {
             AgreementEntity agreementEntity,
             String riskIc
     ) {
-        return new SelectedRiskEntity(
+        var selectedRiskEntity = new SelectedRiskEntity(
                 null,
                 agreementEntity,
                 riskIc
         );
+        return selectedRisksEntityRepository.save(selectedRiskEntity);
     }
 
 

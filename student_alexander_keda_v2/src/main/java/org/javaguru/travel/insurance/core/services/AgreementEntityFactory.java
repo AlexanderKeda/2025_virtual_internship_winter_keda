@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.javaguru.travel.insurance.core.api.dto.AgreementDTO;
 import org.javaguru.travel.insurance.core.api.dto.PersonDTO;
 import org.javaguru.travel.insurance.core.domain.entities.AgreementEntity;
+import org.javaguru.travel.insurance.core.domain.entities.AgreementPersonEntity;
 import org.javaguru.travel.insurance.core.domain.entities.PersonEntity;
 import org.javaguru.travel.insurance.core.domain.entities.SelectedRiskEntity;
 import org.javaguru.travel.insurance.core.repositories.entities.AgreementEntityRepository;
@@ -19,18 +20,13 @@ class AgreementEntityFactory {
     private final AgreementEntityRepository agreementEntityRepository;
     private final PersonEntityFactory personEntityFactory;
     private final SelectedRiskEntityFactory selectedRiskEntityFactory;
+    private final AgreementPersonEntityFactory agreementPersonEntityFactory;
 
     AgreementEntity createAgreementEntity(AgreementDTO agreementDTO) {
-        var personEntities = savePersonEntities(agreementDTO.persons());
         var agreementEntity = saveAgreementEntity(agreementDTO);
+        var agreementPersonEntities = savePersonsData(agreementEntity, agreementDTO);
         var selectedRisksEntities = saveSelectedRiskEntities(agreementEntity, agreementDTO);
         return agreementEntity;
-    }
-
-    private List<PersonEntity> savePersonEntities(List<PersonDTO> persons) {
-        return persons.stream()
-                .map(personEntityFactory::createPersonEntity)
-                .toList();
     }
 
     private AgreementEntity saveAgreementEntity(AgreementDTO agreementDTO) {
@@ -42,6 +38,19 @@ class AgreementEntityFactory {
                 agreementDTO.agreementPremium()
         );
         return agreementEntityRepository.save(agreementEntity);
+    }
+
+    private List<AgreementPersonEntity> savePersonsData(AgreementEntity agreementEntity, AgreementDTO agreementDTO) {
+        return agreementDTO.persons().stream()
+                .map(personDTO -> savePersonData(agreementEntity, personDTO))
+                .toList();
+    }
+
+    private AgreementPersonEntity savePersonData(AgreementEntity agreementEntity, PersonDTO personDTO) {
+        var personEntity = personEntityFactory.createPersonEntity(personDTO);
+        var agreementPersonEntity = agreementPersonEntityFactory
+                .createAgreementPersonEntity(agreementEntity, personEntity, personDTO);
+        return agreementPersonEntity;
     }
 
     private List<SelectedRiskEntity> saveSelectedRiskEntities(
