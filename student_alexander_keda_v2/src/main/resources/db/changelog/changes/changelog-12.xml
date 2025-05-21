@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.2.xsd">
+
+    <changeSet id="26" author="AlexanderKeda">
+        <addForeignKeyConstraint baseTableName="selected_risks"
+                                 baseColumnNames="agreement_id"
+                                 constraintName="fk_selected_risks_agreement_id"
+                                 referencedTableName="agreements"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="agreement_persons"
+                                 baseColumnNames="agreement_id"
+                                 constraintName="fk_agreement_persons_agreement_id"
+                                 referencedTableName="agreements"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="agreement_persons"
+                                 baseColumnNames="person_id"
+                                 constraintName="fk_agreement_persons_person_id"
+                                 referencedTableName="persons"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="agreement_person_risks"
+                                 baseColumnNames="agreement_person_id"
+                                 constraintName="fk_agreement_person_risks_agreement_person_id"
+                                 referencedTableName="agreement_persons"
+                                 referencedColumnNames="id"/>
+
+    </changeSet>
+
+</databaseChangeLog>
