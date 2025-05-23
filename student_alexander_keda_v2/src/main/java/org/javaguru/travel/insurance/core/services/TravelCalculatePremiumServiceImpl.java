@@ -9,11 +9,13 @@ import org.javaguru.travel.insurance.core.api.dto.ValidationErrorDTO;
 import org.javaguru.travel.insurance.core.domain.entities.AgreementEntity;
 import org.javaguru.travel.insurance.core.validations.TravelAgreementValidator;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Component
 @RequiredArgsConstructor(access = AccessLevel.PACKAGE)
+@Transactional
 class TravelCalculatePremiumServiceImpl implements TravelCalculatePremiumService {
 
     private final AgreementPremiumCalculator agreementPremiumCalculator;
