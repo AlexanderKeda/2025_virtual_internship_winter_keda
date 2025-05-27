@@ -4,15 +4,5 @@
       "errorCode": "ERROR_CODE_16",
       "description": "Medical risk limit level = FAKE_LIMIT is not supported by the system!"
     }
-  ],
-  "personFirstName": null,
-  "personLastName": null,
-  "personCode" : null,
-  "personBirthDate": null,
-  "agreementDateFrom": null,
-  "agreementDateTo": null,
-  "country": null,
-  "medicalRiskLimitLevel": null,
-  "agreementPremium": null,
-  "risks": null
+  ]
 }

@@ -4,15 +4,5 @@
       "errorCode": "ERROR_CODE_13",
       "description": "Field personBirthDate must not be in the future!"
     }
-  ],
-  "personFirstName": null,
-  "personLastName": null,
-  "personCode" : null,
-  "personBirthDate": null,
-  "agreementDateFrom": null,
-  "agreementDateTo": null,
-  "country": null,
-  "medicalRiskLimitLevel": null,
-  "agreementPremium": null,
-  "risks": null
+  ]
 }

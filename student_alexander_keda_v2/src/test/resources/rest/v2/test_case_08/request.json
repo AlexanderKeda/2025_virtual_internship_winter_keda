@@ -1,6 +1,6 @@
 {
-  "agreementDateFrom" : "2025-05-25",
-  "agreementDateTo" : "2025-05-29",
+  "agreementDateFrom" : "2028-05-25",
+  "agreementDateTo" : "2028-05-29",
   "country" : null,
   "selectedRisks":["TRAVEL_MEDICAL"],
   "persons" : [

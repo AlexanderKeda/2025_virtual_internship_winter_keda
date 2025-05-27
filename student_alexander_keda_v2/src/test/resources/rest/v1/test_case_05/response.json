@@ -4,15 +4,5 @@
       "errorCode": "ERROR_CODE_11",
       "description": "Country with ic = FAKE_COUNTRY is not supported by the system!"
     }
-  ],
-  "personFirstName": null,
-  "personLastName": null,
-  "personCode" : null,
-  "personBirthDate": null,
-  "agreementDateFrom": null,
-  "agreementDateTo": null,
-  "country": null,
-  "medicalRiskLimitLevel": null,
-  "agreementPremium": null,
-  "risks": null
+  ]
 }
