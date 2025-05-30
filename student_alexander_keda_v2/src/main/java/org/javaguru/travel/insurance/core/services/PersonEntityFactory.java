@@ -14,10 +14,10 @@ class PersonEntityFactory {
 private final PersonEntityRepository personEntityRepository;
 
     PersonEntity createPersonEntity (PersonDTO personDTO) {
-        var personOpt = personEntityRepository.findByFirstNameAndLastNameAndBirthDate(
+        var personOpt = personEntityRepository.findByFirstNameAndLastNameAndPersonCode(
                 personDTO.personFirstName(),
                 personDTO.personLastName(),
-                personDTO.personBirthDate()
+                personDTO.personCode()
         );
         if (personOpt.isPresent()) {
             return personOpt.get();
