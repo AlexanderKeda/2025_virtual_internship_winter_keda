@@ -9,7 +9,7 @@ import org.javaguru.travel.insurance.core.services.TravelCalculatePremiumService
 import org.javaguru.travel.insurance.dto.v2.DtoV2Converter;
 import org.javaguru.travel.insurance.dto.v2.TravelCalculatePremiumRequestV2;
 import org.javaguru.travel.insurance.dto.v2.TravelCalculatePremiumResponseV2;
-import org.javaguru.travel.insurance.rest.common.TravelCalculatePremiumRequestExecutionTimeLogger;
+import org.javaguru.travel.insurance.rest.common.TravelRestRequestExecutionTimeLogger;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +24,7 @@ public class TravelCalculatePremiumControllerV2 {
 	private final DtoV2Converter dtoV2Converter;
 	private final TravelCalculatePremiumRequestLoggerV2 requestLogger;
 	private final TravelCalculatePremiumResponseLoggerV2 responseLogger;
-	private final TravelCalculatePremiumRequestExecutionTimeLogger requestExecutionTimeLogger;
+	private final TravelRestRequestExecutionTimeLogger requestExecutionTimeLogger;
 
 	@PostMapping(path = "/",
 			consumes = "application/json",
