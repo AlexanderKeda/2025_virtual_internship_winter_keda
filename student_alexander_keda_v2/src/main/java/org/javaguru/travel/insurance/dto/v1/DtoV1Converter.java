@@ -58,6 +58,7 @@ public class DtoV1Converter {
         PersonDTO person = agreement.persons().getFirst();
         List<RiskPremium> riskPremiums = transformRiskPremiumsToV1(person.risks());
         return new TravelCalculatePremiumResponseV1(
+                agreement.uuid().toString(),
                 person.personFirstName(),
                 person.personLastName(),
                 person.personCode(),

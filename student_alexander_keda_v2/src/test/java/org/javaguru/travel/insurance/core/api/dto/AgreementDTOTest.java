@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -15,7 +16,7 @@ class AgreementDTOTest {
         var agreement = getCorrectAgreementDTO();
         var person = getCorrectPersonDTO();
         var premium = BigDecimal.ONE;
-        var updatedAgreement = agreement.withPersonsAndPremium(List.of(person), premium);
+        var updatedAgreement = agreement.withPersonsAndPremiumAndUuid(List.of(person), premium, UUID.randomUUID());
         assertNotSame(agreement, updatedAgreement);
     }
 
@@ -24,7 +25,7 @@ class AgreementDTOTest {
         var agreement = getCorrectAgreementDTO();
         var person = getCorrectPersonDTO();
         var premium = BigDecimal.ONE;
-        var updatedAgreement = agreement.withPersonsAndPremium(List.of(person), premium);
+        var updatedAgreement = agreement.withPersonsAndPremiumAndUuid(List.of(person), premium, UUID.randomUUID());
         assertEquals(agreement.agreementDateFrom(),
                 updatedAgreement.agreementDateFrom());
     }
@@ -34,7 +35,7 @@ class AgreementDTOTest {
         var agreement = getCorrectAgreementDTO();
         var person = getCorrectPersonDTO();
         var premium = BigDecimal.ONE;
-        var updatedAgreement = agreement.withPersonsAndPremium(List.of(person), premium);
+        var updatedAgreement = agreement.withPersonsAndPremiumAndUuid(List.of(person), premium, UUID.randomUUID());
         assertEquals(agreement.agreementDateTo(),
                 updatedAgreement.agreementDateTo());
     }
@@ -44,7 +45,7 @@ class AgreementDTOTest {
         var agreement = getCorrectAgreementDTO();
         var person = getCorrectPersonDTO();
         var premium = BigDecimal.ONE;
-        var updatedAgreement = agreement.withPersonsAndPremium(List.of(person), premium);
+        var updatedAgreement = agreement.withPersonsAndPremiumAndUuid(List.of(person), premium, UUID.randomUUID());
         assertEquals(agreement.country(),
                 updatedAgreement.country());
     }
@@ -54,7 +55,7 @@ class AgreementDTOTest {
         var agreement = getCorrectAgreementDTO();
         var person = getCorrectPersonDTO();
         var premium = BigDecimal.ONE;
-        var updatedAgreement = agreement.withPersonsAndPremium(List.of(person), premium);
+        var updatedAgreement = agreement.withPersonsAndPremiumAndUuid(List.of(person), premium, UUID.randomUUID());
         assertEquals(agreement.selectedRisks(),
                 updatedAgreement.selectedRisks());
     }
@@ -67,7 +68,7 @@ class AgreementDTOTest {
         var person2 = getCorrectPersonDTO();
         var persons = List.of(person1, person2);
         var premium = BigDecimal.ONE;
-        var updatedAgreement = agreement.withPersonsAndPremium(persons, premium);
+        var updatedAgreement = agreement.withPersonsAndPremiumAndUuid(persons, premium, UUID.randomUUID());
         assertEquals(persons,
                 updatedAgreement.persons());
     }
@@ -77,9 +78,19 @@ class AgreementDTOTest {
         var agreement = getCorrectAgreementDTO();
         var person = getCorrectPersonDTO();
         var premium = BigDecimal.ONE;
-        var updatedAgreement = agreement.withPersonsAndPremium(List.of(person), premium);
+        var updatedAgreement = agreement.withPersonsAndPremiumAndUuid(List.of(person), premium, UUID.randomUUID());
         assertEquals(premium,
                 updatedAgreement.agreementPremium());
+    }
+
+    @Test
+    void shouldReturnWithNewUuid() {
+        var agreement = getCorrectAgreementDTO();
+        var person = getCorrectPersonDTO();
+        var premium = BigDecimal.ONE;
+        var updatedAgreement = agreement.withPersonsAndPremiumAndUuid(List.of(person), premium, UUID.randomUUID());
+        assertNotEquals(agreement.uuid(),
+                updatedAgreement.uuid());
     }
 
     private AgreementDTO getCorrectAgreementDTO() {

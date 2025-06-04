@@ -11,7 +11,6 @@ import org.javaguru.travel.insurance.core.repositories.entities.AgreementEntityR
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.UUID;
 
 @Component
 @RequiredArgsConstructor(access = AccessLevel.PACKAGE)
@@ -33,7 +32,7 @@ class AgreementEntityFactory {
     private AgreementEntity saveAgreementEntity(AgreementDTO agreementDTO) {
         var agreementEntity = new AgreementEntity(
                 null,
-                UUID.randomUUID(),
+                agreementDTO.uuid(),
                 agreementDTO.agreementDateFrom(),
                 agreementDTO.agreementDateTo(),
                 agreementDTO.country(),

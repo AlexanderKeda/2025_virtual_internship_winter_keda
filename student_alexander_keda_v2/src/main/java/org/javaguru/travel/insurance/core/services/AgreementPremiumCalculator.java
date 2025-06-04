@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Stream;
 
 @Component
@@ -20,7 +21,7 @@ class AgreementPremiumCalculator {
     AgreementDTO calculateAgreementPremiums(AgreementDTO agreement) {
         var updatedPersons = personsPremiumCalculator.calculate(agreement);
         BigDecimal agreementPremium = getAgreementPremium(updatedPersons);
-        return agreement.withPersonsAndPremium(updatedPersons, agreementPremium);
+        return agreement.withPersonsAndPremiumAndUuid(updatedPersons, agreementPremium, UUID.randomUUID());
     }
 
     private BigDecimal getAgreementPremium(List<PersonDTO> persons) {

@@ -66,6 +66,7 @@ public class DtoV2Converter {
         AgreementDTO agreement = result.agreement();
         List<PersonResponseDTO> persons = transformPersonsToV2(agreement.persons());
         return new TravelCalculatePremiumResponseV2(
+                agreement.uuid().toString(),
                 agreement.agreementDateFrom(),
                 agreement.agreementDateTo(),
                 agreement.country(),
