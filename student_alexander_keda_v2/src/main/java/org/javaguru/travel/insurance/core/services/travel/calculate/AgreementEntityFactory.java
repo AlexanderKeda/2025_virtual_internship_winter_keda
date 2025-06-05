@@ -1,4 +1,4 @@
-package org.javaguru.travel.insurance.core.services;
+package org.javaguru.travel.insurance.core.services.travel.calculate;
 
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;

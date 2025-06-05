@@ -1,4 +1,4 @@
-package org.javaguru.travel.insurance.core.services;
+package org.javaguru.travel.insurance.core.services.travel.calculate;
 
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +21,7 @@ class AgreementPremiumCalculator {
     AgreementDTO calculateAgreementPremiums(AgreementDTO agreement) {
         var updatedPersons = personsPremiumCalculator.calculate(agreement);
         BigDecimal agreementPremium = getAgreementPremium(updatedPersons);
-        return agreement.withPersonsAndPremiumAndUuid(updatedPersons, agreementPremium, UUID.randomUUID());
+        return agreement.withPersonsAndPremiumAndUuid(updatedPersons, agreementPremium, UUID.randomUUID().toString());
     }
 
     private BigDecimal getAgreementPremium(List<PersonDTO> persons) {

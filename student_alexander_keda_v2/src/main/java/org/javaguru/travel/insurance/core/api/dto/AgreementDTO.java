@@ -4,9 +4,8 @@ package org.javaguru.travel.insurance.core.api.dto;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.UUID;
 
-public record AgreementDTO(UUID uuid,
+public record AgreementDTO(String uuid,
                            LocalDate agreementDateFrom,
                            LocalDate agreementDateTo,
                            String country,
@@ -30,7 +29,7 @@ public record AgreementDTO(UUID uuid,
             List<String> selectedRisks,
             List<PersonDTO> persons
     ) {
-        this(new UUID(0L, 0L),
+        this("",
                 agreementDateFrom,
                 agreementDateTo,
                 country,
@@ -42,7 +41,7 @@ public record AgreementDTO(UUID uuid,
 
     public AgreementDTO withPersonsAndPremiumAndUuid(List<PersonDTO> persons,
                                                      BigDecimal agreementPremium,
-                                                     UUID uuid) {
+                                                     String uuid) {
         return new AgreementDTO(
                 uuid,
                 this.agreementDateFrom,

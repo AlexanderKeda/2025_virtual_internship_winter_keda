@@ -16,7 +16,7 @@ class AgreementDTOTest {
         var agreement = getCorrectAgreementDTO();
         var person = getCorrectPersonDTO();
         var premium = BigDecimal.ONE;
-        var updatedAgreement = agreement.withPersonsAndPremiumAndUuid(List.of(person), premium, UUID.randomUUID());
+        var updatedAgreement = agreement.withPersonsAndPremiumAndUuid(List.of(person), premium, UUID.randomUUID().toString());
         assertNotSame(agreement, updatedAgreement);
     }
 
@@ -25,7 +25,7 @@ class AgreementDTOTest {
         var agreement = getCorrectAgreementDTO();
         var person = getCorrectPersonDTO();
         var premium = BigDecimal.ONE;
-        var updatedAgreement = agreement.withPersonsAndPremiumAndUuid(List.of(person), premium, UUID.randomUUID());
+        var updatedAgreement = agreement.withPersonsAndPremiumAndUuid(List.of(person), premium, UUID.randomUUID().toString());
         assertEquals(agreement.agreementDateFrom(),
                 updatedAgreement.agreementDateFrom());
     }
@@ -35,7 +35,7 @@ class AgreementDTOTest {
         var agreement = getCorrectAgreementDTO();
         var person = getCorrectPersonDTO();
         var premium = BigDecimal.ONE;
-        var updatedAgreement = agreement.withPersonsAndPremiumAndUuid(List.of(person), premium, UUID.randomUUID());
+        var updatedAgreement = agreement.withPersonsAndPremiumAndUuid(List.of(person), premium, UUID.randomUUID().toString());
         assertEquals(agreement.agreementDateTo(),
                 updatedAgreement.agreementDateTo());
     }
@@ -45,7 +45,7 @@ class AgreementDTOTest {
         var agreement = getCorrectAgreementDTO();
         var person = getCorrectPersonDTO();
         var premium = BigDecimal.ONE;
-        var updatedAgreement = agreement.withPersonsAndPremiumAndUuid(List.of(person), premium, UUID.randomUUID());
+        var updatedAgreement = agreement.withPersonsAndPremiumAndUuid(List.of(person), premium, UUID.randomUUID().toString());
         assertEquals(agreement.country(),
                 updatedAgreement.country());
     }
@@ -55,7 +55,7 @@ class AgreementDTOTest {
         var agreement = getCorrectAgreementDTO();
         var person = getCorrectPersonDTO();
         var premium = BigDecimal.ONE;
-        var updatedAgreement = agreement.withPersonsAndPremiumAndUuid(List.of(person), premium, UUID.randomUUID());
+        var updatedAgreement = agreement.withPersonsAndPremiumAndUuid(List.of(person), premium, UUID.randomUUID().toString());
         assertEquals(agreement.selectedRisks(),
                 updatedAgreement.selectedRisks());
     }
@@ -68,7 +68,7 @@ class AgreementDTOTest {
         var person2 = getCorrectPersonDTO();
         var persons = List.of(person1, person2);
         var premium = BigDecimal.ONE;
-        var updatedAgreement = agreement.withPersonsAndPremiumAndUuid(persons, premium, UUID.randomUUID());
+        var updatedAgreement = agreement.withPersonsAndPremiumAndUuid(persons, premium, UUID.randomUUID().toString());
         assertEquals(persons,
                 updatedAgreement.persons());
     }
@@ -78,7 +78,7 @@ class AgreementDTOTest {
         var agreement = getCorrectAgreementDTO();
         var person = getCorrectPersonDTO();
         var premium = BigDecimal.ONE;
-        var updatedAgreement = agreement.withPersonsAndPremiumAndUuid(List.of(person), premium, UUID.randomUUID());
+        var updatedAgreement = agreement.withPersonsAndPremiumAndUuid(List.of(person), premium, UUID.randomUUID().toString());
         assertEquals(premium,
                 updatedAgreement.agreementPremium());
     }
@@ -88,7 +88,7 @@ class AgreementDTOTest {
         var agreement = getCorrectAgreementDTO();
         var person = getCorrectPersonDTO();
         var premium = BigDecimal.ONE;
-        var updatedAgreement = agreement.withPersonsAndPremiumAndUuid(List.of(person), premium, UUID.randomUUID());
+        var updatedAgreement = agreement.withPersonsAndPremiumAndUuid(List.of(person), premium, UUID.randomUUID().toString());
         assertNotEquals(agreement.uuid(),
                 updatedAgreement.uuid());
     }

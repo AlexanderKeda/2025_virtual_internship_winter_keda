@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.javaguru.travel.insurance.dto.CoreResponse;
+import org.javaguru.travel.insurance.dto.ValidationError;
 import org.javaguru.travel.insurance.dto.util.BigDecimalSerializer;
 import org.javaguru.travel.insurance.dto.v2.PersonResponseDTO;
 
@@ -19,7 +21,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class TravelGetAgreementResponse {
+public class TravelGetAgreementResponse extends CoreResponse {
 
     private String uuid;
 
@@ -35,4 +37,8 @@ public class TravelGetAgreementResponse {
     private BigDecimal agreementPremium;
 
     private List<PersonResponseDTO> persons;
+
+    public TravelGetAgreementResponse(List<ValidationError> errors) {
+        super(errors);
+    }
 }

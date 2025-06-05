@@ -1,4 +1,4 @@
-package org.javaguru.travel.insurance.core.services;
+package org.javaguru.travel.insurance.core.services.travel.calculate;
 
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -8,8 +8,6 @@ import org.javaguru.travel.insurance.core.domain.entities.AgreementPersonEntity;
 import org.javaguru.travel.insurance.core.domain.entities.PersonEntity;
 import org.javaguru.travel.insurance.core.repositories.entities.AgreementPersonEntityRepository;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
 
 @Component
 @RequiredArgsConstructor(access = AccessLevel.PACKAGE)
