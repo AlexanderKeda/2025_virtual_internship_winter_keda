@@ -12,9 +12,9 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor(access = AccessLevel.PACKAGE)
 class AgreementDTOLoader {
 
-    private AgreementEntityRepository agreementEntityRepository;
-    private SelectedRisksEntityRepository selectedRisksEntityRepository;
-    private PersonDTOLoader personDTOLoader;
+    private final AgreementEntityRepository agreementEntityRepository;
+    private final SelectedRisksEntityRepository selectedRisksEntityRepository;
+    private final PersonDTOLoader personDTOLoader;
 
     AgreementDTO loadAgreement(String uuid) {
         var agreementEntityOpt = agreementEntityRepository.findByUuid(uuid);

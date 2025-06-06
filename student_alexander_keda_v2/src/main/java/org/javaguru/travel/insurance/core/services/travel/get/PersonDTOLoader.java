@@ -16,8 +16,8 @@ import java.util.List;
 @RequiredArgsConstructor(access = AccessLevel.PACKAGE)
 class PersonDTOLoader {
 
-    private AgreementPersonEntityRepository agreementPersonEntityRepository;
-    private AgreementPersonRiskEntityRepository agreementPersonRiskEntityRepository;
+    private final AgreementPersonEntityRepository agreementPersonEntityRepository;
+    private final AgreementPersonRiskEntityRepository agreementPersonRiskEntityRepository;
 
     List<PersonDTO> getPersonsByAgreementId (Long agreementId) {
         var agreementPersonEntities = agreementPersonEntityRepository.findByAgreementId(agreementId);

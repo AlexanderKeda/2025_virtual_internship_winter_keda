@@ -2,6 +2,8 @@ package org.javaguru.travel.insurance.rest.internal;
 
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
+import org.javaguru.travel.insurance.core.services.travel.get.TravelGetAgreementService;
+import org.javaguru.travel.insurance.dto.internal.GetAgreementDTOConverter;
 import org.javaguru.travel.insurance.dto.internal.TravelGetAgreementResponse;
 import org.javaguru.travel.insurance.rest.common.TravelRestRequestExecutionTimeLogger;
 import com.google.common.base.Stopwatch;
@@ -18,20 +20,23 @@ public class TravelGetAgreementRestController {
     private final TravelGetAgreementRequestLogger requestLogger;
     private final TravelGetAgreementResponseLogger responseLogger;
     private final TravelRestRequestExecutionTimeLogger requestExecutionTimeLogger;
+    private final GetAgreementDTOConverter getAgreementDTOConverter;
+    private final TravelGetAgreementService travelGetAgreementService;
 
-    @GetMapping(path = "/agreement/{id}",
+    @GetMapping(path = "/agreement/{uuid}",
             produces = "application/json")
-    public TravelGetAgreementResponse getAgreement(@PathVariable String id) {
+    public TravelGetAgreementResponse getAgreement(@PathVariable String uuid) {
         Stopwatch stopwatch = Stopwatch.createStarted();
-        var response = processGetAgreementRequest(id);
+        var response = processGetAgreementRequest(uuid);
         requestExecutionTimeLogger.log(stopwatch);
         return response;
     }
 
-    private TravelGetAgreementResponse processGetAgreementRequest(String id) {
-        requestLogger.log(id);
-        var response = new TravelGetAgreementResponse();
-        response.setUuid(id);
+    private TravelGetAgreementResponse processGetAgreementRequest(String uuid) {
+        requestLogger.log(uuid);
+        var command = getAgreementDTOConverter.buildCommand(uuid);
+        var coreResult = travelGetAgreementService.getAgreement(command);
+        var response = getAgreementDTOConverter.buildResponse(coreResult);
         responseLogger.log(response);
         return response;
     }

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.2.xsd">
+
+    <changeSet id="1" author="test">
+        <insert tableName="agreements">
+            <column name="id" valueNumeric="1001"/>
+            <column name="date_from" valueDate="2026-05-25"/>
+            <column name="date_to" valueDate="2026-05-29"/>
+            <column name="country" value="SPAIN"/>
+            <column name="premium" valueNumeric="33.50"/>
+            <column name="uuid" value="96e46569-5729-40d1-a707-3628b1ca532b"/>
+        </insert>
+        <insert tableName="persons">
+            <column name="id" valueNumeric="1001"/>
+            <column name="first_name" value="Vasja"/>
+            <column name="last_name" value="Pupkin"/>
+            <column name="person_code" value="code"/>
+            <column name="birth_date" valueDate="2000-05-29"/>
+        </insert>
+        <insert tableName="persons">
+            <column name="id" valueNumeric="1002"/>
+            <column name="first_name" value="Petja"/>
+            <column name="last_name" value="Pupkin"/>
+            <column name="person_code" value="code"/>
+            <column name="birth_date" valueDate="1950-02-28"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="2" author="test">
+        <insert tableName="agreement_persons">
+            <column name="id" valueNumeric="1001"/>
+            <column name="agreement_id" valueNumeric="1001"/>
+            <column name="person_id" valueNumeric="1001"/>
+            <column name="medical_risk_limit_level" value="LEVEL_10000"/>
+        </insert>
+        <insert tableName="agreement_persons">
+            <column name="id" valueNumeric="1002"/>
+            <column name="agreement_id" valueNumeric="1001"/>
+            <column name="person_id" valueNumeric="1002"/>
+            <column name="medical_risk_limit_level" value="LEVEL_20000"/>
+        </insert>
+        <insert tableName="selected_risks">
+            <column name="id" valueNumeric="1001"/>
+            <column name="agreement_id" valueNumeric="1001"/>
+            <column name="risk_ic" value="TRAVEL_MEDICAL"/>
+        </insert>
+        <insert tableName="selected_risks">
+            <column name="id" valueNumeric="1002"/>
+            <column name="agreement_id" valueNumeric="1001"/>
+            <column name="risk_ic" value="TRAVEL_CANCELLATION"/>
+        </insert>
+        <insert tableName="selected_risks">
+            <column name="id" valueNumeric="1003"/>
+            <column name="agreement_id" valueNumeric="1001"/>
+            <column name="risk_ic" value="TRAVEL_EVACUATION"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="3" author="test">
+        <insert tableName="agreement_person_risks">
+            <column name="id" valueNumeric="1001"/>
+            <column name="agreement_person_id" valueNumeric="1001"/>
+            <column name="risk_ic" value="TRAVEL_MEDICAL"/>
+            <column name="premium" valueNumeric="11.00"/>
+        </insert>
+        <insert tableName="agreement_person_risks">
+            <column name="id" valueNumeric="1002"/>
+            <column name="agreement_person_id" valueNumeric="1001"/>
+            <column name="risk_ic" value="TRAVEL_CANCELLATION"/>
+            <column name="premium" valueNumeric="0.00"/>
+        </insert>
+        <insert tableName="agreement_person_risks">
+            <column name="id" valueNumeric="1003"/>
+            <column name="agreement_person_id" valueNumeric="1001"/>
+            <column name="risk_ic" value="TRAVEL_EVACUATION"/>
+            <column name="premium" valueNumeric="0.00"/>
+        </insert>
+        <insert tableName="agreement_person_risks">
+            <column name="id" valueNumeric="1004"/>
+            <column name="agreement_person_id" valueNumeric="1002"/>
+            <column name="risk_ic" value="TRAVEL_MEDICAL"/>
+            <column name="premium" valueNumeric="22.50"/>
+        </insert>
+        <insert tableName="agreement_person_risks">
+            <column name="id" valueNumeric="1005"/>
+            <column name="agreement_person_id" valueNumeric="1002"/>
+            <column name="risk_ic" value="TRAVEL_CANCELLATION"/>
+            <column name="premium" valueNumeric="0.00"/>
+        </insert>
+        <insert tableName="agreement_person_risks">
+            <column name="id" valueNumeric="1006"/>
+            <column name="agreement_person_id" valueNumeric="1002"/>
+            <column name="risk_ic" value="TRAVEL_EVACUATION"/>
+            <column name="premium" valueNumeric="0.00"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>
