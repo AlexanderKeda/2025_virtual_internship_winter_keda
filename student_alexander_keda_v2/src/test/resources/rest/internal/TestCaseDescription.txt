@@ -1,0 +1,11 @@
+Test case 01:
+Request: correct_uuid
+Response: success_response
+
+Test case 02:
+Request: empty_uuid
+Response: ERROR_CODE_19
+
+Test case 03:
+Request: fake_uuid
+Response: ERROR_CODE_20

@@ -25,7 +25,7 @@ public class TravelGetAgreementRestController {
 
     @GetMapping(path = "/agreement/{uuid}",
             produces = "application/json")
-    public TravelGetAgreementResponse getAgreement(@PathVariable String uuid) {
+    public TravelGetAgreementResponse getAgreement(@PathVariable("uuid") String uuid) {
         Stopwatch stopwatch = Stopwatch.createStarted();
         var response = processGetAgreementRequest(uuid);
         requestExecutionTimeLogger.log(stopwatch);
