@@ -46,7 +46,7 @@ jar {
 bootJar {
     enabled = true
     archiveBaseName = 'insurance-calculator'
-    archiveVersion = '1.0.2'
+    archiveVersion = '1.0.3'
 }
 
 publishing {
@@ -56,7 +56,7 @@ publishing {
 
             groupId = 'org.javaguru'
             artifactId = 'insurance-calculator'
-            version = '1.0.2'
+            version = '1.0.3'
 
             pom {
                 name = 'Insurance Calculator Application'
