@@ -2,7 +2,7 @@ package org.javaguru.travel.insurance.rest.internal;
 
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
-import org.javaguru.travel.insurance.core.services.travel.get.TravelGetAgreementService;
+import org.javaguru.travel.insurance.core.services.travel.get.agreement.TravelGetAgreementService;
 import org.javaguru.travel.insurance.dto.internal.GetAgreementDTOConverter;
 import org.javaguru.travel.insurance.dto.internal.TravelGetAgreementResponse;
 import org.javaguru.travel.insurance.rest.common.TravelRestRequestExecutionTimeLogger;
