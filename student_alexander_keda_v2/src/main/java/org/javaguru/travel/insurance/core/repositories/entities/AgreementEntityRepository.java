@@ -16,4 +16,14 @@ public interface AgreementEntityRepository
 
     @Query("SELECT a.uuid FROM AgreementEntity a")
     List<String> findAllUuids();
+
+    @Query("""
+            SELECT a.uuid
+            FROM AgreementEntity a
+            WHERE a.uuid NOT IN (
+            SELECT exp.agreementUuid
+            FROM AgreementXmlExportEntity exp
+            WHERE exp.alreadyExported = true)
+            """)
+    List<String> getNotExportedAgreementUuids();
 }

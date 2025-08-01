@@ -8,7 +8,7 @@
     <changeSet id="27" author="AlexanderKeda">
         <addColumn tableName="agreements">
             <column name="uuid" type="CHAR(36)">
-                <constraints nullable="false"/>
+                <constraints nullable="false" unique="true"/>
             </column>
         </addColumn>
 
