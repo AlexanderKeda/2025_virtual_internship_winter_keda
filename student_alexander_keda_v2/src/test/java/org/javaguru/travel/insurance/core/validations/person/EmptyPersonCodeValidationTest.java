@@ -16,13 +16,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class PersonCodeValidationTest {
+class EmptyPersonCodeValidationTest {
 
     @Mock
     private ValidationErrorFactory validationErrorFactoryMock;
 
     @InjectMocks
-    private PersonCodeValidation personCodeValidation;
+    private EmptyPersonCodeValidation emptyPersonCodeValidation;
 
     @Mock
     private PersonDTO personMock;
@@ -33,7 +33,7 @@ class PersonCodeValidationTest {
     @Test
     void shouldNotReturnErrorWhenPersonCodeIsValid() {
         when(personMock.personCode()).thenReturn("code");
-        var errorOptional = personCodeValidation.validate(agreementMock, personMock);
+        var errorOptional = emptyPersonCodeValidation.validate(agreementMock, personMock);
         assertTrue(errorOptional.isEmpty());
         Mockito.verifyNoInteractions(validationErrorFactoryMock);
     }
@@ -43,7 +43,7 @@ class PersonCodeValidationTest {
         when(personMock.personCode()).thenReturn(null);
         when(validationErrorFactoryMock.buildError("ERROR_CODE_18"))
                 .thenReturn(new ValidationErrorDTO("ERROR_CODE_18", "Description"));
-        var errorOptional = personCodeValidation.validate(agreementMock, personMock);
+        var errorOptional = emptyPersonCodeValidation.validate(agreementMock, personMock);
         assertTrue(errorOptional.isPresent());
         assertEquals("ERROR_CODE_18", errorOptional.get().errorCode());
         assertEquals("Description", errorOptional.get().description());
@@ -54,7 +54,7 @@ class PersonCodeValidationTest {
         when(personMock.personCode()).thenReturn("");
         when(validationErrorFactoryMock.buildError("ERROR_CODE_18"))
                 .thenReturn(new ValidationErrorDTO("ERROR_CODE_18", "Description"));
-        var errorOptional = personCodeValidation.validate(agreementMock, personMock);
+        var errorOptional = emptyPersonCodeValidation.validate(agreementMock, personMock);
         assertTrue(errorOptional.isPresent());
         assertEquals("ERROR_CODE_18", errorOptional.get().errorCode());
         assertEquals("Description", errorOptional.get().description());

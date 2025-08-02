@@ -12,14 +12,22 @@ import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor(access = AccessLevel.PACKAGE)
-class PersonCodeValidation implements TravelPersonFieldsValidation {
+class PersonCodeFormatValidation implements TravelPersonFieldsValidation {
 
     private final ValidationErrorFactory validationErrorFactory;
 
     @Override
     public Optional<ValidationErrorDTO> validate(AgreementDTO agreement, PersonDTO person) {
-        return (person.personCode() == null || person.personCode().isBlank())
-                ? Optional.of(validationErrorFactory.buildError("ERROR_CODE_18"))
-                : Optional.empty();
+        return (person.personCode() == null || person.personCode().isBlank() || isFormatCorrect(person.personCode()))
+                ? Optional.empty()
+                : Optional.of(buildError());
+    }
+
+    private boolean isFormatCorrect(String personCode) {
+        return personCode.matches("\\d{6}-\\d{5}");
+    }
+
+    private ValidationErrorDTO buildError() {
+        return validationErrorFactory.buildError("ERROR_CODE_22");
     }
 }

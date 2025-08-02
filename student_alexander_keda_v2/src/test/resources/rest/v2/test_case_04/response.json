@@ -9,6 +9,10 @@
       "description": "Field personBirthDate is empty!"
     },
     {
+      "errorCode": "ERROR_CODE_18",
+      "description": "Field personCode is empty!"
+    },
+    {
       "errorCode": "ERROR_CODE_1",
       "description": "Field personFirstName is empty!"
     },
