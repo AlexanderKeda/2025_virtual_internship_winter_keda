@@ -27,8 +27,6 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class TravelExportAgreementToXmlServiceImplTest {
 
-    private String directoryPath = "/dir";
-
     @Mock
     private XmlFileExporter xmlFileExporterMock;
     @Mock
@@ -76,7 +74,7 @@ class TravelExportAgreementToXmlServiceImplTest {
                 .thenReturn(new TravelGetAgreementCoreResult(agreementMock));
         doThrow(new IOException("error"))
                 .when(xmlFileExporterMock)
-                        .writeToXmlFile(agreementMock, Path.of("/dir/agreement-"+ uuid +".xml"));
+                        .writeToXmlFile(agreementMock, Path.of("~/agreement-"+ uuid +".xml"));
         when(validationErrorFactoryMock.buildError(
                 "ERROR_CODE_21",
                 List.of(new Placeholder("UUID", uuid))
@@ -97,7 +95,7 @@ class TravelExportAgreementToXmlServiceImplTest {
                 .thenReturn(new TravelGetAgreementCoreResult(agreementMock));
         var result = exportService.export(new TravelExportAgreementsToXmlCoreCommand(uuid));
         Mockito.verify(xmlFileExporterMock, times(1))
-                .writeToXmlFile(agreementMock, Path.of("/dir/agreement-"+ uuid +".xml"));
+                .writeToXmlFile(agreementMock, Path.of("~/agreement-"+ uuid +".xml"));
         Mockito.verify(agreementXmlExportRepositoryMock, times(1))
                         .save(new AgreementXmlExportEntity(null, uuid, true));
         assertFalse(result.hasErrors());
@@ -107,7 +105,7 @@ class TravelExportAgreementToXmlServiceImplTest {
 
     private TravelExportAgreementToXmlServiceImpl createTravelExportAgreementToXmlServiceImpl() {
         return new TravelExportAgreementToXmlServiceImpl(
-                directoryPath,
+                "~",
                 xmlFileExporterMock,
                 travelGetAgreementServiceMock,
                 agreementXmlExportRepositoryMock,
