@@ -2,6 +2,7 @@ plugins {
     id 'org.springframework.boot' version "3.2.5"
     id 'maven-publish'
     id 'com.palantir.docker' version '0.36.0'
+    id 'checkstyle'
 }
 
 dependencies {
@@ -95,4 +96,8 @@ tasks.register("dockerRunLocal", Exec) {
 
 tasks.register("dockerStopLocal", Exec) {
     commandLine "docker", "stop", "insurance-calculator"
+}
+
+checkstyle {
+    configFile = 'config/checkstyle/checkstyle.xml' as File
 }
