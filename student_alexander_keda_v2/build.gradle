@@ -1,6 +1,7 @@
 plugins {
     id 'org.springframework.boot' version "3.2.5"
     id 'maven-publish'
+    id 'com.palantir.docker' version '0.36.0'
 }
 
 dependencies {
@@ -76,4 +77,22 @@ publishing {
         mavenLocal()
     }
 
+}
+
+docker {
+    name "insurance-calculator:1.0.3"
+    files tasks.bootJar.outputs
+}
+
+tasks.named("docker").configure {
+    dependsOn tasks.bootJar
+}
+
+tasks.register("dockerRunLocal", Exec) {
+    dependsOn tasks.docker
+    commandLine "docker", "run", "--rm", "-p", "8080:8080", "--name", "insurance-calculator", "insurance-calculator:1.0.3"
+}
+
+tasks.register("dockerStopLocal", Exec) {
+    commandLine "docker", "stop", "insurance-calculator"
 }
