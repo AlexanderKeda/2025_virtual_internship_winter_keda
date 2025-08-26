@@ -42,14 +42,19 @@ dependencies {
 
 }
 
+ext {
+    appName = 'insurance-calculator'
+    appVersion = '1.0.3'
+}
+
 jar {
     enabled = false
 }
 
 bootJar {
     enabled = true
-    archiveBaseName = 'insurance-calculator'
-    archiveVersion = '1.0.3'
+    archiveBaseName.set(appName)
+    archiveVersion.set(appVersion)
 }
 
 publishing {
@@ -58,8 +63,8 @@ publishing {
             artifact bootJar
 
             groupId = 'org.javaguru'
-            artifactId = 'insurance-calculator'
-            version = '1.0.3'
+            artifactId = appName
+            version = appVersion
 
             pom {
                 name = 'Insurance Calculator Application'
@@ -81,7 +86,7 @@ publishing {
 }
 
 docker {
-    name "insurance-calculator:1.0.3"
+    name "${appName}:${appVersion}"
     files tasks.bootJar.outputs
 }
 
@@ -91,11 +96,11 @@ tasks.named("docker").configure {
 
 tasks.register("dockerRunLocal", Exec) {
     dependsOn tasks.docker
-    commandLine "docker", "run", "--rm", "-p", "8080:8080", "--name", "insurance-calculator", "insurance-calculator:1.0.3"
+    commandLine "docker", "run", "--rm", "-p", "8080:8080", "--name", appName, "${appName}:${appVersion}"
 }
 
 tasks.register("dockerStopLocal", Exec) {
-    commandLine "docker", "stop", "insurance-calculator"
+    commandLine "docker", "stop", appName
 }
 
 checkstyle {
