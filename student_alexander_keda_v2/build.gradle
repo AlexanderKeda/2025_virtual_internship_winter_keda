@@ -94,13 +94,29 @@ tasks.named("docker").configure {
     dependsOn tasks.bootJar
 }
 
+tasks.register("dockerRunMySqlDb", Exec) {
+    commandLine  "docker", "run", "--rm",
+            "--name", "mysql-container",
+            "--network", "insurance-calc-network",
+            "-e", "MYSQL_ROOT_PASSWORD=12345",
+            "-e", "MYSQL_DATABASE=insurance-calc-db",
+            "-p", "3000:3306",
+            "-d", "mysql:8.0"
+}
+
 tasks.register("dockerRunLocal", Exec) {
+    dependsOn tasks.dockerRunMySqlDb
     dependsOn tasks.docker
-    commandLine "docker", "run", "--rm", "-p", "8080:8080", "--name", appName, "${appName}:${appVersion}"
+    commandLine "docker", "run", "--rm",
+            "-p", "8080:8080",
+            "--name", appName,
+            "--network", "insurance-calc-network",
+            "${appName}:${appVersion}"
 }
 
 tasks.register("dockerStopLocal", Exec) {
     commandLine "docker", "stop", appName
+    commandLine "docker", "stop", "mysql-container"
 }
 
 checkstyle {
