@@ -95,7 +95,7 @@ tasks.named("docker").configure {
 }
 
 tasks.register("dockerComposeUp", Exec) {
-    dependsOn tasks.bootJar
+    dependsOn tasks.docker
     commandLine  "docker", "compose", "up"
 }
 
