@@ -2,9 +2,7 @@
 
 - Разработал REST-сервис для расчёта стоимости страхового полиса 
 на основе пользовательских данных.
-- Реализовал бизнес-логику с применением паттернов Strategy и Factory
-для динамического выбора правил расчёта тарифа.
-- Настроил хранение данных о клиентах и тарифах в MySQL с использованием
+- Настроил хранение данных о клиентах и тарифах в MySQL и H2 БД с использованием
 Spring Data JPA и миграций через Liquibase.
 - Обеспечил покрытие бизнес-логики юнит-тестами (JUnit, Mockito),
 добавил интеграционные тесты для REST-контроллеров.
@@ -13,4 +11,4 @@ Spring Data JPA и миграций через Liquibase.
 - В качестве UI использовал простой Thymeleaf интерфейс для ввода данных и
 отображения рассчитанной стоимости страховки.
 
-Технологии: Java 21, Spring Boot, Spring Data JPA, MySQL, Liquibase, JUnit, Mockito, Gradle, Logback, Docker, GitHub Actions, Thymeleaf.
+Технологии: Java 21, Spring Boot, Spring Data JPA, MySQL, H2, Liquibase, JUnit, Mockito, Gradle, Logback, Docker, GitHub Actions, Thymeleaf.
